@@ -11,7 +11,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 // 引入页面
-
+import Home from './page/home/xhome';
 
 
 
@@ -61,7 +61,7 @@ ReactDOM.render(
 <Router>
   <Provider store={store}>
   	<div>
-  		<App />
+  		<Route exact path="/" component={Home}/>
 
   	</div>
   </Provider>
