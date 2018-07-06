@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 // 公共基础css
 import './static/css/base.css';
+import './static/font/iconfont.css';
 import registerServiceWorker from './registerServiceWorker';
 
 

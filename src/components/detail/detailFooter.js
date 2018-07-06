@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import {connect} from 'react-redux';
+// css
+import './detailFooter.scss'
 
 // 组件 
 
@@ -17,7 +19,7 @@ class Xdetail extends Component {
     render() {
         return (
             <div>
-            
+               
             </div>
         );
     }
