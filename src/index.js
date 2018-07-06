@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // 引入路由
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import './index.css';
-import App from './App';
+// 公共基础css
+import './static/css/base.css';
 import registerServiceWorker from './registerServiceWorker';
 
 
@@ -11,7 +11,8 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 // 引入页面
-import Home from './page/home/xhome';
+import Home from './pages/home/xhome';
+import Detail from './pages/detail/xdetail';
 
 
 
@@ -62,10 +63,9 @@ ReactDOM.render(
   <Provider store={store}>
   	<div>
   		<Route exact path="/" component={Home}/>
-
+  		<Route path="/detail" component={Detail}/>
   	</div>
   </Provider>
 </Router>
-	
 	, document.getElementById('root'));
 registerServiceWorker();

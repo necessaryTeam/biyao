@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 
 
-class Xhome extends Component {
+class Xdetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,10 +17,10 @@ class Xhome extends Component {
     render() {
         return (
             <div>
-                
+               444
             </div>
         );
     }
 }
 
-export default Xhome;
+export default Xdetail;
