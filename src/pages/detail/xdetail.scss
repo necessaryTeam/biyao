@@ -1,0 +1,283 @@
+#detailPage{
+  display: flex;
+  flex-direction: column;
+  .goodsContent{
+    margin-bottom: 50px;
+    margin-top: 30px;
+    flex:1;
+    overflow-x: hidden;
+    #commodity{
+      .goodsImg{
+        width: 100%;
+        overflow: hidden;
+        #swiper{
+          .swiper-pagination{
+            position:absolute;
+            right:0;
+            left:auto;
+            margin-right:20px;
+            color: #fff;
+            width: 50px;
+            height: 20px;
+            line-height: 20px;
+            font-size:12px;
+            background-color: rgba(0,0,0,.3);
+            color: #fff;
+            text-align: center;
+            border-radius: 20px;
+          }
+        }
+      }
+      .goodsMsg{
+        padding-top:10px;
+        .goodstitle{
+          font-size: 16px;
+          color: #353535;
+          padding-top: 10px;
+          margin-bottom: 5px;
+          padding:0 10px;
+        }
+        .goodslook{
+          padding:0 10px;
+        }
+        .goods-price-day{
+          padding:0 10px;
+          border-bottom: 1px solid #eee;
+          display: flex;
+          justify-content: space-between;
+          height: 40px;
+          line-height: 40px;
+          .goods-price{
+
+            font-size: 16px;
+            color: #f33;
+            span{
+              font-size: 23px;
+            }
+          }
+          .goods-day{
+            display: flex;
+            img{
+              margin-top: 13px;
+              margin-right: 5px;
+              width: 14px;
+              height: 14px;
+            }
+          }
+
+        }
+        .goodsmaker{
+          padding:0 10px;
+          height: 36px;
+          line-height: 36px;
+          .labels{
+            border: 1px solid #4f93e2;
+            color: #4f93e2;
+            padding: 0 8px;
+            border-radius:15px;
+          }
+        }
+        .goodsService{
+          padding:0 10px;
+          height: 40px;
+          width: 100%;
+          line-height: 40px;
+          background-color: #fafafa;
+        ul{
+            display: flex;
+            justify-content: space-between;
+          li{
+            i{
+              color:#7E4395;
+            }
+          }
+          .more{
+            i{
+              color: #828282;
+            }
+          }
+          }
+        }
+        .goodschoose{
+          padding:0 10px;
+          height: 40px;
+          width: 100%;
+          line-height: 40px;
+          display: flex;
+          justify-content: space-between;
+          .more{
+            i{
+              color: #828282;
+            }
+          }
+        }
+        .myAddress{
+          background-color: #fafafa;
+          padding:0 10px;
+          height: 40px;
+          width: 100%;
+          line-height: 40px;
+          display: flex;
+          justify-content: space-between;
+          .more{
+            i{
+              color: #828282;
+            }
+          }
+        }
+        .goodsSize{
+          padding:0 10px;
+          height: 40px;
+          width: 100%;
+          line-height: 40px;
+          display: flex;
+          justify-content: space-between;
+          .more{
+            i{
+              color: #828282;
+            }
+          }
+        }
+      }
+    }
+    #comment{
+      .comment-title{
+        height: 40px;
+        width: 100%;
+        background-image: url(https://static.biyao.com/m/img/product/goods_evaluate.png?v=biyao_fa5ded5);
+        background-size: 100% 100%;
+        line-height: 40px;
+        text-align: center;
+        text-indent: 2em;
+        color: #fff;
+      }
+      .comment-content{
+        padding:10px;
+        .content{
+          li{
+            margin-top:10px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom:5px;
+            .peopelName{
+              i{
+                margin-right:5px;
+              }
+            }
+            .peopelSay{
+              margin-top:10px;
+            }
+          }
+        }
+        .more-comment{
+          height: 20px;
+          width: 100px;
+          text-align: center;
+          line-height: 20px;
+          color: #7E4395;
+          border: 1px solid #7E4395;
+          border-radius: 20px;
+          margin: 20px auto;
+        }
+      }
+    }
+    #detail{
+      .detail-title{
+        height: 40px;
+        width: 100%;
+        background-image: url(https://static.biyao.com/m/img/product/goods_details.png?v=biyao_29e3bdb);
+        background-size: 100% 100%;
+        line-height: 40px;
+        text-align: center;
+        text-indent: 2em;
+        color: #fff;
+      }
+    }
+    #recommend{
+
+    }
+  }
+}
+
+
+
+
+//尺码对照表
+#goodsSize{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: 998;
+  position: fixed;
+  top:0;
+  left:0;right:0;
+  .sizeImg{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width: 80%;
+    img{
+      width: 100%;
+    }
+  }
+}
+
+
+
+
+//三级联动地址
+.threeAddress{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: 998;
+  position: fixed;
+  top:0;
+  left:0;right:0;
+  .closeAddress{
+    height: 55%;
+    width: 100%;
+  }
+}
+#threeAddress{
+  width: 100%;
+  background-color: #fff;
+  //height: 300px;
+  height: 45%;
+  padding:10px;
+  position: absolute;
+  left:0;right:0;transition: all 0.2s linear;
+  border-top: 1px solid #ccc;
+  z-index: 999;
+  .addressBtn{
+    width: 100px;
+    margin:10px 0;
+    position: absolute;
+    left:50%;
+    bottom:10px;
+    transform: translate(-50%,0);
+  }
+  .chooseAddress{
+    display: flex;
+    justify-content: space-between;
+    .col-sm-3{
+      width: 33%;
+      overflow: hidden;
+      select{
+      overflow:scroll;overflow-x:hidden;
+      height: 200px;
+      width: 110%;
+        border: 1px solid #fff;
+      option{
+        border: 1px solid #fff;
+      }
+    }
+  }
+}
+.control-label{
+  margin-bottom: 10px;
+}
+#input_province{
+
+}
+}
