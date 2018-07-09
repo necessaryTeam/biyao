@@ -10,7 +10,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 
-
 // 引入页面
 import Home from './pages/home/xhome';
 import Detail from './pages/detail/xdetail';
@@ -32,6 +31,7 @@ import {createStore} from 'redux';
 const store = createStore((state = {
     count: 0,
     isShowGallery:false,
+    gallertImg:[]
 }, action) => {
   const count = state.count
   switch (action.type) {
@@ -48,10 +48,16 @@ const store = createStore((state = {
       return Object.assign({}, state, {
         idxShowMyNav: action.idxShowMyNav
       });
-    case 'isjiaming':
+    case 'hideGallery':
       return Object.assign({}, state, {
-        idxShowMyNav: action.idxShowMyNav
+          isShowGallery: action.isShowGallery,
+          gallertImg: action.gallertImg
       });
+      case 'showGallery':
+          return Object.assign({}, state, {
+              isShowGallery: action.isShowGallery,
+              gallertImg: action.gallertImg
+          });
     default:
       return state
   }

@@ -1,0 +1,20 @@
+.D-gallery{
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position: fixed;
+  z-index: 999;
+  top:0;
+  left:0;
+  right:0;
+  .galleryImg{
+    position:relative;
+    left:0;
+    top:50%;
+    transform:translate(0,-50%);
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

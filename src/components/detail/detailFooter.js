@@ -18,8 +18,15 @@ class Xdetail extends Component {
     }
     render() {
         return (
-            <div>
-               
+            <div id="footer">
+                <div className="footer-l">
+                    <div><i className="iconfont icon-xiaoxi"></i>客服</div>
+                    <div><i className="iconfont icon-gouwuche"></i>购物车</div>
+                </div>
+                <div className="footer-r">
+                    <div className="buy-shopcar">加入购物车</div>
+                    <div className="buy-now">立即购买</div>
+                </div>
             </div>
         );
     }
