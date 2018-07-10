@@ -13,6 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 // 引入页面
 import Home from './pages/home/xhome';
 import Detail from './pages/detail/xdetail';
+import ShopCar from './pages/shopCar/shopcar'
 
 
 
@@ -71,6 +72,7 @@ ReactDOM.render(
   	<div>
   		<Route exact path="/" component={Home}/>
   		<Route path="/detail" component={Detail}/>
+        <Route path='/shopcar' component={ShopCar}/>
   	</div>
   </Provider>
 </Router>
