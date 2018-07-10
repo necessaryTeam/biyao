@@ -53,7 +53,9 @@ export default class shopCarMain extends Component {
                         }
                     ],
                     thisStates:[],
-                    allSelect:false
+                    allSelect:false,
+                    showOperate:[]
+
                 },
                 {
                     shopName: '3Blilin 家居用品',
@@ -67,7 +69,9 @@ export default class shopCarMain extends Component {
                         }
                     ],
                     thisStates:[],
-                    allSelect:false
+                    allSelect:false,
+                    showOperate:[]
+
                 },
             ],
             showOperate: [],
@@ -79,17 +83,12 @@ export default class shopCarMain extends Component {
         this.minItem = this.minItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.shopSelectAll = this.shopSelectAll.bind(this);
-        // this.selectThis = this.selectThis.bind(this);
         this.selectSome = this.selectSome.bind(this);
         this.isGoodsAllSelect = this.isGoodsAllSelect.bind(this);
     }
 
-    // selectThis(e,index){
-    //     const { shopSelectAll } = this.state;
-    //     if(shopSelectAll){
-    //         return 'checked';
-    //     }
-    // }
+
+    //初始化状态
     componentWillMount(){
         let { showOperate } = this.state;
         let { shopSelectAll } = this.shopSelectAll;
@@ -103,9 +102,9 @@ export default class shopCarMain extends Component {
         }
 
         this.setState({ item })
-        console.log(item)
 
     }
+    //不全选
     selectSome(e,index,index2){
         let { item } = this.state;
         item[index].thisStates[index2] = !item[index].thisStates[index2];
@@ -132,9 +131,7 @@ export default class shopCarMain extends Component {
             }
         }
 
-
         this.setState({ item })
-
 
     }
     //商品勾完全选
@@ -142,7 +139,6 @@ export default class shopCarMain extends Component {
         let { item } = this.state;
 
         for(let i = 0;i < item[index].thisStates.length;i++){
-            // console.log(item[index].thisStates.length)
             if(item[index].thisStates[i] === false ){
                 console.log(item[index].thisStates[i])
                 return
@@ -150,9 +146,9 @@ export default class shopCarMain extends Component {
         }
         item[index].allSelect = true;
         this.setState({ item })
-        console.log(item.allSelect)
     }
 
+    //显示操作
     isShowOperate(e, index,index2) {
         console.log(e.target.innerHTML)
         let { item } = this.state;
@@ -167,11 +163,10 @@ export default class shopCarMain extends Component {
         this.setState({item, currentIndexS})
     }
 
-
+    //删除item
     deleteItem(e, index) {
         let {item} = this.state;
         let {currentIndexS} = this.state;
-        // console.log(index,item[index])
         item.splice(index, 1);
         currentIndexS = null;
         console.log(this.state.currentIndexS)
@@ -181,7 +176,6 @@ export default class shopCarMain extends Component {
     minItem(e, index) {
         const {item} = this.state;
         item[index].thisShopGoods.sum > 0 ? item[index].thisShopGoods.sum-- : item[index].thisShopGoods.sum = 0;
-        // console.log(goods.thisShopGoods[index].sum)
         this.setState({item});
     }
 
