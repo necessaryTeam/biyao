@@ -17,7 +17,9 @@ import Home from './pages/home/xhome';
 import Detail from './pages/detail/xdetail';
 import Classify from './pages/classify/classify';
 import Fenlei from './pages/fenlei/fenlei';
-import ShopCar from './pages/shopCar/shopcar'
+import ShopCar from './pages/shopCar/shopcar';
+import FenleiList from './pages/fenleilist/FenleiList';
+
 
 
 
@@ -81,7 +83,8 @@ ReactDOM.render(
         <Route path="/classify" component={Classify}/>
   		<Route path="/detail" component={Detail}/>
       <Route path="/fenlei" component={Fenlei}/>
-        <Route path='/shopcar' component={ShopCar}/>
+      <Route path='/shopcar' component={ShopCar}/>
+      <Route path='/fenleilist' component={FenleiList}/>
   	</div>
   </Provider>
 </Router>
