@@ -13,6 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 // 引入页面
 import Home from './pages/home/xhome';
 import Detail from './pages/detail/xdetail';
+import Fenlei from './pages/fenlei/fenlei';
 
 
 
@@ -31,7 +32,8 @@ import {createStore} from 'redux';
 const store = createStore((state = {
     count: 0,
     isShowGallery:false,
-    gallertImg:[]
+    gallertImg:[],
+    fenleiIdx: 0,
 }, action) => {
   const count = state.count
   switch (action.type) {
@@ -44,9 +46,10 @@ const store = createStore((state = {
       return Object.assign({}, state, {
         isShowGallery: action.isShowGallery
       });
-    case 'isjiawen':
+    //分类页面左侧点击高亮函数
+    case 'fenleiNavChecked':
       return Object.assign({}, state, {
-        idxShowMyNav: action.idxShowMyNav
+        fenleiIdx: action.fenleiIdx
       });
     case 'hideGallery':
       return Object.assign({}, state, {
@@ -71,6 +74,7 @@ ReactDOM.render(
   	<div>
   		<Route exact path="/" component={Home}/>
   		<Route path="/detail" component={Detail}/>
+      <Route path="/fenlei" component={Fenlei}/>
   	</div>
   </Provider>
 </Router>

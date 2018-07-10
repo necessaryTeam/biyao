@@ -1,0 +1,9 @@
+.fenlei{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .center{
+        flex: 1;
+        display: flex;
+    }
+}

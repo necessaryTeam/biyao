@@ -1,0 +1,19 @@
+.leftnav{
+    width: 25%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    border-right: 1px solid #ededed;
+    .swiper-wrapper{
+        .swiper-slide{
+            line-height: 40px;
+            border-left: 2px solid #fff;
+            text-align: center;
+            font-size: 16px;
+        }
+        .checked{
+            border-left: 2px solid #7f4395;
+            color:#7f4395;
+        }
+    }
+}

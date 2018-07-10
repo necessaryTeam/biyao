@@ -1,0 +1,20 @@
+.fsearchTop{
+    height: 6%;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 1% 2%;
+    .searchBox{
+        height: 100%;
+        background: #f2f2f2;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        input{
+            border: none;
+            background: none;
+            width: 86%;
+            height: 100%;
+        }
+    }
+}
