@@ -13,11 +13,8 @@ import registerServiceWorker from './registerServiceWorker';
 // 引入页面
 import Home from './pages/home/xhome';
 import Detail from './pages/detail/xdetail';
-<<<<<<< HEAD
 import Fenlei from './pages/fenlei/fenlei';
-=======
 import ShopCar from './pages/shopCar/shopcar'
->>>>>>> 6c4f899e3916beee4ca8f8c5c9efc476866f5101
 
 
 
@@ -78,11 +75,8 @@ ReactDOM.render(
   	<div>
   		<Route exact path="/" component={Home}/>
   		<Route path="/detail" component={Detail}/>
-<<<<<<< HEAD
       <Route path="/fenlei" component={Fenlei}/>
-=======
         <Route path='/shopcar' component={ShopCar}/>
->>>>>>> 6c4f899e3916beee4ca8f8c5c9efc476866f5101
   	</div>
   </Provider>
 </Router>
