@@ -16,7 +16,8 @@ header,footer,section,main,nav{
 body{
 	font-size:12px;
 	font-family:"微软雅黑";
-	color:#3e3e3e;}
+	color:#3e3e3e;
+}
 a{
 	text-decoration:none;
 	color:#0dc441;}
@@ -24,3 +25,5 @@ a:hover{
 	text-decoration:underline;}
 i{font-style:normal;}
 *{box-sizing:border-box;}
+html,body,#root,#root>div{height:100%;}
+

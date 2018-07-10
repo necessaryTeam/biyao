@@ -1,0 +1,32 @@
+.rightContent{
+    width: 75%;
+    padding-bottom: 20px;
+    overflow: scroll;
+    .curPic{
+        width: 100%;
+        padding: 3% 3% 0 3%;
+    }
+    .lists{
+        margin-top: 10px;
+        .title{
+            font-size:14px;
+            text-align:center;
+            line-height: 44px;
+        }
+        .items{
+            display: flex;
+            flex-wrap: wrap;
+            .alist{
+                width: 33.3%;
+                .listPic{
+                    width: 100%;
+                }
+                p{
+                    text-align: center;
+                    height: 30px;
+                    line-height: 30px;
+                }
+            }
+        }
+    }
+}
