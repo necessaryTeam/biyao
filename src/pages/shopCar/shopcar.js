@@ -9,11 +9,17 @@ export default class shopcar extends Component{
 
     render(){
         return(
-            <div style={{ display:'flex',flexDirection:'column',height:'667px'}}>
-                <CommonTop style={{ height:'42px' }}/>
-                <ShopCar />
-                <SettleMent />
-                <HomeBottom style={{ height:'50px' }}/>
+            <div style={{ display:'flex',flexDirection:'column',height:'100%'}}>
+                <div style={{ height:'42px' }}>
+                    <CommonTop/>
+                </div>
+                <div style={{ flex:1,overflowX:'hidden' }}>
+                    <ShopCar />
+                </div>
+                <div style={{ height:'100px' }}>
+                    <SettleMent />
+                    <HomeBottom/>
+                </div>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 // 引入路由
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 // 公共基础css
@@ -10,9 +11,11 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 
+
 // 引入页面
 import Home from './pages/home/xhome';
 import Detail from './pages/detail/xdetail';
+import Classify from './pages/classify/classify';
 import Fenlei from './pages/fenlei/fenlei';
 import ShopCar from './pages/shopCar/shopcar';
 import FenleiList from './pages/fenleilist/FenleiList';
@@ -76,6 +79,8 @@ ReactDOM.render(
   <Provider store={store}>
   	<div>
   		<Route exact path="/" component={Home}/>
+        <Route path="/detail" component={Detail}/>
+        <Route path="/classify" component={Classify}/>
   		<Route path="/detail" component={Detail}/>
       <Route path="/fenlei" component={Fenlei}/>
       <Route path='/shopcar' component={ShopCar}/>
