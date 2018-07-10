@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 // 引入路由
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 // 公共基础css
@@ -10,9 +11,11 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 
+
 // 引入页面
 import Home from './pages/home/xhome';
 import Detail from './pages/detail/xdetail';
+import Classify from './pages/classify/classify';
 
 
 
@@ -70,7 +73,8 @@ ReactDOM.render(
   <Provider store={store}>
   	<div>
   		<Route exact path="/" component={Home}/>
-  		<Route path="/detail" component={Detail}/>
+        <Route path="/detail" component={Detail}/>
+        <Route path="/classify" component={Classify}/>
   	</div>
   </Provider>
 </Router>

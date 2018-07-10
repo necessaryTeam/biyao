@@ -8,7 +8,7 @@ import '../../static/css/swiper.min.css';
 import $ from 'jquery';
 //引入Swiper
 import Swiper from 'swiper'
-
+import ReactSwipe from 'react-swipe';
 
 
 class Xgallery extends Component {
@@ -21,10 +21,10 @@ class Xgallery extends Component {
     componentDidMount() {
         var swiper = new Swiper('#swiperGallery', {
             loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                type:'fraction'
-            },
+            // pagination: {
+            //     el: '.swiper-pagination',
+            //     type:'fraction'
+            // },
             autoplay: false
 
         });
@@ -44,8 +44,14 @@ class Xgallery extends Component {
                                 })(this)
                             }
                         </div>
-                        <div className="swiper-pagination"></div>
+                        {/*<div className="swiper-pagination"></div>*/}
                     </div>
+                    {/*<ReactSwipe className="carousel" swipeOptions={{continuous: false}}>*/}
+                        {/*{*/}
+                            {/*this.props.gallertImg.map((item,idx)=><div key={ idx }><a><img src={ item } style={{ width:'100%'}}/></a></div>)*/}
+                        {/*}*/}
+
+                    {/*</ReactSwipe>*/}
                 </div>
             </div>
         );
