@@ -1,0 +1,19 @@
+.ListHeader{
+    height: 6%;
+    border-bottom: 1px solid #dcdcdc;
+    position:relative;
+    font-size: 20px;
+    a{
+        color: #333;
+        .icon-home-solid{
+            position: absolute;
+            left: 8px;
+            top: 5px;
+            font-size: 22px;
+        }
+    }
+    .headerName{
+        text-align: center;
+        line-height: 38px;
+    }
+}
