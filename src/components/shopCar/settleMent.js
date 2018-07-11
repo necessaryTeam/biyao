@@ -1,21 +1,37 @@
 import React,{ Component } from 'react';
-export default class settleMent extends Component {
+
+import { connect } from 'react-redux'
+
+
+export default connect((state) => {
+    //他把store的state全部放到该组件的props里面
+    return state
+}, (dispatch) => {
+    return {
+        settleMentAllSelect:()=>{
+            dispatch({
+                type:'settleMentAllSelect',
+                realAllSelect:true
+            })
+        }
+    }
+})(class settleMent extends Component {
     constructor(props){
         super(props);
         this.state = {
-            allPrice:0
+
         }
     }
+
     render(){
         return(
             <div style={{ height:'50px',lineHeight:'50px',padding:'0 10px' }}>
                 <div style={{ float:'left' }}>
-                    <input type="radio"/>
-                    <span style={{ marginLeft:'5px'}}>全选</span>
+                    <label><input type="checkbox" style={{ marginRight:'5px'}} onClick={ this.props.settleMentAllSelect } />全选</label>
                 </div>
                 <div style={{ float:'right' }}>
                     <span>合计</span>
-                    <span style={{ margin:'0 10px',color:'#f33'}}>￥{this.state.allPrice}</span>
+                    <span style={{ margin:'0 10px',color:'#f33'}}>￥{this.props.allPrice}</span>
                     <button style={{
                         color:'#fff',
                         background:"#f33",
@@ -29,4 +45,4 @@ export default class settleMent extends Component {
             </div>
         )
     }
-}
+});
