@@ -151,7 +151,7 @@ class Xclassify extends Component {
             return (
             <div id="classifyPage">
                 {/*遮罩层*/}
-                <div id="masked" style={{display:this.state.isShowAllClass?"block":"none"}}></div>
+                <div id="masked" style={{display:this.state.isShowAllClass?"block":"none"}} onClick={this.ShowMoreClass.bind(this)}></div>
                 <div className="classifyHeader">
                     <div className="headerSearch">
                         <Xsearch />

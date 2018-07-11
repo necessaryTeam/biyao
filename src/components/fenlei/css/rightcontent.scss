@@ -16,15 +16,19 @@
         .items{
             display: flex;
             flex-wrap: wrap;
-            .alist{
+            .links{
+                display: block;
                 width: 33.3%;
-                .listPic{
-                    width: 100%;
-                }
-                p{
-                    text-align: center;
-                    height: 30px;
-                    line-height: 30px;
+                color: #000;
+                .alist{
+                    .listPic{
+                        width: 100%;
+                    }
+                    p{
+                        text-align: center;
+                        height: 30px;
+                        line-height: 30px;
+                    }
                 }
             }
         }

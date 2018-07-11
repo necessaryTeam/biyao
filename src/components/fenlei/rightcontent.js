@@ -16,29 +16,46 @@ class RightContent extends Component {
                     list:[
                         {
                             title:'男士内搭',
+                            biao:'man',
                             itemDatas:[
                                 {
-                                pic:'https://bfs.biyao.com/group1/M00/3F/BC/rBACVFs8rp-ABubpAAAXrfGO1-4229.jpg',name:'T恤'
+                                pic:'https://bfs.biyao.com/group1/M00/3F/BC/rBACVFs8rp-ABubpAAAXrfGO1-4229.jpg',name:'T恤',sort:'tshirt',
                                 },{
-                                    pic:'https://bfs.biyao.com/group1/M00/41/72/rBACW1s8rryATyfEAAAdQZ9vDZI578.jpg',name:'衬衫'
+                                    pic:'https://bfs.biyao.com/group1/M00/41/72/rBACW1s8rryATyfEAAAdQZ9vDZI578.jpg',name:'衬衫',sort:'tshirt',
                                 },{
-                                    pic:'https://bfs.biyao.com/group1/M00/3F/BC/rBACVFs8rsSANHcbAAAa7-PkbUg551.jpg',name:'POLO衫'
+                                    pic:'https://bfs.biyao.com/group1/M00/3F/BC/rBACVFs8rsSANHcbAAAa7-PkbUg551.jpg',name:'POLO衫',sort:'tshirt',
                                 },{
-                                    pic:'https://bfs.biyao.com/group1/M00/3F/BC/rBACVFs8rtaAAURhAAAapbUcdCQ208.jpg',name:'针织衫'
+                                    pic:'https://bfs.biyao.com/group1/M00/3F/BC/rBACVFs8rtaAAURhAAAapbUcdCQ208.jpg',name:'针织衫',sort:'tshirt',
                                 },{
-                                    pic:'https://bfs.biyao.com/group1/M00/41/72/rBACW1s8rt-ACC6ZAAAaYqmu99Q060.jpg',name:'卫衣'
+                                    pic:'https://bfs.biyao.com/group1/M00/41/72/rBACW1s8rt-ACC6ZAAAaYqmu99Q060.jpg',name:'卫衣',sort:'tshirt',
                                 },{
-                                    pic:'https://bfs.biyao.com/group1/M00/35/7C/rBACYVrZYpSAewMhAAAe1Vy41Og669.jpg',name:'马甲'
+                                    pic:'https://bfs.biyao.com/group1/M00/35/7C/rBACYVrZYpSAewMhAAAe1Vy41Og669.jpg',name:'马甲',sort:'tshirt',
                                 },
                             ]
                         },
                         {
                             title:'男士外套',
+                            biao:'man',
                             itemDatas:[
                                 {
-                                pic:'https://bfs.biyao.com/group1/M00/41/6B/rBACYVs8rvKANN2aAAAgQ0P183Y591.jpg',name:'西服套装'
+                                pic:'https://bfs.biyao.com/group1/M00/41/6B/rBACYVs8rvKANN2aAAAgQ0P183Y591.jpg',name:'西服套装',sort:'xizhuang',
                                 },{
-                                    pic:'https://bfs.biyao.com/group1/M00/3A/45/rBACYVsFNcOAYw7zAAAdS-YPgGc381.jpg',name:'皮衣夹克'
+                                    pic:'https://bfs.biyao.com/group1/M00/3A/45/rBACYVsFNcOAYw7zAAAdS-YPgGc381.jpg',name:'皮衣夹克',sort:'xizhuang',
+                                },
+                            ]
+                        },
+                        {
+                            title:'男士下装',
+                            biao:'man',
+                            itemDatas:[
+                                {
+                                pic:'https://bfs.biyao.com/group1/M00/41/6C/rBACYVs8r4WAJ0e5AAAbTTnKW2w264.jpg',name:'牛仔裤',sort:'jeans',
+                                },{
+                                    pic:'https://bfs.biyao.com/group1/M00/3F/BC/rBACVFs8r42AUZCcAAAVuBO4AMI152.jpg',name:'西裤',sort:'jeans',
+                                },{
+                                    pic:'https://bfs.biyao.com/group1/M00/41/72/rBACW1s8r5yAY9KjAAAVubTYydk462.jpg',name:'短裤',sort:'jeans',
+                                },{
+                                    pic:'https://bfs.biyao.com/group1/M00/41/6C/rBACYVs8sPiAfw_FAAAWLmbfJ-k041.jpg',name:'休闲裤',sort:'jeans',
                                 },
                             ]
                         },
@@ -49,6 +66,7 @@ class RightContent extends Component {
                     list:[
                         {
                             title:'女裙',
+                            biao:'girl',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/41/6C/rBACYVs8sQeAS670AAAgWnvbFO0972.jpg',name:'连衣裙'
@@ -59,6 +77,7 @@ class RightContent extends Component {
                         },
                         {
                             title:'女士上装',
+                            biao:'girl',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/33/14/rBACYVrB_FCAGqnnAAAg79JYZIo290.jpg',name:'短袖T恤'
@@ -77,6 +96,7 @@ class RightContent extends Component {
                         },
                         {
                             title:'女士下装',
+                            biao:'girl',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/41/72/rBACW1s8sXqAD28lAAAWurzmx5k243.jpg',name:'短裤'
@@ -88,6 +108,7 @@ class RightContent extends Component {
                             ]
                         },{
                             title:'特色女装',
+                            biao:'girl',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/41/72/rBACW1s8seGAQ-FuAAAchVB5yy8871.jpg',name:'孕妇装'
@@ -101,6 +122,7 @@ class RightContent extends Component {
                     list:[
                         {
                             title:'近视眼镜',
+                            biao:'yanjing',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/40/CF/rBACYVs5vTuALewuAAAQEwtwJ-k421.jpg',name:'成人款'
@@ -111,6 +133,7 @@ class RightContent extends Component {
                         },
                         {
                             title:'太阳镜',
+                            biao:'yanjing',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/40/D0/rBACYVs5wH-ARIJQAAAT4KPGumI118.jpg',name:'平光太阳镜'
@@ -122,6 +145,7 @@ class RightContent extends Component {
                             ]
                         },{
                             title:'老花镜',
+                            biao:'yanjing',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/40/CF/rBACYVs5vcqAG9bRAAAVtyCb_KQ805.jpg',name:'平光太阳镜'
@@ -137,6 +161,7 @@ class RightContent extends Component {
                     list:[
                         {
                             title:'内衣',
+                            biao:'girlneiyi',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/41/72/rBACW1s8sjWAfn--AAAhxXKba3A225.jpg',name:'文胸/吊带'
@@ -153,6 +178,7 @@ class RightContent extends Component {
                         },
                         {
                             title:'袜子',
+                            biao:'girlneiyi',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/36/40/rBACYVrgR1qAGF84AAAXyKrBKsc212.jpg',name:'棉袜'
@@ -162,6 +188,7 @@ class RightContent extends Component {
                             ]
                         },{
                             title:'配饰',
+                            biao:'girlneiyi',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/34/DC/rBACYVrUgdeAWq6UAAApNkI5j40054.jpg',name:'遮阳/雨伞'
@@ -177,6 +204,7 @@ class RightContent extends Component {
                     list:[
                         {
                             title:'男鞋',
+                            biao:'shoes',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/38/3A/rBACYVr1A46ACaqbAAAfXOHI4dg557.jpg',name:'凉鞋'
@@ -195,6 +223,7 @@ class RightContent extends Component {
                         },
                         {
                             title:'女鞋',
+                            biao:'shoes',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/34/72/rBACVFre-EWAEZWJAAAhSrsX4y0781.jpg',name:'凉鞋'
@@ -212,6 +241,7 @@ class RightContent extends Component {
                     list:[
                         {
                             title:'功能箱包',
+                            biao:'xinglixiang',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/34/5B/rBACW1rOr32AEcsxAAAZr8w-ZbY407.jpg',name:'休闲/功能包'
@@ -224,6 +254,7 @@ class RightContent extends Component {
                         },
                         {
                             title:'男包/皮带',
+                            biao:'xinglixiang',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/2A/31/rBACYVpgXqGACgFKAAAc9jBnT8w975.jpg',name:'胸包/背包'
@@ -245,6 +276,7 @@ class RightContent extends Component {
                     list:[
                         {
                             title:'外设办公',
+                            biao:'shuma',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/41/F1/rBACYVs_QnKAdaT3AAAahIKvPYg144.jpg',name:'数码办公'
@@ -257,6 +289,7 @@ class RightContent extends Component {
                         },
                         {
                             title:'影音充电',
+                            biao:'shuma',
                             itemDatas:[
                                 {
                                 pic:'https://bfs.biyao.com/group1/M00/36/98/rBACW1ri782AM1NXAAAZ_mIRxSw567.jpg',name:'影音娱乐'
@@ -267,7 +300,7 @@ class RightContent extends Component {
                         },
                     ]
                 }},
-            ]
+            ],
         };
         // console.log(this.props)
     }
@@ -280,14 +313,16 @@ class RightContent extends Component {
                         return <div className="lists" key={idx}>
                             <div className="title">{item.title}</div>
                             <div className="items">
-                                {(function (){
+                                {(function (item){
                                     return item.itemDatas.map(function (itm,index){
-                                        return <div className="alist" key={index}>
-                                            <img className="listPic" src={itm.pic} />
-                                            <p>{itm.name}</p>
-                                        </div>
+                                        return <a href={'http:/\/localhost:3000/fenleilist?'+item.biao+'&'+itm.sort+'&'+itm.name} className="links" key={index}>
+                                            <div className="alist" >
+                                                <img className="listPic" src={itm.pic} />
+                                                <p>{itm.name}</p>
+                                            </div>
+                                        </a>
                                     })
-                                })()}
+                                })(item)}
                             </div>
                         </div>
                     })
