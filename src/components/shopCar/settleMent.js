@@ -8,10 +8,10 @@ export default connect((state) => {
     return state
 }, (dispatch) => {
     return {
-        settleMentAllSelect:()=>{
+        allSelect:(real)=>{
             dispatch({
-                type:'settleMentAllSelect',
-                realAllSelect:true
+                type:'allSelect',
+                realAllSelect:real,
             })
         }
     }
@@ -19,15 +19,23 @@ export default connect((state) => {
     constructor(props){
         super(props);
         this.state = {
-
+            real:true
         }
+        this.realAllSelectM = this.realAllSelectM.bind(this);
     }
 
+    realAllSelectM(){
+        let {real} = this.state;
+        this.props.allSelect(real);
+        real = !real;
+        this.setState({ real })
+        console.log(real)
+    }
     render(){
         return(
             <div style={{ height:'50px',lineHeight:'50px',padding:'0 10px' }}>
                 <div style={{ float:'left' }}>
-                    <label><input type="checkbox" style={{ marginRight:'5px'}} onClick={ this.props.settleMentAllSelect } />全选</label>
+                    <label><input type="checkbox" style={{ marginRight:'5px'}}  onClick={ this.realAllSelectM } />全选</label>
                 </div>
                 <div style={{ float:'right' }}>
                     <span>合计</span>
