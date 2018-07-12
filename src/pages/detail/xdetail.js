@@ -44,6 +44,7 @@ class Xdetail extends Component {
             goodsName:"",
             goodsId:"",
             goodsKu:"",
+            goodsBrand:"",
             goodslook:"",
             goodsprice:"",
             goodsday:"",
@@ -113,6 +114,7 @@ class Xdetail extends Component {
                     goodsday:result[0].cycle,
                     detailImg:imgMore,
                     firstImg:firstPic,
+                    goodsBrand:result[0].brand,
                     goodsId:result[0].id,
                     goodsKu:classify[0],
                     goodsColor:color,
@@ -126,19 +128,22 @@ class Xdetail extends Component {
 
         // 点击加入购物车 把数据存到local storage
         var CarBtn = document.getElementsByClassName("CarBtn")[0];
-        CarBtn.onclick = ()=>{
+        var SureBtn = document.getElementsByClassName("SureBtn")[0];
+        var SendBtn = document.getElementsByClassName("SendBtn")[0];
+        function setLocal(self){
             var goodsArr = [];
             var oldgoods = JSON.parse(window.localStorage.getItem("shopCar"));
 
             var goodsObj = {};
-            goodsObj.id = this.state.goodsId;
-            goodsObj.ku = this.state.goodsKu;
-            goodsObj.name = this.state.goodsName;
-            goodsObj.pic = this.state.firstImg;
-            goodsObj.price = this.state.goodsprice;
-            goodsObj.color = this.state.chooseColor;
-            goodsObj.size = this.state.chooseSize;
-            goodsObj.sum = this.state.buyGoodsNum;
+            goodsObj.id = self.state.goodsId;
+            goodsObj.ku = self.state.goodsKu;
+            goodsObj.brand = self.state.goodsBrand;
+            goodsObj.name = self.state.goodsName;
+            goodsObj.pic = self.state.firstImg;
+            goodsObj.price = self.state.goodsprice;
+            goodsObj.color = self.state.chooseColor;
+            goodsObj.size = self.state.chooseSize;
+            goodsObj.sum = self.state.buyGoodsNum;
             var isSum = 0;
             if(oldgoods!==null){//如果不是空就循环判断里面的对象
                 oldgoods.forEach(function(item){
@@ -157,6 +162,19 @@ class Xdetail extends Component {
                 goodsArr.push(goodsObj)
             }
             window.localStorage.setItem("shopCar", JSON.stringify(goodsArr));
+        }
+        // var self = this;
+        CarBtn.onclick = ()=>{
+            setLocal(this)
+            this.isHideChoose();
+        }
+        SureBtn.onclick = ()=>{
+            setLocal(this)
+            this.isHideChoose();
+        }
+        SendBtn.onclick = ()=>{
+            setLocal(this)
+            this.isHideChoose();
         }
 
     }
@@ -186,24 +204,15 @@ class Xdetail extends Component {
         })
     }
     isShowChoose(){
-        this.setState({
-            isShowChoose:!this.state.isShowChoose
-        })
-        setTimeout(()=>{
-            this.setState({
-                SizeColorChooseBottom:"0"
-            })
-        },20)
+        this.props.ShowTwoBtn();
+        this.props.isShowChooseDiv();
+    }
+    SendShowChoose(){
+        this.props.ShowSendBtn();
+        this.props.isShowChooseDiv();
     }
     isHideChoose(){
-        this.setState({
-            SizeColorChooseBottom:"-440px"
-        })
-        setTimeout(()=>{
-            this.setState({
-                isShowChoose:!this.state.isShowChoose
-            })
-        },200)
+        this.props.isHideChooseDiv();
     }
     chooseLess(){
         if(this.state.buyGoodsNum>1){
@@ -266,6 +275,9 @@ class Xdetail extends Component {
                                 <div className="goods-price">
                                     ￥
                                     <span>{this.state.goodsprice}</span>
+                                    <div className="sendFriend" onClick={this.SendShowChoose.bind(this)}>
+                                        <span><i className="iconfont icon-liwu"></i>送好友</span>
+                                    </div>
                                 </div>
                                 <div className="goods-day">
                                     <img src="https://static.biyao.com/m/img/base/produce_cycle.png?v=biyao_015ebc2"/>
@@ -377,11 +389,11 @@ class Xdetail extends Component {
                 {/*图片展示*/}
                 <Gallery/>
                 {/*尺寸颜色选择*/}
-                <div id="SizeColorChoose" style={{display:this.state.isShowChoose?"block":"none"}}>
+                <div id="SizeColorChoose" style={{display:this.props.isShowChoose?"block":"none"}}>
                     {/*遮罩层*/}
                     <div className="maskChoose" onClick={this.isHideChoose.bind(this)}></div>
                     {/*尺寸颜色选择内容*/}
-                    <div className="ChooseContent" style={{bottom:this.state.SizeColorChooseBottom}}>
+                    <div className="ChooseContent" style={{bottom:this.props.SizeColorChooseBottom}}>
                         <div className="ContentTop">
                             <div className="topImg" onClick={this.props.ShowGalleryPic.bind(this)}>
                                 <img src={this.state.firstImg} />
@@ -432,12 +444,14 @@ class Xdetail extends Component {
                             </div>
                         </div>
                         <div className="chooseBtn">
-                            <div className="CarBtn">
+                            <div className="CarBtn" style={{display:this.props.detailChooseBtn==2?"block":"none"}}>
                                 加入购物车
                             </div>
-                            <div className="BuyBtn">
+                            <div className="BuyBtn" style={{display:this.props.detailChooseBtn==2?"block":"none"}}>
                                 立即购买
                             </div>
+                            <div className="SureBtn"  style={{display:this.props.detailChooseBtn==1?"block":"none"}}>确定</div>
+                            <div className="SendBtn"  style={{display:this.props.detailChooseBtn==3?"block":"none"}}>送好友</div>
                         </div>
                     </div>
                 </div>
@@ -471,9 +485,6 @@ class Xdetail extends Component {
                     </div>
                 </div>
                 {/*回到头部*/}
-                {/*<div id="detailToTop" style={{opacity:this.props.ToTopOpacity}}>*/}
-                    {/*<i className="iconfont icon-xiala"></i>*/}
-                {/*</div>*/}
                 <XtoTop />
                 <Xfooter />
             </div>
@@ -517,17 +528,47 @@ export default connect((state) => {
                     }
                 })(i)
             }
-            // if(fatherTop >= window.innerHeight){
-            //     dispatch({
-            //         type: 'showToTop',
-            //         ToTopOpacity:1
-            //     })
-            // }else{
-            //     dispatch({
-            //         type: 'showToTop',
-            //         ToTopOpacity:0
-            //     })
-            // }
+        },
+        ShowSendBtn: () => {
+            //可以触发多个
+            dispatch({
+                type: 'ShowWhoBtnNum',
+                detailChooseBtn:3
+            })
+        },
+        ShowTwoBtn: () => {
+            //可以触发多个
+            dispatch({
+                type: 'ShowWhoBtnNum',
+                detailChooseBtn:2
+            })
+        },
+        isShowChooseDiv: () => {
+            //可以触发多个
+            dispatch({
+                type: 'ShowChoose',
+                isShowChoose:true
+            })
+            setTimeout(()=>{
+                dispatch({
+                    type: 'ChooseBottom0',
+                    SizeColorChooseBottom:"0"
+                })
+            },50)
+        },
+        isHideChooseDiv: () => {
+            //可以触发多个
+            dispatch({
+                type: 'ChooseBottom0',
+                SizeColorChooseBottom:"-440px"
+            })
+            setTimeout(()=>{
+                dispatch({
+                    type: 'ShowChoose',
+                    isShowChoose:false
+                })
+
+            },200)
         }
     }
 })(Xdetail);

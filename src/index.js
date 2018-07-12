@@ -43,7 +43,10 @@ const store = createStore((state = {
     lightHeaderIdx:0,
     allPrice:0,
     realAllSelect:false,
-    ToTopOpacity:0
+    ToTopOpacity:0,
+    detailChooseBtn:1,
+    SizeColorChooseBottom:"-440px",
+    isShowChoose:false,
 }, action) => {
   const count = state.count
   switch (action.type) {
@@ -82,6 +85,24 @@ const store = createStore((state = {
       case 'showToTop':
           return Object.assign({}, state, {
               ToTopOpacity: action.ToTopOpacity
+          });
+      case 'ShowWhoBtnNum':
+          return Object.assign({}, state, {
+              detailChooseBtn: action.detailChooseBtn
+          });
+      case 'ShowChoose':
+          return Object.assign({}, state, {
+              isShowChoose:action.isShowChoose
+
+          });
+      case 'ChooseBottom0':
+          return Object.assign({}, state, {
+              SizeColorChooseBottom:action.SizeColorChooseBottom
+
+          });
+      case 'HideChoose':
+          return Object.assign({}, state, {
+              isShowChoose:action.isShowChoose
           });
     default:
       return state
