@@ -289,6 +289,9 @@
     .ChooseCenter{
       width: 100%;
       padding:0 10px 10px 10px;
+      max-height: 300px;
+      margin-bottom: 50px;
+      overflow-x: hidden;
       .choose-color{
         padding-top: 20px;
         border-top:1px solid #ddd;
@@ -386,6 +389,7 @@
       height: 50px;
       display: flex;
       line-height: 50px;
+      background-color: #fff;
       position: absolute;
       bottom:0;
       left:0;
