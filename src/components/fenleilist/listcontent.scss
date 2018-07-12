@@ -1,7 +1,32 @@
 .ListContent{
     flex: 1;
-    padding: 0 2%;
-    display: flex;
-    flex-wrap: wrap;
+    padding-left: 1%;
     overflow-y: scroll;
+    padding-top: 10px;
+    background: #f0f0f0;
+    .zlistsLink{
+        display: block;
+        float: left;
+        width: 48%;
+        color: #333;
+        font-size: 14px;
+        background: #fff;
+        margin-top: 6px;
+        margin-right: 2%;
+        box-shadow: 1px 1px 1px 1px #ccc;
+        .zlistsImg{
+            width: 100%;
+            box-shadow: 0px 1px 0px 1px #ccc;
+        }
+        p{
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 26px;
+        }
+        .zlistsPrice{
+            color: #f33;
+        }
+    }
 }

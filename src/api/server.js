@@ -19,6 +19,21 @@ app.get('/home', function(req, res) {
     // res.send("hello")
 
 })
+//获取分类列表页数据
+app.get('/fenleilist', function(req, res) {
+    res.append("Access-Control-Allow-Origin","*");
+    console.log(req.query);
+    // console.log(req.params);
+    var table = req.query.biao;
+    db.query(`SELECT * FROM ${table} WHERE ?`,{
+        // text:JSON.stringify(req.query.text)
+        sort:req.query.sort
+    },(results)=>{
+        res.send(results)
+    })
+    // res.send("hello")
+
+})
 
 app.get('/detail', function(req, res) {
     res.append("Access-Control-Allow-Origin","*");

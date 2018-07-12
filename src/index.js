@@ -40,14 +40,20 @@ const store = createStore((state = {
     isShowGallery:false,
     gallertImg:[],
     fenleiIdx: 0,
-    lightHeaderIdx:0
+    lightHeaderIdx:0,
+    allPrice:0,
+    realAllSelect:false
 }, action) => {
   const count = state.count
   switch (action.type) {
   	// 触发的动作（动作名字/触发的暗号）
-    case 'isxiejie':
+    case 'allPriceCompute':
       return Object.assign({}, state, {
-      	isShowGallery: action.isShowGallery
+          allPrice: action.allPrice
+      });
+      case 'settleMentAllSelect':
+      return Object.assign({}, state, {
+          realAllSelect: action.realAllSelect
       });
     case 'isfuquan':
       return Object.assign({}, state, {
