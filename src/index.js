@@ -50,9 +50,9 @@ const store = createStore((state = {
   	// 触发的动作（动作名字/触发的暗号）
     case 'allPriceCompute':
       return Object.assign({}, state, {
-          allPrice: action.allPrice
+          allPrice: action.allPrice,
       });
-      case 'settleMentAllSelect':
+    case 'allSelect':
       return Object.assign({}, state, {
           realAllSelect: action.realAllSelect
       });

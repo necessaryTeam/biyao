@@ -406,27 +406,7 @@
     }
   }
 }
-//回到头部
-#detailToTop{
-  position:fixed;
-  right:10px;
-  bottom:10%;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  background-color: #fff;
-  border:1px solid  #bcb;
-  border-radius:50%;
-  transition:all 0.5s linear;
-  i{
-    font-size: 30px;
-    color:#aaa;
-    margin-top: -2px;
-    display: block;
-    transform: rotate(180deg);
-  }
-}
+
 
 //尺码对照表
 #goodsSize{

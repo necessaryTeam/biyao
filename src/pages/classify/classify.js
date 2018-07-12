@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 // 组件
 import Xsearch from '../../components/home/common/homeSearch'
 import Xfooter from '../../components/home/common/homeBottom'
+import XtoTop from '../../components/toTop/toTop'
 
 //引入jq
 import $ from 'jquery'
@@ -43,7 +44,7 @@ class Xclassify extends Component {
             goodsList:[],
             keyWordNum:1,
             twoNavNum:0,
-            firstNav:"man",
+            firstNav:"",
             twoNav:"",
             isShowAllClass:false
         };
@@ -53,23 +54,28 @@ class Xclassify extends Component {
         //获取URL传来的参数
         var classify = [];
         var Url = this.props.location.search;
+        //把后缀存到localStorage，方便下个页面返回到该页面
+        window.localStorage.setItem("houzui", Url);
         Url = Url.slice(1).split('&');
-
         Url.forEach(function(item){
             item = item.split("=")
-            if(item[0]=="biao"||item[0]=="index"){
+            if(item[0]=="biao"||item[0]=="index"||item[0]=="keyClass"){
                 classify.push(item[1]);
             }
         })
         console.log(classify)
-
+        this.setState({
+            firstNav:classify[0],
+            twoNav:classify[2],
+            keyWordNum:classify[1]
+        })
 
         var self = this;
         $.ajax({
             url:"http://localhost:4000/home",
             data:{
-                classify:"man",
-                lei:"neida"
+                classify:classify[0],
+                lei:classify[2]
             },
             success(result){
                 console.log(result)
@@ -85,12 +91,9 @@ class Xclassify extends Component {
                 })
             }
         })
+        console.log(this)
 
 
-        window.addEventListener('scroll', () =>
-            // console.log(document.documentElement.scrollTop);
-            console.log(window.innerHeight)
-        )
     }
 
     ShowMoreClass(){
@@ -235,6 +238,7 @@ class Xclassify extends Component {
                 <div className="xfooter">
                     <Xfooter />
                 </div>
+                <XtoTop />
             </div>
         );
     }

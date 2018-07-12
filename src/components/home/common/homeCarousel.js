@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactSwipe from 'react-swipe';
+import React from 'react';
+import Swiper from 'swiper';
 
 export default class homeCarousel extends React.Component {
     constructor(props){
@@ -15,15 +15,32 @@ export default class homeCarousel extends React.Component {
             ]
         }
     }
+    componentDidMount(){
+        var mySwiper6 = new Swiper('#swiper6',{
+                autoplay:{
+                    delay: 3000,
+                    stopOnLastSlide: false,
+                    disableOnInteraction: true,
+                },
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            })
+    }
     render() {
         const { imgSrc } = this.state;
         return (
-            <ReactSwipe className="carousel" swipeOptions={{continuous: false}}>
-                {
-                    imgSrc.map((item,index)=><div key={ index }><a><img src={ item } style={{ width:'100%'}}/></a></div>)
-                }
-
-            </ReactSwipe>
+            <div className="homeBanner">
+                <div className="swiper-container" id="swiper6">
+                    <div className="swiper-wrapper">
+                        {
+                            imgSrc.map((item,index)=><div className="swiper-slide" key={ index }><a><img src={ item } style={{ width:'100%'}}/></a></div>)
+                        }
+                    </div>
+                    <div className="swiper-pagination"></div>
+                </div>
+            </div>
         );
     }
 }

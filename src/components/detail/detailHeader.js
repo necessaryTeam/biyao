@@ -12,15 +12,23 @@ class Xheader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            headerList:[{title:"商品",id:"#commodity"},{title:"评价",id:"#comment"},{title:"详细",id:"#detail"},{title:"推荐",id:"#recommend"}]
+            headerList:[{title:"商品",id:"#commodity"},{title:"评价",id:"#comment"},{title:"详细",id:"#detail"},{title:"推荐",id:"#recommend"}],
+            Urlhouzui:""
         };
         // console.log(this.props)
+    }
+    componentDidMount(){
+        // 保存地址后缀
+        var houzui = window.localStorage.getItem("houzui");
+        this.setState({
+            Urlhouzui:houzui
+        })
     }
     render() {
         return (
             <div id="header">
                 <div className="back">
-                    <a href="http://localhost:3000/classify" style={{color:"#7D7D7D"}}><i className="iconfont icon-houtui"></i></a>
+                    <a href={"http://localhost:3000/classify"+this.state.Urlhouzui} style={{color:"#7D7D7D"}}><i className="iconfont icon-houtui"></i></a>
                 </div>
                 <div className="content">
                     <ul>

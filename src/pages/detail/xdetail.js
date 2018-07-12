@@ -13,6 +13,7 @@ import ReactSwipe from 'react-swipe';
 import Xfooter from '../../components/detail/detailFooter'
 import Xheader from '../../components/detail/detailHeader'
 import Gallery from '../../components/detail/detailGallery'
+import XtoTop from '../../components/toTop/toTop'
 
 
 class Xdetail extends Component {
@@ -52,20 +53,7 @@ class Xdetail extends Component {
         // console.log(this.props)
     }
     componentDidMount() {
-        //回到头部
-        document.querySelector("#detailToTop").onclick=function(){
-            var time = setInterval(function(){
-                var scrollY = window.scrollY;
-                var speed = scrollY/5;
-                window.scrollBy(0,-speed)
 
-                if(window.scrollY<=0 || speed<2){
-                    clearInterval(time);
-                    window.scrollTo(0,0);
-                }
-
-            },20)
-        };
         //图片展示使用swiper
         var mySwiper = new Swiper('.swiper-container', {
             freeMode : false,//是否一直滑动  false为一张张的滑
@@ -443,9 +431,10 @@ class Xdetail extends Component {
                     </div>
                 </div>
                 {/*回到头部*/}
-                <div id="detailToTop" style={{opacity:this.props.ToTopOpacity}}>
-                    <i className="iconfont icon-xiala"></i>
-                </div>
+                {/*<div id="detailToTop" style={{opacity:this.props.ToTopOpacity}}>*/}
+                    {/*<i className="iconfont icon-xiala"></i>*/}
+                {/*</div>*/}
+                <XtoTop />
                 <Xfooter />
             </div>
         );
@@ -488,17 +477,17 @@ export default connect((state) => {
                     }
                 })(i)
             }
-            if(fatherTop >= window.innerHeight){
-                dispatch({
-                    type: 'showToTop',
-                    ToTopOpacity:1
-                })
-            }else{
-                dispatch({
-                    type: 'showToTop',
-                    ToTopOpacity:0
-                })
-            }
+            // if(fatherTop >= window.innerHeight){
+            //     dispatch({
+            //         type: 'showToTop',
+            //         ToTopOpacity:1
+            //     })
+            // }else{
+            //     dispatch({
+            //         type: 'showToTop',
+            //         ToTopOpacity:0
+            //     })
+            // }
         }
     }
 })(Xdetail);

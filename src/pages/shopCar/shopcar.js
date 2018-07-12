@@ -16,8 +16,8 @@ export default class shopcar extends Component{
                 <div style={{ flex:1,overflowX:'hidden' }}>
                     <ShopCar />
                 </div>
-                <div style={{ height:'100px' }}>
-                    <SettleMent />
+                <div style={{ height:'50px' }}>
+                    {/*<SettleMent />*/}
                     <HomeBottom/>
                 </div>
             </div>

@@ -24,7 +24,8 @@
     background: #fff;
     z-index: 66;
     .icon-iconfont{
-      transform: rotate(180deg);  
+      display: block;
+      transform: rotate(270deg);  
     }
   }
   .channelAll{
@@ -47,6 +48,7 @@
       line-height: 24px;
       .zchannelList{
         width: 18%;
+        color: #333;
         border: 1px solid #ccc;
         border-radius: 10px;
         margin: 5px 5px 0 0;
