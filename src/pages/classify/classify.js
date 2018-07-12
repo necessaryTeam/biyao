@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 // 组件
 import Xsearch from '../../components/home/common/homeSearch'
 import Xfooter from '../../components/home/common/homeBottom'
+import XtoTop from '../../components/toTop/toTop'
 
 //引入jq
 import $ from 'jquery'
@@ -35,7 +36,7 @@ class Xclassify extends Component {
             {name:'家用电器',let:'girlneiyi',keyWord:[{Name:'近视眼镜',keyClass:'ny'},{Name:'太阳镜',keyClass:'wazi'},{Name:'老花镜',keyClass:'peisi'}]},
             {name:'家装五金',let:'girl',keyWord:[{Name:'近视眼镜',keyClass:'qunzi'},{Name:'太阳镜',keyClass:'shangyi'},{Name:'老花镜',keyClass:'xiazhuang'}]},
             {name:'家居家具',let:'shoes',keyWord:[{Name:'功能箱包',keyClass:'man'},{Name:'男包/皮带',keyClass:'woman'},{Name:'真皮女包',keyClass:'man'},{Name:'出行必备',keyClass:'woman'},{Name:'功能箱包',keyClass:'man'}]},
-            {name:'3C数码',let:'shoes',keyWord:[{Name:'外设办公',keyClass:'man'},{Name:'影音充电',keyClass:'woman'}]},
+            {name:'3C数码',let:'shuma',keyWord:[{Name:'外设办公',keyClass:'wsbg'},{Name:'影音充电',keyClass:'yycd'}]},
             {name:'汽车配件',let:'man',keyWord:[{Name:'汽车配件',keyClass:'coat'},{Name:'配饰清洁',keyClass:'neida'}]},
             {name:'医疗保健',let:'yanjing',keyWord:[{Name:'保健',keyClass:'jsyj'}]},
                 {name:'个性定制',let:'girlneiyi',keyWord:[{Name:'箱包出行',keyClass:'ny'},{Name:'服饰鞋靴',keyClass:'wazi'},{Name:'软装画饰',keyClass:'peisi'}]}
@@ -43,19 +44,38 @@ class Xclassify extends Component {
             goodsList:[],
             keyWordNum:1,
             twoNavNum:0,
-            firstNav:"man",
+            firstNav:"",
             twoNav:"",
             isShowAllClass:false
         };
         // console.log(this.props)
     }
     componentDidMount(){
+        //获取URL传来的参数
+        var classify = [];
+        var Url = this.props.location.search;
+        //把后缀存到localStorage，方便下个页面返回到该页面
+        window.localStorage.setItem("houzui", Url);
+        Url = Url.slice(1).split('&');
+        Url.forEach(function(item){
+            item = item.split("=")
+            if(item[0]=="biao"||item[0]=="index"||item[0]=="keyClass"){
+                classify.push(item[1]);
+            }
+        })
+        console.log(classify)
+        this.setState({
+            firstNav:classify[0],
+            twoNav:classify[2],
+            keyWordNum:classify[1]
+        })
+
         var self = this;
         $.ajax({
             url:"http://localhost:4000/home",
             data:{
-                classify:"man",
-                lei:"neida"
+                classify:classify[0],
+                lei:classify[2]
             },
             success(result){
                 console.log(result)
@@ -71,12 +91,9 @@ class Xclassify extends Component {
                 })
             }
         })
+        console.log(this)
 
 
-        window.addEventListener('scroll', () =>
-            // console.log(document.documentElement.scrollTop);
-            console.log(window.innerHeight)
-        )
     }
 
     ShowMoreClass(){
@@ -221,6 +238,7 @@ class Xclassify extends Component {
                 <div className="xfooter">
                     <Xfooter />
                 </div>
+                <XtoTop />
             </div>
         );
     }

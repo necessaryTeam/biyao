@@ -13,6 +13,7 @@ import ReactSwipe from 'react-swipe';
 import Xfooter from '../../components/detail/detailFooter'
 import Xheader from '../../components/detail/detailHeader'
 import Gallery from '../../components/detail/detailGallery'
+import XtoTop from '../../components/toTop/toTop'
 
 
 class Xdetail extends Component {
@@ -52,6 +53,7 @@ class Xdetail extends Component {
         // console.log(this.props)
     }
     componentDidMount() {
+
         //图片展示使用swiper
         var mySwiper = new Swiper('.swiper-container', {
             freeMode : false,//是否一直滑动  false为一张张的滑
@@ -338,6 +340,7 @@ class Xdetail extends Component {
                 <div id="SizeColorChoose" style={{display:this.state.isShowChoose?"block":"none"}}>
                     {/*遮罩层*/}
                     <div className="maskChoose" onClick={this.isHideChoose.bind(this)}></div>
+                    {/*尺寸颜色选择内容*/}
                     <div className="ChooseContent" style={{bottom:this.state.SizeColorChooseBottom}}>
                         <div className="ContentTop">
                             <div className="topImg" onClick={this.props.ShowGalleryPic.bind(this)}>
@@ -427,6 +430,11 @@ class Xdetail extends Component {
                         <img src="https://bfs.biyao.com/group1/M00/3D/A7/rBACW1sjLWWAdKAnAADa5Y8O-Hc818.jpg"/>
                     </div>
                 </div>
+                {/*回到头部*/}
+                {/*<div id="detailToTop" style={{opacity:this.props.ToTopOpacity}}>*/}
+                    {/*<i className="iconfont icon-xiala"></i>*/}
+                {/*</div>*/}
+                <XtoTop />
                 <Xfooter />
             </div>
         );
@@ -453,11 +461,12 @@ export default connect((state) => {
                 gallertImg:allImgUrl
             })
         },
+        //高亮头部和显示回到顶部
         rollLightHeader:()=>{
             var goodsContent = document.getElementsByClassName("goodsContent")[0];
             var item = goodsContent.getElementsByClassName("ContentItem");
             var fatherTop = parseInt(window.scrollY);
-            console.log(item[1].offsetHeight)
+            // console.log(item[1].offsetHeight)
             for(let i=0;i<item.length;i++){
                 (function(i){
                     if(item[i].offsetTop - fatherTop <= 30 && item[i].offsetTop - fatherTop >= 0 ){
@@ -468,10 +477,17 @@ export default connect((state) => {
                     }
                 })(i)
             }
-            // dispatch({
-            //     type: 'lightHeader',
-            //     lightHeaderIdx:i
-            // })
+            // if(fatherTop >= window.innerHeight){
+            //     dispatch({
+            //         type: 'showToTop',
+            //         ToTopOpacity:1
+            //     })
+            // }else{
+            //     dispatch({
+            //         type: 'showToTop',
+            //         ToTopOpacity:0
+            //     })
+            // }
         }
     }
 })(Xdetail);
