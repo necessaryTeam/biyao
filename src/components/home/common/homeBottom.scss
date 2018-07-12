@@ -12,17 +12,17 @@
       flex-direction: column;
       height: 49px;
       justify-content:center;
+      color: #333;
+      text-decoration: none;
       i{
           font-size: 1.5rem;
         }
-      a{
+      p{
         margin-top: 3px;
-        color:gray;
-        text-decoration: none;
       }
-      .active{
-        color:#7F4395;
-      }
+    }
+    .active{
+      color:#7F4395;
     }
 
   }

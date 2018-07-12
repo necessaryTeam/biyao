@@ -16,11 +16,18 @@ class Xfenlei extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            idx: 0,
         };
         // console.log(this.props)
     }
+    componentWillMount(){
+        // console.log(this.props.location.state);
+        this.setState({
+            idx:this.props.location.state.idx,
+        })
+    }
     render() {
+        let bottomIdx = this.state.idx;
         return (
             <div className="fenlei">
                 <Fsearch />
@@ -28,7 +35,7 @@ class Xfenlei extends Component {
                     <Leftnav />
                     <RightContent />
                 </div>
-                <HomeBottom />
+                <HomeBottom idx = {bottomIdx} />
             </div>
         );
     }

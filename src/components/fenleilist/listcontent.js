@@ -22,7 +22,7 @@ class ListContent extends Component {
         // console.log(this.props)
     }
     getData(self){
-        console.log(self.props.url)
+        console.log(self.props.url,this.state.biao)
         var arr = [];
         $.ajax({
             type: "GET",

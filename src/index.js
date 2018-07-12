@@ -19,10 +19,7 @@ import Classify from './pages/classify/classify';
 import Fenlei from './pages/fenlei/fenlei';
 import ShopCar from './pages/shopCar/shopcar';
 import FenleiList from './pages/fenleilist/FenleiList';
-
-
-
-
+import ShopList from './pages/shopList/shoplist';
 
 
 
@@ -121,6 +118,7 @@ ReactDOM.render(
       <Route path="/fenlei" component={Fenlei}/>
       <Route path='/shopcar' component={ShopCar}/>
       <Route path='/fenleilist' component={FenleiList}/>
+      <Route path='/shoplist' component={ShopList}/>
   	</div>
   </Provider>
 </Router>

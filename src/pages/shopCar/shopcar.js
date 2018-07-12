@@ -6,8 +6,21 @@ import ShopCar from '../../components/shopCar/shopCarMain'
 import SettleMent from '../../components/shopCar/settleMent'
 
 export default class shopcar extends Component{
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            idx: 0,
+        };
+        // console.log(this.props)
+    }
+    // componentWillMount(){
+    //     // console.log(this.props.location.state);
+    //     this.setState({
+    //         idx:this.props.location.state.idx,
+    //     })
+    // }
     render(){
+        let shopBottomIdx = this.state.idx;
         return(
             <div style={{ display:'flex',flexDirection:'column',height:'100%'}}>
                 <div style={{ height:'42px' }}>
@@ -18,7 +31,7 @@ export default class shopcar extends Component{
                 </div>
                 <div style={{ height:'50px' }}>
                     {/*<SettleMent />*/}
-                    <HomeBottom/>
+                    <HomeBottom idx={shopBottomIdx}/>
                 </div>
             </div>
         )

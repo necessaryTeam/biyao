@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import {Link,hashHistory} from 'react-router-dom';
 
 import './homeBottom.scss'
 class HomeBottom extends Component {
@@ -6,10 +7,10 @@ class HomeBottom extends Component {
         super(props);
         this.state = {
             homeBottomItem:[
-                {name:'首页',icon:'iconfont icon-home-solid'},
-                {name:'分类',icon:'iconfont icon-fenlei'},
-                {name:'购物车',icon:'iconfont icon-gouwuche'},
-                {name:'我的',icon:'iconfont icon-wode'}
+                {name:'首页',icon:'iconfont icon-home-solid',url:'/'},
+                {name:'分类',icon:'iconfont icon-fenlei',url:'/fenlei'},
+                {name:'购物车',icon:'iconfont icon-gouwuche',url:'/shopcar'},
+                {name:'我的',icon:'iconfont icon-wode',url:'/'}
                 ],
             active:0
         }
@@ -21,17 +22,26 @@ class HomeBottom extends Component {
         active = index;
         this.setState({ active })
     }
+    componentWillMount(){
+        // console.log(this.props)
+        this.setState({
+            active: this.props.idx?this.props.idx:0,
+        })
+    }
 
     render(){
         const { homeBottomItem } = this.state;
         return(
             <div id='homeBottom'>
-                <ul className='homeBottom'>
+                <div className='homeBottom'>
                     {
                         homeBottomItem.map((item,index)=>
-                            <li key={ index }  className={ this.state.active === index?'active item':'item'} onClick={ (e)=>this.toActive(e,index)}><i className={ item.icon }></i><a className={ this.state.active === index?'active':''}>{ item.name }</a></li>)
+                            <Link to={{pathname:item.url,state:{idx:index}}} key={ index } className={ this.state.active === index?'active item':'item'}>
+                                <i className={ item.icon }></i><p>{ item.name }</p>
+                            </Link>
+                            )
                     }
-                </ul>
+                </div>
             </div>
 
         )

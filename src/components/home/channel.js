@@ -55,7 +55,7 @@ class Channel extends Component {
                         <a className="swiper-slide zactive" >推荐</a>
                         {(function (self){
                             return self.state.channelItem.map(function (item,idx){
-                                return <a href={'http://localhost:3000/classify?biao='+item.keyWord+'&index='+(idx+1)+'&keyClass='+item.first} className="swiper-slide" key={idx}>{item.name}</a>
+                                return <a href={'http://localhost:3000/classify?biao='+item.keyWord+'&index='+(idx)+'&keyClass='+item.first} className="swiper-slide" key={idx}>{item.name}</a>
                             })
                         })(this)}
                     </div>
