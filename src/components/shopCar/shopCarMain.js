@@ -20,76 +20,6 @@ export default connect((state) => {
         super(props);
         this.state = {
             item: [
-                {
-                    shopName: '1Blilin 家居用品',
-                    thisShopGoods:[
-                        {
-                            src: 'https://bfs.biyao.com/group1/M00/3C/CC/rBACVFspwZ6ACJbUAAGIbDkoOwA081_400x400.jpg',
-                            goodsName: '1含皂钢丝棉去污皂刷 懒人清洁神器 32块装',
-                            price: 59,
-                            sum: 1,
-                            goodsAll: '32片装'
-                        },
-                        {
-                            src: 'https://bfs.biyao.com/group1/M00/3C/CC/rBACVFspwZ6ACJbUAAGIbDkoOwA081_400x400.jpg',
-                            goodsName: '2含皂钢丝棉去污皂刷 懒人清洁神器 32块装',
-                            price: 59,
-                            sum: 1,
-                            goodsAll: '32片装'
-                        },
-                        {
-                            src: 'https://bfs.biyao.com/group1/M00/3C/CC/rBACVFspwZ6ACJbUAAGIbDkoOwA081_400x400.jpg',
-                            goodsName: '3含皂钢丝棉去污皂刷 懒人清洁神器 32块装',
-                            price: 59,
-                            sum: 1,
-                            goodsAll: '32片装'
-                        },
-                        {
-                            src: 'https://bfs.biyao.com/group1/M00/3C/CC/rBACVFspwZ6ACJbUAAGIbDkoOwA081_400x400.jpg',
-                            goodsName: '4含皂钢丝棉去污皂刷 懒人清洁神器 32块装',
-                            price: 59,
-                            sum: 1,
-                            goodsAll: '32片装'
-                        }
-                    ],
-                    thisStates:[],
-                    allSelect:false,
-                    showOperate:[],
-                    deleteState:[]
-                },
-                {
-                    shopName: '2Blilin 家居用品',
-                    thisShopGoods:[
-                        {
-                            src: 'https://bfs.biyao.com/group1/M00/3C/CC/rBACVFspwZ6ACJbUAAGIbDkoOwA081_400x400.jpg',
-                            goodsName: '含皂钢丝棉去污皂刷 懒人清洁神器 32块装',
-                            price: 59,
-                            sum: 1,
-                            goodsAll: '32片装'
-                        }
-                    ],
-                    thisStates:[],
-                    allSelect:false,
-                    showOperate:[],
-                    deleteState:[]
-
-                },
-                {
-                    shopName: '3Blilin 家居用品',
-                    thisShopGoods:[
-                        {
-                            src: 'https://bfs.biyao.com/group1/M00/3C/CC/rBACVFspwZ6ACJbUAAGIbDkoOwA081_400x400.jpg',
-                            goodsName: '含皂钢丝棉去污皂刷 懒人清洁神器 32块装',
-                            price: 59,
-                            sum: 1,
-                            goodsAll: '32片装'
-                        }
-                    ],
-                    thisStates:[],
-                    allSelect:false,
-                    showOperate:[],
-                    deleteState:[]
-                },
             ],
             currentIndexS: null,
             sumPrice:0,
@@ -112,16 +42,52 @@ export default connect((state) => {
 
     //初始化状态
     componentWillMount(){
+        let item1 = [],thisGoodsArr=[];
+        if(!window.localStorage){
+            console.log('不支持localStorage');
+        }else{
+            let storage = window.localStorage;
 
-        let { item } = this.state;
+            let itemArr = JSON.parse(storage.shopCar);
 
-        for(let key of item){
+            for(let i = 0;i < itemArr.length;i++){
+                // console.log(i+1)
+                if(i+1 < itemArr.length &&itemArr[i].id === itemArr[i+1].id){
+                    thisGoodsArr.push(itemArr[i],itemArr[i+1]);
+                    console.log([itemArr[i]])
+                    i+=1;
+                    continue
+                }else{
+                    thisGoodsArr.push(itemArr[i]);
+                }
+                item1.push(new NewItem(itemArr[i].name,thisGoodsArr,[],false,[],[]))
+                thisGoodsArr = [];
+            }
+
+            function NewItem(shopName,thisShopGoods,thisStates,allSelect,showOperate,deleteState) {
+                this.shopName = shopName;
+                this.thisShopGoods = thisShopGoods;
+                this.thisStates = thisStates;
+                this.allSelect = allSelect;
+                this.showOperate = showOperate;
+                this.deleteState = deleteState;
+            }
+        }
+
+        // let { item } = this.state;
+        // console.log(item1)
+
+        for(let key of item1){
             key.thisStates = key.thisShopGoods.map(()=>false);
             key.showOperate = key.thisShopGoods.map(()=>false);
             key.deleteState = key.thisShopGoods.map(()=>false);
         }
+        let { item } = this.state;
+        item = item1;
+        console.log(item)
 
         this.setState({ item })
+        // console.log(this.state.item)
 
     }
 
@@ -312,6 +278,7 @@ export default connect((state) => {
 
         this.cumputAllPrice();
         this.isGoodsAllSelect(e,index);
+        this.judgeAllAllSelect();
         this.setState({item})
     }
 
@@ -355,14 +322,14 @@ export default connect((state) => {
                                     </div>
                                     <div style={{float: 'left'}}>
                                         <div style={{width: '72px', float: 'left', border: '1px solid #eee', margin: '0 10px'}}>
-                                            <img src={goods.src} style={{width: '100%'}}/>
+                                            <img src={goods.pic} style={{width: '100%'}}/>
                                         </div>
-                                        <div style={{float: 'left', position: 'relative'}}>
+                                        <div style={{float: 'left', position: 'relative',height:'72px'}}>
                                             <h3 style={{
                                                 width: '220px',
                                                 overflow: 'hidden',
                                                 fontSize: '12px'
-                                            }}>{goods.goodsName}</h3>
+                                            }}>{goods.name}</h3>
                                             <div style={{padding: '10px 0'}}>
                                                 <p>{goods.goodsAll}</p>
                                                 <span style={{marginRight: '10px'}}>￥{goods.price}</span>
@@ -415,10 +382,10 @@ export default connect((state) => {
                                                     background: '#f33',
                                                     color: '#fff',
                                                     width: '50px',
-                                                    height: '100%',
+                                                    height: '100px',
                                                     textAlign: 'center',
                                                     position: 'absolute',
-                                                    right: '-30px'
+                                                    right: '-30px',
                                                 }} onClick={(e) => this.setDeleteState(e,index,index2) }>
                                                     <i className='iconfont icon-guanbi'></i>
                                                 </div>
