@@ -12,7 +12,7 @@ class Xheader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            headerList:["商品","评价","详细","推荐"]
+            headerList:[{title:"商品",id:"#commodity"},{title:"评价",id:"#comment"},{title:"详细",id:"#detail"},{title:"推荐",id:"#recommend"}]
         };
         // console.log(this.props)
     }
@@ -20,14 +20,15 @@ class Xheader extends Component {
         return (
             <div id="header">
                 <div className="back">
-                    <i className="iconfont icon-houtui"></i>
+                    <a href="http://localhost:3000/classify" style={{color:"#7D7D7D"}}><i className="iconfont icon-houtui"></i></a>
                 </div>
                 <div className="content">
                     <ul>
                         {
                             (function(self){
                                 return self.state.headerList.map(function(item,idx){
-                                    return <li key={idx} className={self.props.lightHeaderIdx==idx?"light":""}>{item}</li>
+                                    return <li key={idx}><a className={self.props.lightHeaderIdx==idx?"light":""}
+                                        href={item.id}>{item.title}</a></li>
                                 })
                             })(this)
                         }

@@ -42,7 +42,8 @@ const store = createStore((state = {
     fenleiIdx: 0,
     lightHeaderIdx:0,
     allPrice:0,
-    realAllSelect:false
+    realAllSelect:false,
+    ToTopOpacity:0
 }, action) => {
   const count = state.count
   switch (action.type) {
@@ -77,6 +78,10 @@ const store = createStore((state = {
       case 'lightHeader':
           return Object.assign({}, state, {
               lightHeaderIdx: action.lightHeaderIdx
+          });
+      case 'showToTop':
+          return Object.assign({}, state, {
+              ToTopOpacity: action.ToTopOpacity
           });
     default:
       return state
