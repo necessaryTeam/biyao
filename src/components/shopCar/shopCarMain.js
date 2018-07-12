@@ -173,14 +173,14 @@ export default connect((state) => {
         let { sumAllSelect } = this.state;
         let { item } = this.state;
         for(let key of item){
-            // console.log(key.allSelect)
             if(key.allSelect===false){
+                console.log('allSelect',key.allSelect)
                 sumAllSelect = false;
-            }else{
-                sumAllSelect = true;
+                break
             }
+            sumAllSelect = true;
         }
-        console.log(sumAllSelect)
+        console.log('sumAllSelect',sumAllSelect)
         this.setState({ sumAllSelect })
     }
     setDeleteState(e,index,index2){
@@ -210,20 +210,27 @@ export default connect((state) => {
         // console.log(sumPrice)
 
     }
-    //不全选
+    //单选
     selectSome(e,index,index2){
         let { item } = this.state;
         // let { sumPrice } = this.state;
         item[index].thisStates[index2] = !item[index].thisStates[index2];
-        if(item[index].thisStates[index2] === false){
-            item[index].allSelect = false;
+        // if(item[index].thisStates[index2] === false){
+        //     item[index].allSelect = false;
+        // }
+        for(let key of item[index].thisStates){
+            if(key===false){
+                item[index].allSelect = false;
+                break
+            }
+            item[index].allSelect = true;
         }
         // console.log(sumPrice)
         this.cumputAllPrice();
         this.judgeAllAllSelect();
         this.setState({ item });
-        console.log(item[index].allSelect)
-        console.log(item[index].thisStates)
+        // console.log(item[index].allSelect)
+        // console.log(item[index].thisStates)
     }
 
 
@@ -255,7 +262,6 @@ export default connect((state) => {
     //商品勾完全选onChange
     isGoodsAllSelect(e,index){
         let { item } = this.state;
-        console.log(index);
         if(item[index]!= null){
             for(let i = 0;i < item[index].thisStates.length;i++){
                 if(item[index].thisStates[i] === false ){
