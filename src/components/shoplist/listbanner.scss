@@ -1,0 +1,19 @@
+.listbanner{
+    .shopIntro{
+        display: block;
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+        padding-left: 15px;
+        color: #523568;
+        .icon-iconfont{
+            display: block;
+            font-size: 26px;
+            width: 30px;
+            float: right;
+        }
+    }
+    .lbannerImg{
+        width: 100%;
+    }
+}
