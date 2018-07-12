@@ -39,8 +39,8 @@ export default class homeSelectedTopic extends Component {
                         topicItem.map((item,index)=><li key={index}>
                             <a href=""><img src={item.src} style={{ width:'100%' }}/></a>
                             <div style={{ height:'67px',overflow:'hidden',padding:'10px' }}>
-                                <h3 style={{ fontSize:'18px',fontWeight:'normal',float:'left' }}>{item.name}</h3>
-                                <span style={{ float:'right',fontSize:'16px',color:'#F7A701' }}>
+                                <h3 style={{ fontSize:'14px',fontWeight:'normal',float:'left' }}>{item.name}</h3>
+                                <span style={{ float:'right',fontSize:'14px',color:'#F7A701' }}>
                             { item.price }
                         </span>
                             </div></li>)
