@@ -42,6 +42,8 @@ class Xdetail extends Component {
             addressBottom:"-45%",
             isShowSize:false,
             goodsName:"",
+            goodsId:"",
+            goodsKu:"",
             goodslook:"",
             goodsprice:"",
             goodsday:"",
@@ -81,6 +83,7 @@ class Xdetail extends Component {
                 classify.push(item[1]);
             }
         })
+        console.log(this)
         var self = this;
         $.ajax({
             url:"http://localhost:4000/detail",
@@ -110,6 +113,8 @@ class Xdetail extends Component {
                     goodsday:result[0].cycle,
                     detailImg:imgMore,
                     firstImg:firstPic,
+                    goodsId:result[0].id,
+                    goodsKu:classify[0],
                     goodsColor:color,
                     goodsSize:size,
                     chooseColor:color[0],
@@ -118,6 +123,41 @@ class Xdetail extends Component {
 
             }
         })
+
+        // 点击加入购物车 把数据存到local storage
+        var CarBtn = document.getElementsByClassName("CarBtn")[0];
+        CarBtn.onclick = ()=>{
+            var goodsArr = [];
+            var oldgoods = JSON.parse(window.localStorage.getItem("shopCar"));
+
+            var goodsObj = {};
+            goodsObj.id = this.state.goodsId;
+            goodsObj.ku = this.state.goodsKu;
+            goodsObj.name = this.state.goodsName;
+            goodsObj.pic = this.state.firstImg;
+            goodsObj.price = this.state.goodsprice;
+            goodsObj.color = this.state.chooseColor;
+            goodsObj.size = this.state.chooseSize;
+            goodsObj.sum = this.state.buyGoodsNum;
+            var isSum = 0;
+            if(oldgoods!==null){//如果不是空就循环判断里面的对象
+                oldgoods.forEach(function(item){
+                    if(item.id==goodsObj.id&&item.color==goodsObj.color&&item.size==goodsObj.size){//如果对象中，商品的id.颜色.尺寸都一样 就数量叠加 后重新加入新数组 就不把新点击的添加进去
+                        item.sum += goodsObj.sum
+                        goodsArr.push(item);
+                        isSum++;
+                    }else{//否者直接把对象加入新数组
+                        goodsArr.push(item)
+                    }
+                })
+
+            }
+            console.log(isSum)
+            if(isSum==0){
+                goodsArr.push(goodsObj)
+            }
+            window.localStorage.setItem("shopCar", JSON.stringify(goodsArr));
+        }
 
     }
     ShowAddress(){
