@@ -40,6 +40,7 @@ const store = createStore((state = {
     isShowGallery:false,
     gallertImg:[],
     fenleiIdx: 0,
+    lightHeaderIdx:0,
     allPrice:0,
     realAllSelect:false
 }, action) => {
@@ -73,6 +74,10 @@ const store = createStore((state = {
               isShowGallery: action.isShowGallery,
               gallertImg: action.gallertImg
           });
+      case 'lightHeader':
+          return Object.assign({}, state, {
+              lightHeaderIdx: action.lightHeaderIdx
+          });
     default:
       return state
   }
@@ -87,7 +92,6 @@ ReactDOM.render(
   		<Route exact path="/" component={Home}/>
         <Route path="/detail" component={Detail}/>
         <Route path="/classify" component={Classify}/>
-  		<Route path="/detail" component={Detail}/>
       <Route path="/fenlei" component={Fenlei}/>
       <Route path='/shopcar' component={ShopCar}/>
       <Route path='/fenleilist' component={FenleiList}/>

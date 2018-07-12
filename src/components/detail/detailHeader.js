@@ -12,7 +12,7 @@ class Xheader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            headerList:["商品","评价","详细","推荐"]
         };
         // console.log(this.props)
     }
@@ -24,10 +24,13 @@ class Xheader extends Component {
                 </div>
                 <div className="content">
                     <ul>
-                        <li>商品</li>
-                        <li>评价</li>
-                        <li>详细</li>
-                        <li>推荐</li>
+                        {
+                            (function(self){
+                                return self.state.headerList.map(function(item,idx){
+                                    return <li key={idx} className={self.props.lightHeaderIdx==idx?"light":""}>{item}</li>
+                                })
+                            })(this)
+                        }
                     </ul>
                 </div>
                 <div className="more">
@@ -38,4 +41,11 @@ class Xheader extends Component {
     }
 }
 
-export default Xheader;
+export default connect((state) => {
+    // 他把store的state全部放到该组件的props里面
+    return state
+}, (dispatch) => {
+    return {
+
+    }
+})(Xheader);

@@ -219,9 +219,8 @@ export default connect((state) => {
             item[index].allSelect = false;
         }
         // console.log(sumPrice)
-        this.judgeAllAllSelect();
-
         this.cumputAllPrice();
+        this.judgeAllAllSelect();
         this.setState({ item });
         console.log(item[index].allSelect)
         console.log(item[index].thisStates)
@@ -253,7 +252,7 @@ export default connect((state) => {
         this.setState({ item })
 
     }
-    //商品勾完全选
+    //商品勾完全选onChange
     isGoodsAllSelect(e,index){
         let { item } = this.state;
         console.log(index);
