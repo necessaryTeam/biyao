@@ -193,7 +193,7 @@ class Xclassify extends Component {
                                 {
                                     (function(self){
                                         return self.state.classTopItem.map(function(item,idx){
-                                            return  <li onClick={self.ShowAnother.bind(self,idx)} key={idx} data-id={item.let}><span className={self.state.keyWordNum==idx?"active":""}>{item.name}</span></li>
+                                            return  <li onClick={self.ShowAnother.bind(self,idx),self.ShowMoreClass.bind(self)} key={idx} data-id={item.let}><span className={self.state.keyWordNum==idx?"active":""}>{item.name}</span></li>
                                         })
                                     })(this)
                                 }
@@ -207,7 +207,7 @@ class Xclassify extends Component {
                                 (function(self){
                                     return self.state.goodsList.map(function(item,idx){
                                         return <li key={idx}>
-                                            <a>
+                                            <a href={"http://localhost:3000/detail?classify="+self.state.firstNav+"&id\="+item.id}>
                                                 <img src={item.bigPic}/>
                                                 <p className="goodsName">{item.name}</p>
                                                 <p className="goodsPrice"><span>￥</span>{item.price}</p>

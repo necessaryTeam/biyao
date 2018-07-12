@@ -19,39 +19,35 @@ class Xgallery extends Component {
         }
     }
     componentDidMount() {
-        var swiper = new Swiper('#swiperGallery', {
-            loop: true,
-            // pagination: {
-            //     el: '.swiper-pagination',
-            //     type:'fraction'
-            // },
-            autoplay: false
-
-        });
+        var mySwiper = new Swiper('.swiper-container', {
+            freeMode : false,//是否一直滑动  false为一张张的滑
+            freeModeMomentum : true,
+            loop:false,//是否无缝
+            observer:true,//修改swiper自己或子元素时，自动初始化swiper
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'fraction'
+            }
+        })
 
     }
     render() {
         return (
             <div className="D-gallery" onClick={this.props.hideGalleryPic.bind(this)} style={{display:this.props.isShowGallery?"block":"none"}}>
                 <div className="galleryImg">
-                    <div className="swiper-container" id="swiperGallery">
+                    <div className="swiper-container">
                         <div className="swiper-wrapper">
                             {
-                                (function(self){
-                                    return self.props.gallertImg.map(function(item,idx){
-                                        return <div className="swiper-slide"  key={idx}><img src={item}/></div>
-                                    })
-                                })(this)
+                            (function(self){
+                                return self.props.gallertImg.map(function(item,idx){
+                                    return <div className="swiper-slide"  key={idx}><img src={item}/></div>
+                                })
+                            })(this)
                             }
                         </div>
-                        {/*<div className="swiper-pagination"></div>*/}
+                        <div className="swiper-pagination galleryPage"></div>
                     </div>
-                    {/*<ReactSwipe className="carousel" swipeOptions={{continuous: false}}>*/}
-                        {/*{*/}
-                            {/*this.props.gallertImg.map((item,idx)=><div key={ idx }><a><img src={ item } style={{ width:'100%'}}/></a></div>)*/}
-                        {/*}*/}
 
-                    {/*</ReactSwipe>*/}
                 </div>
             </div>
         );

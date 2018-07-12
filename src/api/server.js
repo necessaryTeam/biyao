@@ -20,4 +20,19 @@ app.get('/home', function(req, res) {
 
 })
 
+app.get('/detail', function(req, res) {
+    res.append("Access-Control-Allow-Origin","*");
+    console.log(req.query);
+    // console.log(req.params);
+    var table = req.query.classify;
+    db.query(`SELECT * FROM ${table} WHERE ?`,{
+        // text:JSON.stringify(req.query.text)
+        id:req.query.id
+    },(results)=>{
+        res.send(results)
+    })
+    // res.send("hello")
+
+})
+
 app.listen(4000)

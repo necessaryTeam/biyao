@@ -19,86 +19,215 @@ class Xdetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            goodsImg:[
-                'https://bfs.biyao.com/group1/M00/40/F9/rBACYVs600OAUwLoAAFy9_S0GSE530.jpg',
-                'https://bfs.biyao.com/group1/M00/40/FF/rBACW1s600WANKQ2AAGFz1v14-M620.jpg',
-                'https://bfs.biyao.com/group1/M00/40/F9/rBACYVs600eAM6x5AAGHiTxdpEQ464.jpg',
-                'https://bfs.biyao.com/group1/M00/3F/48/rBACVFs600mATw28AAGLKxbWc6s276.jpg',
-                'https://bfs.biyao.com/group1/M00/3F/48/rBACVFs600qANtmvAAF585hNiNE564.jpg'],
+            goodsImg:[],
             comments:[{
                 name:"我是小谢谢谢jie",
                 content:"颜色很正，试了挺好合身，款式简单大方。"
             },{
                 name:"我不是小佳佳佳wen",
                 content:"谢谢很正，试了挺好合身，嘿嘿。"
+            },{
+                name:"我也不是小fu权权权",
+                content:"你们都很正，贼好看！！。"
             }],
+            buyGoodsNum:1,
+            chooseColorIdx:0,
+            chooseColor:"",
+            chooseSizeIdx:0,
+            chooseSize:"",
+            isShowChoose:false,
+            SizeColorChooseBottom:"-440px",
             isShowAddress:false,
             addressBottom:"-45%",
-            isShowSize:false
-
+            isShowSize:false,
+            goodsName:"",
+            goodslook:"",
+            goodsprice:"",
+            goodsday:"",
+            detailImg:[],
+            firstImg:"",
+            goodsColor:[],
+            goodsSize:[]
         };
         // console.log(this.props)
     }
     componentDidMount() {
-            // var swiperObj =  new Swiper('#swiper', {
-            //     loop: true,
-            //     pagination: {
-            //         el: '.swiper-pagination',
-            //         type:'fraction'
-            //     },
-            //     autoplay: false
-            // })
+        //图片展示使用swiper
+        var mySwiper = new Swiper('.swiper-container', {
+            freeMode : false,//是否一直滑动  false为一张张的滑
+            freeModeMomentum : true,
+            loop:false,//是否无缝
+            observer:true,//修改swiper自己或子元素时，自动初始化swiper
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'fraction'
+            }
+        })
+
+
+        //滚动高亮头
+        window.addEventListener('scroll',this.props.rollLightHeader)
+
+        //获取URL传来的参数
+        var classify = [];
+        var Url = this.props.location.search;
+        Url = Url.slice(1).split('&');
+
+        Url.forEach(function(item){
+            item = item.split("=")
+            if(item[0]=="classify"||item[0]=="id"){
+                classify.push(item[1]);
+            }
+        })
+        var self = this;
+        $.ajax({
+            url:"http://localhost:4000/detail",
+            data:{
+                classify:classify[0],
+                id:classify[1]
+            },
+            success(result){
+                console.log(result)
+                //获取展示的5张图片
+                var imgTop = result[0].imgsrc1;
+                imgTop = imgTop.split(',');
+                //获取详细展示的图片
+                var imgMore = result[0].imgsrc2;
+                imgMore = imgMore.split(',');
+                //获取选择尺寸颜色的第一张图片
+                var firstPic = result[0].imgsrc1.split(',')[0];
+                //获取该商品的颜色
+                var color = result[0].color.split(',');
+                //获取该商品的尺寸
+                var size = result[0].size.split(',');
+                self.setState({
+                    goodsImg:imgTop,
+                    goodsName:result[0].name,
+                    goodslook:result[0].jianjie,
+                    goodsprice:result[0].price,
+                    goodsday:result[0].cycle,
+                    detailImg:imgMore,
+                    firstImg:firstPic,
+                    goodsColor:color,
+                    goodsSize:size,
+                    chooseColor:color[0],
+                    chooseSize:size[0]
+                })
+
+            }
+        })
 
     }
     ShowAddress(){
         this.setState({
-            isShowAddress:true,
-            addressBottom:0
+            isShowAddress:true
         })
+        setTimeout(()=>{
+            this.setState({
+                addressBottom:0
+            })
+        },20)
     }
     HideAddress(){
         this.setState({
-            isShowAddress:false,
-            addressBottom:"-45%"
+            addressBottom:"-300px"
         })
+        setTimeout(()=>{
+            this.setState({
+                isShowAddress:false
+            })
+        },200)
     }
     ShowSize(){
         this.setState({
             isShowSize:!this.state.isShowSize
         })
     }
+    isShowChoose(){
+        this.setState({
+            isShowChoose:!this.state.isShowChoose
+        })
+        setTimeout(()=>{
+            this.setState({
+                SizeColorChooseBottom:"0"
+            })
+        },20)
+    }
+    isHideChoose(){
+        this.setState({
+            SizeColorChooseBottom:"-440px"
+        })
+        setTimeout(()=>{
+            this.setState({
+                isShowChoose:!this.state.isShowChoose
+            })
+        },200)
+    }
+    chooseLess(){
+        if(this.state.buyGoodsNum>1){
+            this.state.buyGoodsNum--;
+            this.setState({
+                buyGoodsNum:this.state.buyGoodsNum--
+            })
+        }
+
+    }
+    chooseMore(){
+        this.state.buyGoodsNum++;
+        this.setState({
+            buyGoodsNum:this.state.buyGoodsNum++
+        })
+    }
+    chooseColor(color,idx){
+        this.setState({
+            chooseColorIdx:idx,
+            chooseColor:color
+        })
+    }
+    chooseSize(size,idx){
+        this.setState({
+            chooseSizeIdx:idx,
+            chooseSize:size
+        })
+    }
+
     render() {
         return (
             <div id="detailPage">
                 <Xheader />
-                <div className="goodsContent">
+                {/*商品展示内容*/}
+                <div className="goodsContent" onScroll={this.props.rollLightHeader.bind(this)}>
                     {/*商品*/}
-                    <div id="commodity">
+                    <div id="commodity" className="ContentItem">
                         <div className="goodsImg" onClick={this.props.ShowGalleryPic.bind(this)}>
-                            {/*<div className="swiper-container" id="swiper">*/}
-                                <ReactSwipe className="carousel" swipeOptions={{continuous: false}}>
+                            <div className="swiper-container">
+                                <div className="swiper-wrapper">
                                     {
-                                        this.state.goodsImg.map((item,idx)=><div key={ idx }><a><img src={ item } style={{ width:'100%'}}/></a></div>)
+                                        (function(self){
+                                            return self.state.goodsImg.map(function(item,idx){
+                                                return <div className="swiper-slide"  key={idx}><img src={item} style={{ width:'100%'}}/></div>
+                                            })
+                                        })(this)
                                     }
-
-                                </ReactSwipe>
-                            {/*</div>*/}
+                                </div>
+                                <div className="swiper-pagination detailPagePic"></div>
+                            </div>
                         </div>
                         <div className="goodsMsg">
                             <div className="goodstitle">
-                                时尚树叶印花T恤一一叶轻舟
+                                {this.state.goodsName}
                             </div>
                             <div className="goodslook">
-                                这艘希望之船，是为你而来。
+                                {this.state.goodslook}
                             </div>
                             <div className="goods-price-day">
                                 <div className="goods-price">
                                     ￥
-                                    <span>169</span>
+                                    <span>{this.state.goodsprice}</span>
                                 </div>
                                 <div className="goods-day">
                                     <img src="https://static.biyao.com/m/img/base/produce_cycle.png?v=biyao_015ebc2"/>
-                                    <span>生产周期：7天</span>
+                                    <span>生产周期：{this.state.goodsday}天</span>
                                 </div>
                             </div>
                             <div className="goodsmaker">
@@ -127,9 +256,9 @@ class Xdetail extends Component {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="goodschoose">
+                            <div className="goodschoose" onClick={this.isShowChoose.bind(this)}>
                                 <div>
-                                    <span>已选择：&nbsp;</span>
+                                    <span>已选择：&nbsp;{this.state.chooseColor}， {this.state.chooseSize}， {this.state.buyGoodsNum}件</span>
                                 </div>
                                 <div className="more">
                                     <i className="iconfont icon-iconfont"></i>
@@ -155,7 +284,7 @@ class Xdetail extends Component {
                         </div>
                     </div>
                     {/*评论*/}
-                    <div id="comment">
+                    <div id="comment" className="ContentItem">
                         <div className="comment-title">
                             <span>评论</span>
                         </div>
@@ -181,18 +310,94 @@ class Xdetail extends Component {
                             <div className="more-comment">查看全部评论</div>
                         </div>
                     </div>
-                    <div id="detail">
+                    {/*详情*/}
+                    <div id="detail" className="ContentItem">
                         <div className="detail-title">
                             <span>详情</span>
                         </div>
+                        <div className="detail-pic">
+                            <ul>
+                                {
+                                    (function(self){
+                                        return self.state.detailImg.map(function(item,idx){
+                                            return <li key={idx}><img src={item}/></li>
+                                        })
+                                    })(this)
+                                }
+                            </ul>
+                        </div>
                     </div>
                     {/*推荐*/}
-                    <div id="recommend">
+                    <div id="recommend" className="ContentItem">
 
                     </div>
                 </div>
                 {/*图片展示*/}
                 <Gallery/>
+                {/*尺寸颜色选择*/}
+                <div id="SizeColorChoose" style={{display:this.state.isShowChoose?"block":"none"}}>
+                    {/*遮罩层*/}
+                    <div className="maskChoose" onClick={this.isHideChoose.bind(this)}></div>
+                    <div className="ChooseContent" style={{bottom:this.state.SizeColorChooseBottom}}>
+                        <div className="ContentTop">
+                            <div className="topImg" onClick={this.props.ShowGalleryPic.bind(this)}>
+                                <img src={this.state.firstImg} />
+                            </div>
+                            <div className="topContent">
+                                <div className="price"><span>￥</span>{this.state.goodsprice}</div>
+                                <div className="day">生产周期：{this.state.goodsday}天</div>
+                                <div className="choose">已选择：<span>{this.state.chooseColor}， {this.state.chooseSize}， {this.state.buyGoodsNum}件</span></div>
+                            </div>
+                            <div className="closeBtn"  onClick={this.isHideChoose.bind(this)}>
+                                <i className="iconfont icon-guanbi"></i>
+                            </div>
+                        </div>
+                        <div className="ChooseCenter">
+                            <div className="choose-color">
+                                <h3>颜色 <span>(已选：{this.state.chooseColor})</span> </h3>
+                                <ul className="colorList">
+                                    {
+                                        (function(self){
+                                            return self.state.goodsColor.map(function(item,idx){
+                                                return <li key={idx} className={self.state.chooseColorIdx==idx?"colorLight":""} onClick={self.chooseColor.bind(self,item,idx)}>{item}</li>
+                                            })
+                                        })(this)
+                                    }
+                                </ul>
+                            </div>
+                            <div className="choose-size">
+                                <h3>尺寸 <span>(已选：{this.state.chooseSize})</span> </h3>
+                                <ul className="sizeList">
+                                    {
+                                        (function(self){
+                                            return self.state.goodsSize.map(function(item,idx){
+                                                return <li key={idx} className={self.state.chooseSizeIdx==idx?"sizeLight":""} onClick={self.chooseSize.bind(self,item,idx)}>{item}</li>
+                                            })
+                                        })(this)
+                                    }
+                                </ul>
+                            </div>
+                            <div className="choose-num">
+                                <div className="buyNum">
+                                    <h3>购买数量</h3>
+                                </div>
+                                <div className="NumBtn">
+                                    <div className={this.state.buyGoodsNum==1?"btn lessBtn noLess":"btn lessBtn"} onClick={this.chooseLess.bind(this)}>-</div>
+                                    <div className="goodsNum">{this.state.buyGoodsNum}</div>
+                                    <div className="btn moreBtn" onClick={this.chooseMore.bind(this)}>+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="chooseBtn">
+                            <div className="CarBtn">
+                                加入购物车
+                            </div>
+                            <div className="BuyBtn">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {/*三级联动*/}
                 <div className="threeAddress" style={{display:this.state.isShowAddress?"block":"none"}}>
                     <div className="closeAddress" onClick={this.HideAddress.bind(this)}></div>
@@ -247,6 +452,26 @@ export default connect((state) => {
                 isShowGallery:true,
                 gallertImg:allImgUrl
             })
+        },
+        rollLightHeader:()=>{
+            var goodsContent = document.getElementsByClassName("goodsContent")[0];
+            var item = goodsContent.getElementsByClassName("ContentItem");
+            var fatherTop = parseInt(window.scrollY);
+            console.log(item[1].offsetHeight)
+            for(let i=0;i<item.length;i++){
+                (function(i){
+                    if(item[i].offsetTop - fatherTop <= 30 && item[i].offsetTop - fatherTop >= 0 ){
+                        dispatch({
+                            type: 'lightHeader',
+                            lightHeaderIdx:i
+                        })
+                    }
+                })(i)
+            }
+            // dispatch({
+            //     type: 'lightHeader',
+            //     lightHeaderIdx:i
+            // })
         }
     }
 })(Xdetail);
@@ -317,12 +542,3 @@ $(function($){
     })
 })
 
-//点击图片，获取展示的图片  给gallery子组件
-$(function($){
-    var allImgUrl =[];
-    $(".goodsImg").click(function(){
-
-
-    })
-
-})

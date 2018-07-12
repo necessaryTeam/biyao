@@ -6,12 +6,14 @@
     margin-top: 30px;
     flex:1;
     overflow-x: hidden;
+    .ContentItem{
+      position:relative;
+    }
     #commodity{
       .goodsImg{
         width: 100%;
         overflow: hidden;
-        #swiper{
-          .swiper-pagination{
+          .detailPagePic{
             position:absolute;
             right:0;
             left:auto;
@@ -26,7 +28,7 @@
             text-align: center;
             border-radius: 20px;
           }
-        }
+
       }
       .goodsMsg{
         padding-top:10px;
@@ -39,6 +41,7 @@
         }
         .goodslook{
           padding:0 10px;
+          color:#808080;
         }
         .goods-price-day{
           padding:0 10px;
@@ -191,6 +194,19 @@
         text-indent: 2em;
         color: #fff;
       }
+      .detail-pic{
+        padding:10px;
+        width: 100%;
+        ul{
+          width: 100%;
+          li{
+            width: 100%;
+            img{
+              width: 100%;
+            }
+          }
+        }
+      }
     }
     #recommend{
 
@@ -198,7 +214,198 @@
   }
 }
 
+//尺寸颜色选择
+#SizeColorChoose{
+  width: 100%;
+  height: 100%;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  background-color: rgba(0,0,0,.4);
+  z-index: 996;
+  .maskChoose{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
 
+  }
+  .ChooseContent{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 430px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 100;
+    transition: all 0.2s linear;
+    .ContentTop{
+      height: 100px;
+      width: 100%;
+      .topImg{
+        width: 110px;
+        height: 110px;
+        position: absolute;
+        top:-10px;
+        left:10px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .topContent{
+        margin-left:130px;
+        margin-top:15px;
+        >div{
+          margin:5px 0;
+        }
+        .price{
+          font-size: 16px;
+          color: #f33;
+          font-weight: bold;
+        }
+        .day{
+          color: gray;
+        }
+        .choose{
+          color: gray;
+          span{
+            color:#3E3E3E;
+          }
+        }
+      }
+      .closeBtn{
+        position:absolute;
+        right: 15px;
+        top:10px;
+        i{
+          font-size: 25px;
+        }
+      }
+    }
+    .ChooseCenter{
+      width: 100%;
+      padding:0 10px 10px 10px;
+      .choose-color{
+        padding-top: 20px;
+        border-top:1px solid #ddd;
+        h3{
+          span{
+            color: gray;
+            font-weight: normal;
+          }
+        }
+        .colorList{
+          padding-top:10px;
+          overflow: hidden;
+          li{
+            float:left;
+            height: 32px;
+            line-height: 32px;
+            padding: 0 20px;
+            margin-right: 4%;
+            margin-bottom:10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+          .colorLight{
+            color:#fff;
+            background-color: #7e4395;;
+          }
+        }
+      }
+      .choose-size{
+        padding-top:10px;
+        padding-bottom:10px;
+        border-bottom:1px solid #ddd;
+        h3{
+          span{
+            color: gray;
+            font-weight: normal;
+          }
+        }
+        .sizeList{
+          padding-top:10px;
+          overflow: hidden;
+          li{
+            float:left;
+            height: 32px;
+            line-height: 32px;
+            padding: 0 20px;
+            margin-right: 4%;
+            margin-bottom:10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+          .sizeLight{
+            color:#fff;
+            background-color: #7e4395;;
+          }
+        }
+      }
+      .choose-num{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding:10px 0;
+        .buyNum{
+          padding-top:5px;
+        }
+        .NumBtn{
+          display: flex;
+          height: 50px;
+          line-height: 50px;
+          .btn{
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            border:1px solid #eee;
+            background-color: #F4F4F4;
+            color:#525252;
+            font-size: 25px;
+            line-height: 20px;
+          }
+          .noLess{
+            color:#DEDEDE;
+          }
+          .goodsNum{
+            width: 40px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+          }
+        }
+      }
+    }
+    .chooseBtn{
+      height: 50px;
+      display: flex;
+      line-height: 50px;
+      position: absolute;
+      bottom:0;
+      left:0;
+      right:0;
+      div{
+        width: 50%;
+        text-align: center;
+        font-size: 15px;
+      }
+      .CarBtn{
+        color:#979797;
+        border-top:1px solid #eee;
+      }
+      .BuyBtn{
+        color:#fff;
+        background-color: #7E4395;
+      }
+    }
+  }
+}
 
 
 //尺码对照表
@@ -242,8 +449,7 @@
 #threeAddress{
   width: 100%;
   background-color: #fff;
-  //height: 300px;
-  height: 45%;
+  height: 300px;
   padding:10px;
   position: absolute;
   left:0;right:0;transition: all 0.2s linear;

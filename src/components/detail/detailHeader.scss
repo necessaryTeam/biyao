@@ -12,6 +12,7 @@
   justify-content: space-between;
   text-align: center;
   line-height: 30px;
+  box-shadow: 0 0 6px #dcc0de;
   .back{
     width: 10%;
     i {
@@ -28,6 +29,20 @@
       width: 100%;
       li{
         flex: 1;
+        position:relative;
+      }
+      .light{
+        color:#7E4395;
+      }
+      .light::before{
+        content:'';
+        background-image:url("https://static.biyao.com/m/img/product/dingwei.png?v=biyao_0dc5b9b");
+        background-size:15px 15px;
+        position: absolute;
+        top:7px;
+        left:3px;
+        width: 15px;
+        height: 15px;
       }
     }
   }
