@@ -48,21 +48,25 @@ export default connect((state) => {
         }else{
             let storage = window.localStorage;
 
-            let itemArr = JSON.parse(storage.shopCar);
+            console.log(storage)
+            if(storage.length > 0){
+                let itemArr = JSON.parse(storage.shopCar);
 
-            for(let i = 0;i < itemArr.length;i++){
-                // console.log(i+1)
-                if(i+1 < itemArr.length &&itemArr[i].id === itemArr[i+1].id){
-                    thisGoodsArr.push(itemArr[i],itemArr[i+1]);
-                    console.log([itemArr[i]])
-                    i+=1;
-                    continue
-                }else{
-                    thisGoodsArr.push(itemArr[i]);
+                console.log(itemArr);
+                for(let i = 0;i < itemArr.length;i++){
+                    // console.log(i+1)
+                    if(i+1 < itemArr.length &&itemArr[i].id === itemArr[i+1].id&&(itemArr[i].size!==itemArr[i+1].size||itemArr[i].color!==itemArr[i+1].color)){
+                        thisGoodsArr.push(itemArr[i]);
+                        console.log(itemArr[i].size)
+                        continue
+                    }else{
+                        thisGoodsArr.push(itemArr[i]);
+                    }
+                    item1.push(new NewItem(itemArr[i].brand,thisGoodsArr,[],false,[],[]))
+                    thisGoodsArr = [];
                 }
-                item1.push(new NewItem(itemArr[i].name,thisGoodsArr,[],false,[],[]))
-                thisGoodsArr = [];
             }
+
 
             function NewItem(shopName,thisShopGoods,thisStates,allSelect,showOperate,deleteState) {
                 this.shopName = shopName;
@@ -84,7 +88,7 @@ export default connect((state) => {
         }
         let { item } = this.state;
         item = item1;
-        console.log(item)
+        console.log(item1)
 
         this.setState({ item })
         // console.log(this.state.item)
@@ -267,6 +271,18 @@ export default connect((state) => {
     //删除item
     deleteItem(e, index,index2) {
         let {item} = this.state;
+
+        if(!window.localStorage){
+            console.log('不支持localStorage哦');
+        }else{
+            let storage = window.localStorage;
+            console.log(storage);
+            // storage.clear();
+            storage.removeItem(item[index].thisShopGoods[index2])
+            console.log(item[index].thisShopGoods[index2])
+        }
+
+
         item[index].deleteState.splice(index2,1);
         item[index].thisStates.splice(index2, 1);
         item[index].showOperate.splice(index2,1);
@@ -274,7 +290,7 @@ export default connect((state) => {
         if(item[index].thisShopGoods.length === 0 ){
             item.splice(index,1)
         }
-        console.log(index)
+
 
         this.cumputAllPrice();
         this.isGoodsAllSelect(e,index);
@@ -307,12 +323,10 @@ export default connect((state) => {
                         item.map((item, index) => <li key={index}>
                             <div style={{padding: '12px 0', borderBottom: '1px solid #eee'}}>
                                 <input type="checkbox" onClick={(e) => this.shopSelectAll(e,index)}  checked={ this.state.item[index].allSelect?'checked':''}/>
-                                <span>
                                 <i className='iconfont icon-dianpuguanli1'
                                    style={{color: '#7f4395', marginLeft: '10px'}}></i>
-                                <span style={{color: '#7f4395', marginRight: '10px'}}>{item.shopName}</span>
+                                <span style={{color: '#7f4395', marginRight: '10px',width:'70%',overflow:'hidden'}}>{item.shopName}</span>
                                 <i className='iconfont icon-iconfont'></i>
-                            </span>
                                 <span style={{float: 'right'}} onClick={(e) => this.isShowOperate(e,index,this.state.item[index].thisShopGoods)}>编辑</span>
                             </div>
                             {
@@ -332,8 +346,13 @@ export default connect((state) => {
                                             }}>{goods.name}</h3>
                                             <div style={{padding: '10px 0'}}>
                                                 <p>{goods.goodsAll}</p>
-                                                <span style={{marginRight: '10px'}}>￥{goods.price}</span>
-                                                <span>x {goods.sum}</span>
+                                                <div style={{ marginBottom:'5px'}}>
+                                                    <span style={{ marginRight:'10px'}}>{goods.size}</span>
+                                                    <span>{goods.color}</span>
+                                                </div>
+                                                <span style={{marginRight: '10px',color:'#f33'}}>￥{goods.price}</span>
+                                                <span >x {goods.sum}</span>
+
                                             </div>
                                             <div style={{
                                                 position: 'absolute',

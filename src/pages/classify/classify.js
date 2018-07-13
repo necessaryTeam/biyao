@@ -21,7 +21,6 @@ class Xclassify extends Component {
         super(props);
         this.state = {
             classTopItem: [
-            {name:'推荐',keyWord:[]},
             {name:'经典男装',let:'man',keyWord:[{Name:'男士内搭',keyClass:'neida'},{Name:'男士外套',keyClass:'coat'},{Name:'男士下装',keyClass:'kuzi'}]},
             {name:'潮流女装',let:'girl',keyWord:[{Name:'女裙',keyClass:'qunzi'},{Name:'女士上装',keyClass:'shangyi'},{Name:'女士下装',keyClass:'xiazhuang'},{Name:'特色女装',keyClass:'tese'}]},
             {name:'光学眼镜',let:'yanjing',keyWord:[{Name:'近视眼镜',keyClass:'jsyj'},{Name:'太阳镜',keyClass:'tyj'},{Name:'老花镜',keyClass:'jsyj'},{Name:'防蓝光护目镜',keyClass:'tyj'},{Name:'运动眼镜',keyClass:'jsyj'},{Name:'儿童眼镜',keyClass:'tyj'}]},
@@ -177,6 +176,7 @@ class Xclassify extends Component {
                         <div className="firstNav">
                             <div className="topNav">
                                 <ul>
+                                    <li><a href="http://localhost:3000/"><span>推荐</span></a></li>
                                     {
                                         (function(self){
                                             return self.state.classTopItem.map(function(item,idx){
