@@ -20,6 +20,8 @@ import Fenlei from './pages/fenlei/fenlei';
 import ShopCar from './pages/shopCar/shopcar';
 import FenleiList from './pages/fenleilist/FenleiList';
 import ShopList from './pages/shopList/shoplist';
+import Jingxuan from './pages/jingxuan/jingxuan';
+
 
 
 
@@ -121,6 +123,7 @@ ReactDOM.render(
       <Route path='/shopcar' component={ShopCar}/>
       <Route path='/fenleilist' component={FenleiList}/>
       <Route path='/shoplist' component={ShopList}/>
+      <Route path='/jingxuan' component={Jingxuan}/>
   	</div>
   </Provider>
 </Router>

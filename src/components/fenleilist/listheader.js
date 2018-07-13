@@ -14,7 +14,6 @@ class ListHeader extends Component {
         this.state = {
             title: this.props.name,
         };
-        // console.log(this.props)
     }
     // upDateTitle(){
     //     this.setState({
@@ -23,7 +22,8 @@ class ListHeader extends Component {
     // }
     componentWillMount(){
         // this.upDateTitle();
-        console.log(this)
+        // console.log(this)
+        // console.log(this.props)
     }
     render() {
         return (

@@ -30,10 +30,10 @@ class Xhome extends Component {
     render() {
         return (
             <div style={{ display:'flex',flexDirection:'column',height:'100%'}}>
-                <div style={{ height:'40px'}}>
+                <div style={{ height:'70px'}}>
                     <HomeSearch />
+                    <Channel />
                 </div>
-                <Channel />
                 <div className="zhomeCenter" style={{ flex:1,overflowX:'hidden' }}>
                     <HomeCarousel />
                     <HomeGuarantee_g />
