@@ -23,7 +23,7 @@ class HomeBottom extends Component {
         this.setState({ active })
     }
     componentWillMount(){
-        // console.log(this.props)
+        // console.log('zjw'+this.props.idx)
         this.setState({
             active: this.props.idx?this.props.idx:0,
         })

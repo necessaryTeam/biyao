@@ -13,12 +13,12 @@ export default class shopcar extends Component{
         };
         // console.log(this.props)
     }
-    // componentWillMount(){
-    //     // console.log(this.props.location.state);
-    //     this.setState({
-    //         idx:this.props.location.state.idx,
-    //     })
-    // }
+    componentWillMount(){
+        // console.log(this.props.location.state);
+        this.setState({
+            idx:this.props.location.state.idx,
+        })
+    }
     render(){
         let shopBottomIdx = this.state.idx;
         return(
