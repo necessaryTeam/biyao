@@ -23,7 +23,9 @@ export default connect((state) => {
             ],
             currentIndexS: null,
             sumPrice:0,
-            sumAllSelect:false
+            sumAllSelect:false,
+            showToSelectGoods:false
+
         }
         this.isShowOperate = this.isShowOperate.bind(this);
         this.addItem = this.addItem.bind(this);
@@ -37,6 +39,7 @@ export default connect((state) => {
         this.cumputAllPrice = this.cumputAllPrice.bind(this);
         this.allSelectY = this.allSelectY.bind(this);
         this.judgeAllAllSelect = this.judgeAllAllSelect.bind(this);
+        this.checkOut = this.checkOut.bind(this);
     }
 
 
@@ -98,6 +101,36 @@ export default connect((state) => {
     // componentWillReceiveProps(){
     //     this.allSelectY()
     // }
+    checkOut(){
+        let { item } = this.state;
+        let isTrue,{ showToSelectGoods } = this.state;
+
+        loop1:for(let key1 of item){
+            console.log(key1.thisStates)
+            for(let key2 of key1.thisStates){
+                if(key2){
+                    isTrue = false;
+                    break loop1
+                }
+            }
+            isTrue = true;
+        }
+        showToSelectGoods = isTrue;
+
+
+
+
+
+        console.log(showToSelectGoods)
+
+        this.setState({ showToSelectGoods })
+        setTimeout(()=>{
+            showToSelectGoods = false;
+            this.setState({ showToSelectGoods })
+        },3000)
+
+
+    }
     allSelectY(){
         // console.log(666)
         const {item} = this.state;
@@ -442,6 +475,22 @@ export default connect((state) => {
                                             </div>
                                         </div>
                                     </div>
+                                    <div style={{
+                                        position:'absolute',
+                                        left:'50%',
+                                        top:'50%',
+                                        transform:'translate(-50%,-50%)',
+                                        width:'150px',
+                                        height:'40px',
+                                        background:'rgba(127,127,127,.6)',
+                                        display:this.state.showToSelectGoods?'block':'none',
+                                        textAlign:'center',
+                                        lineHeight:'40px',
+                                        zIndex:'9999',
+                                        color:'#fff'
+                                    }}>
+                                        请选择要结算的商品
+                                    </div>
                                 </div>)
                             }
                         </li>)
@@ -462,7 +511,7 @@ export default connect((state) => {
                             padding:'0 18px',
                             height:'32px',
                             marginLeft:'5px'
-                        }}>去结算</button>
+                        }}  onClick={ this.checkOut }>去结算</button>
                     </div>
                 </div>
             </div>
