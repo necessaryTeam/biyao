@@ -1,4 +1,4 @@
-#login{ height: 667px;margin: 0 auto; padding:0; width: 100%; display: flex; flex-direction: column;}
+#login{ height: 667px;margin: 0 auto; padding:0; width: 100%; display: flex; flex-direction: column;
 .dn{display: none;}
 .title{
    
@@ -6,21 +6,26 @@
   font-size:16px;
   line-height: 42px;
   display: flex;
+  color:green;
   a{flex:1;text-indent: 10px;  font-size:0.32rem;};
   span{flex:1;text-align: center;  };
 
 }
-#contents{
+#mycontents{
     flex: 1;
     background: #f5f5f5;
     font-size: 0.32rem;
     padding:15% 5%;
     label{background: #f5f5f5;
         position: relative;
-        width: 100%;
+        display: block;
+        width:100%;
+        height: 6%;
+        
         border-bottom: 1px solid #ccc;
         input{border: 0;background: #f5f5f5; 
-        width: 60%;
+        width: 80%;
+        
         }
         span{display: inline-block;width: 100px;}
         .dn{width:20px;position: absolute; right:100px;top:0px;}
@@ -58,4 +63,4 @@
     
 }
 
-
+}

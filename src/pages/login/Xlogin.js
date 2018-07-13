@@ -92,7 +92,7 @@ class Xlogin extends Component {
 					<span className="register"></span>
 				</div>
 
-				<div id="contents">
+				<div id="mycontents">
 					<label for=""><input type="text"  placeholder="请输入手机号" className="username"  maxlength="11" onChange={this.handChange}/></label>
 					<label for=""><input type={this.state.style}  placeholder="请输入密码" className="password" onChange={this.psd}/>
 					<span className="dn" onClick={this.hidden} style={{display:this.state.xshow?"block":"none"}}>x</span><span  onClick={this.see} id="see">可见</span></label>

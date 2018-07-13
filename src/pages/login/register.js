@@ -104,8 +104,8 @@ class Register extends Component {
 				<div className="content">
 					<label for=""><input type="tel" id="username" placeholder="请输入手机号" name="username" maxlength="11" onChange={this.handChange}/></label>
 					<label for="">
-								<input name="img-code" autocomplete="off" id="img-code" maxlength="4" placeholder="请输入图中验证码" onChange={this.matchtext}/>
-								<span id="v_container" style={{width: "80px",height: "20px"}}></span><span id="renew">刷新</span>
+								<input name="img-code" autocomplete="off" id="img-code" maxlength="4" placeholder="请输入图中验证码" onChange={this.matchtext}/><span>验证</span>
+								<span id="v_container" style={{width: "80px",height: "30px"}}></span><span id="renew">刷新</span>
 					</label>
 					<label for=""><input type="tel" id="message-code" autocomplete="new-password" maxlength="6" placeholder="请输入短信验证码"/><span>获取验证码</span></label>
 					<label for=""><input type="password" id="pdw" autocomplete="new-password" 
