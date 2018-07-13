@@ -24,7 +24,7 @@ export default connect((state) => {
             currentIndexS: null,
             sumPrice:0,
             sumAllSelect:false,
-            showToSelectGoods:false
+            showToSelectGoods:false,
         }
         this.isShowOperate = this.isShowOperate.bind(this);
         this.addItem = this.addItem.bind(this);
@@ -64,19 +64,20 @@ export default connect((state) => {
                     }else{
                         thisGoodsArr.push(itemArr[i]);
                     }
-                    item1.push(new NewItem(itemArr[i].brand,thisGoodsArr,[],false,[],[]))
+                    item1.push(new NewItem(itemArr[i].brand,thisGoodsArr,[],false,[],[],false))
                     thisGoodsArr = [];
                 }
             }
 
 
-            function NewItem(shopName,thisShopGoods,thisStates,allSelect,showOperate,deleteState) {
+            function NewItem(shopName,thisShopGoods,thisStates,allSelect,showOperate,deleteState,completeOrEdit) {
                 this.shopName = shopName;
                 this.thisShopGoods = thisShopGoods;
                 this.thisStates = thisStates;
                 this.allSelect = allSelect;
                 this.showOperate = showOperate;
                 this.deleteState = deleteState;
+                this.completeOrEdit = completeOrEdit;
             }
         }
 
@@ -281,26 +282,27 @@ export default connect((state) => {
     isShowOperate(e, index,arr) {
         console.log(e.target.innerHTML)
         let { item } = this.state;
+        let { completeOrEdit } = this.state;
         let {currentIndexS} = this.state;
         currentIndexS = index;
         console.log(currentIndexS)
+         item[index].completeOrEdit = !item[index].completeOrEdit;
 
         for(let index2 = 0;index2 < arr.length ;index2++)
         {
             item[index].showOperate[index2] = !item[index].showOperate[index2];
-            if (e.target.tagName === 'SPAN' && item[index].showOperate[index2] === true) {
-                e.target.innerHTML = '完成';
-            } else if (e.target.tagName === 'SPAN' && item[index].showOperate[index2] === false) {
-                e.target.innerHTML = '编辑';
+            if (item[index].showOperate[index2] === false) {
+                console.log('保存localstorage')
                 if(!window.localStorage){
                     console.log('不支持localStorage哦');
                 }else{
                     let itemArr,storage = window.localStorage;
                     itemArr = JSON.parse(storage.shopCar);
 
-                    for(let i=0;i<itemArr.length && i< item[index].thisShopGoods.length;i++){
+                    //判断两个物品属性是否相等
+                    for(let i=0;i<itemArr.length;i++){
+                        console.log(i)
                         if(itemArr[i].id === item[index].thisShopGoods[index2].id&&itemArr[i].color === item[index].thisShopGoods[index2].color&&itemArr[i].size === item[index].thisShopGoods[index2].size){
-                            console.log(item[index].thisShopGoods[index2].sum)
                             itemArr[i].sum = item[index].thisShopGoods[index2].sum;
                         }
                     }
@@ -325,13 +327,14 @@ export default connect((state) => {
         if(!window.localStorage){
             console.log('不支持localStorage哦');
         }else{
+
             let itemArr,storage = window.localStorage;
             itemArr = JSON.parse(storage.shopCar);
 
-            for(let i=0;i<itemArr.length && i< item[index].thisShopGoods.length;i++){
+            for(let i=0;i<itemArr.length;i++){
                 if(itemArr[i].id === item[index].thisShopGoods[index2].id&&itemArr[i].color === item[index].thisShopGoods[index2].color&&itemArr[i].size === item[index].thisShopGoods[index2].size){
-                    console.log(item[index].thisShopGoods[index2])
-                    itemArr.splice(i,1)
+                    itemArr.splice(i,1);
+
                 }
             }
             storage.clear();
@@ -383,7 +386,7 @@ export default connect((state) => {
                                    style={{color: '#7f4395', marginLeft: '10px'}}></i>
                                 <span style={{color: '#7f4395', marginRight: '10px',width:'70%',overflow:'hidden'}}>{item.shopName}</span>
                                 <i className='iconfont icon-iconfont'></i>
-                                <span style={{float: 'right'}} onClick={(e) => this.isShowOperate(e,index,this.state.item[index].thisShopGoods)}>编辑</span>
+                                <span style={{float: 'right'}} onClick={(e) => this.isShowOperate(e,index,this.state.item[index].thisShopGoods)}>{this.state.item[index].completeOrEdit?'完成':'编辑'}</span>
                             </div>
                             {
                                 item.thisShopGoods.map((goods,index2)=><div style={{overflow: 'hidden', height: '100px', padding: '12px 0'}} key={ index2 }>
@@ -394,7 +397,7 @@ export default connect((state) => {
                                         <div style={{width: '72px', float: 'left', border: '1px solid #eee', margin: '0 10px'}}>
                                             <img src={goods.pic} style={{width: '100%'}}/>
                                         </div>
-                                        <div style={{float: 'left', position: 'relative',height:'72px'}}>
+                                        <div style={{float: 'left', position: 'relative',height:'88px'}}>
                                             <h3 style={{
                                                 width: '220px',
                                                 overflow: 'hidden',
@@ -457,10 +460,11 @@ export default connect((state) => {
                                                     background: '#f33',
                                                     color: '#fff',
                                                     width: '50px',
-                                                    height: '100px',
+                                                    height: '98px',
                                                     textAlign: 'center',
                                                     position: 'absolute',
                                                     right: '-30px',
+                                                    top:'-11px'
                                                 }} onClick={(e) => this.setDeleteState(e,index,index2) }>
                                                     <i className='iconfont icon-guanbi'></i>
                                                 </div>
