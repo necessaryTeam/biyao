@@ -36,7 +36,6 @@ class XdetailStore2 extends Component {
                 success(result){
                     var storeName = result[0].brand;
                     var storeGoodsSum = result.length;
-                    console.log(storeName,storeGoodsSum)
                     //获取第一张图片
                     var newArr = [];
                     result.forEach(function(item){
@@ -50,7 +49,6 @@ class XdetailStore2 extends Component {
                         storeGoodsSum:storeGoodsSum,
                         storeName:storeName
                     })
-                    console.log(newArr)
                 }
             })
         }
