@@ -56,7 +56,8 @@ class Xdetail extends Component {
         // console.log(this.props)
     }
     componentDidMount() {
-
+        console.log(document.getElementsByClassName("swiper-pagination-current")[0])
+        console.log(document.getElementsByClassName("swiper-pagination-current")[1])
         //图片展示使用swiper
         var mySwiper = new Swiper('.swiper-container', {
             freeMode : false,//是否一直滑动  false为一张张的滑
@@ -76,6 +77,7 @@ class Xdetail extends Component {
         //获取URL传来的参数
         var classify = [];
         var Url = this.props.location.search;
+
         Url = Url.slice(1).split('&');
 
         Url.forEach(function(item){
@@ -133,9 +135,10 @@ class Xdetail extends Component {
         function setLocal(self){
             var goodsArr = [];
             var oldgoods = JSON.parse(window.localStorage.getItem("shopCar"));
-
+            var goodsUrl = window.location.href;
             var goodsObj = {};
             goodsObj.id = self.state.goodsId;
+            goodsObj.url = goodsUrl;
             goodsObj.ku = self.state.goodsKu;
             goodsObj.brand = self.state.goodsBrand;
             goodsObj.name = self.state.goodsName;
@@ -504,12 +507,13 @@ export default connect((state) => {
                 var url = $(item).attr("src")
                 allImgUrl.push(url)
             });
-            // allImgUrl = allImgUrl.slice(1,allImgUrl.length-1);
-            console.log(allImgUrl);
+            var showNum = document.getElementsByClassName("swiper-pagination-current")[0].innerHTML;
+            console.log(showNum)
             dispatch({
                 type: 'showGallery',
                 isShowGallery:true,
-                gallertImg:allImgUrl
+                gallertImg:allImgUrl,
+                showGalleryNum:(showNum-1)
             })
         },
         //高亮头部和显示回到顶部

@@ -19,16 +19,19 @@ class Xgallery extends Component {
         }
     }
     componentDidMount() {
+        var self = this;
         var mySwiper = new Swiper('.swiper-container', {
             freeMode : false,//是否一直滑动  false为一张张的滑
             freeModeMomentum : true,
             loop:false,//是否无缝
             observer:true,//修改swiper自己或子元素时，自动初始化swiper
+            initialSlide :self.props.showGalleryNum,//显示点击时的那样图片
             pagination: {
                 el: '.swiper-pagination',
                 type: 'fraction'
             }
         })
+        console.log(self.props.showGalleryNum)
 
     }
     render() {

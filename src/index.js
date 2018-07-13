@@ -36,6 +36,7 @@ const store = createStore((state = {
     count: 0,
     isShowGallery:false,
     gallertImg:[],
+    showGalleryNum:1,
     fenleiIdx: 0,
     lightHeaderIdx:0,
     allPrice:0,
@@ -73,7 +74,8 @@ const store = createStore((state = {
       case 'showGallery':
           return Object.assign({}, state, {
               isShowGallery: action.isShowGallery,
-              gallertImg: action.gallertImg
+              gallertImg: action.gallertImg,
+              showGalleryNum:action.showGalleryNum
           });
       case 'lightHeader':
           return Object.assign({}, state, {
