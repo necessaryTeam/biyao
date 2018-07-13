@@ -20,15 +20,12 @@ import Fenlei from './pages/fenlei/fenlei';
 import ShopCar from './pages/shopCar/shopcar';
 import FenleiList from './pages/fenleilist/FenleiList';
 import ShopList from './pages/shopList/shoplist';
-<<<<<<< HEAD
 import Jingxuan from './pages/jingxuan/jingxuan';
 
-=======
 import Login from './pages/login/Xlogin';
 import Tellogin from './pages/login/tellogin';
 import Register from './pages/login/register';
 import personal from './pages/login/personal'
->>>>>>> 516c916da8e53f6d0b51d7f4eb7109b15132652f
 
 
 
