@@ -1,2 +1,5 @@
 所用到的模块package.json中都有，直接cnpm install即可，
-为了能正常使用node-sass和sass-loader，请先修改node_modules/react-scripts(前面有小箭头图标)/config/文件夹下的webpack.config.dev.js和webpack.config.prod.js,给两个文件添加相应代码，详见pic1和pic2图片。
+为了能正常使用node-sass和sass-loader，请先修改node_modules/react-scripts(前面有小箭头图标)/config/文件夹下的
+webpack.config.dev.js和webpack.config.prod.js,给两个文件添加相应代码，详见pic1和pic2图片。
+数据库用的mysql,用node的mysql和express模块写的后端，
+在src/api文件夹中运行node server运行即可。
