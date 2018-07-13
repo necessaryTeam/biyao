@@ -102,7 +102,7 @@ class Register extends Component {
 				$("#imgcode")[0].focus();
 				$("#notice").html(`验证码不正确,请重新输入`)
 			}
-    		
+    	
     	})
     	
   
