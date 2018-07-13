@@ -10,7 +10,7 @@ class HomeBottom extends Component {
                 {name:'首页',icon:'iconfont icon-home-solid',url:'/'},
                 {name:'分类',icon:'iconfont icon-fenlei',url:'/fenlei'},
                 {name:'购物车',icon:'iconfont icon-gouwuche',url:'/shopcar'},
-                {name:'我的',icon:'iconfont icon-wode',url:'/'}
+                {name:'我的',icon:'iconfont icon-wode',url:'/login'}
                 ],
             active:0
         }
