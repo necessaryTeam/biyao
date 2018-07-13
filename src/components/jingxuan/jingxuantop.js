@@ -17,7 +17,7 @@ export default class JingxuanTop extends Component{
     render(){
         return (
                 <div className="jingxuanTop">
-                    <img className="jingxuanTopImg" src={this.state.imgSrc} />
+                    <img className="jingxuanTopImg" src={this.state.imgSrc} alt="" />
                     <div className="jingxuanTopText">
                         <p className="textTitle">{this.state.topName}</p>
                         <div className="textContent" dangerouslySetInnerHTML={{__html: this.state.text}}></div>

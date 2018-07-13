@@ -8,7 +8,6 @@ import '../../static/css/swiper.min.css';
 import $ from 'jquery';
 //引入Swiper
 import Swiper from 'swiper'
-import ReactSwipe from 'react-swipe';
 // 组件 
 import Xfooter from '../../components/detail/detailFooter'
 import Xheader from '../../components/detail/detailHeader'

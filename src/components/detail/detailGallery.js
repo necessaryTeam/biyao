@@ -8,7 +8,6 @@ import '../../static/css/swiper.min.css';
 import $ from 'jquery';
 //引入Swiper
 import Swiper from 'swiper'
-import ReactSwipe from 'react-swipe';
 
 
 class Xgallery extends Component {

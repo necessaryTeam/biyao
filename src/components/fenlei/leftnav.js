@@ -16,7 +16,7 @@ class Leftnav extends Component {
         // console.log(this.props)
     }
     componentDidMount() {
-        var swiper =  new Swiper('.swiper-container', {
+        var Myswiper =  new Swiper('.swiper-container', {
             direction: 'vertical',
             freeMode: true,
             slidesPerView: 7,

@@ -11,7 +11,6 @@ import JingxuanToTop from '../../components/toTop/toTop';
 export default class ShopList extends Component{
     constructor(props){
         super(props);
-        var self = this;
         this.state = {
             jxBottomData:[
                 {
