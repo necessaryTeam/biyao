@@ -16,6 +16,8 @@ import HomeGuarantee_g from '../../components/home/homeGuarantee_g'
 import HomeOperate_g from '../../components/home/homeOperate_g'
 import HomeSelectedTopic from '../../components/home/homeSelectedTopic'
 import HomeCommend_info from '../../components/home/homeCommend_info'
+import ToTop from '../../components/toTop/hometotop'
+
 
 class Xhome extends Component {
     constructor(props) {
@@ -32,12 +34,13 @@ class Xhome extends Component {
                     <HomeSearch />
                 </div>
                 <Channel />
-                <div style={{ flex:1,overflowX:'hidden' }}>
+                <div className="zhomeCenter" style={{ flex:1,overflowX:'hidden' }}>
                     <HomeCarousel />
                     <HomeGuarantee_g />
                     <HomeOperate_g />
                     <HomeSelectedTopic />
                     <HomeCommend_info />
+                    <ToTop />
                 </div>
                 <div style={{ height:'50px'}}>
                     <HomeBottom/>

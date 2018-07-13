@@ -4,6 +4,7 @@ import React,{ Component } from 'react';
 import ListHeader from '../../components/fenleilist/listheader'
 import ListContent from '../../components/fenleilist/listcontent'
 import ListBanner from '../../components/shoplist/listbanner'
+import ToTop from '../../components/toTop/hometotop'
 
 
 export default class ShopList extends Component{
@@ -42,10 +43,13 @@ export default class ShopList extends Component{
         let shopName = this.state.title;
         let shopPic = this.state.imgSrc;
         return (
-            <div className="shoplist">
+            <div className="shoplist" style={{display:'flex',flexDirection:'column',height:'100%'}}>
                 <ListHeader name={shopName} />
-                <ListBanner name={shopName} shopImg={shopPic} />
-                <ListContent url={shopListData}/>
+                <div className="shoplistContent zhomeCenter" style={{flex:1,overflowX: 'hidden',}}>
+                    <ListBanner name={shopName} shopImg={shopPic} />
+                    <ListContent url={shopListData}/>
+                    <ToTop />
+                </div>
             </div>
             )
     }

@@ -8,7 +8,7 @@ import './toTop.scss';
 
 
 
-class XtoTop extends Component {
+class HomeToTop extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,18 +17,18 @@ class XtoTop extends Component {
         // console.log(this.props)
     }
     componentDidMount(){
-        console.log(window)
-        window.addEventListener('scroll',this.props.rollToTop)
+        var curBox = document.querySelector('.zhomeCenter')
+        curBox.addEventListener('scroll',this.props.rollToTop)
         //回到头部
         document.querySelector("#ToTop").onclick=function(){
             var time = setInterval(function(){
-                var scrollY = window.scrollY;
+                var scrollY = curBox.scrollTop;
                 var speed = scrollY/5;
-                window.scrollBy(0,-speed)
+                curBox.scrollBy(0,-speed)
 
-                if(window.scrollY<=0 || speed<2){
+                if(curBox.scrollTop<=0 || speed<2){
                     clearInterval(time);
-                    window.scrollTo(0,0);
+                    curBox.scrollTo(0,0);
                 }
 
             },20)
@@ -50,7 +50,8 @@ export default connect((state) => {
     return {
             // 回到顶部
         rollToTop:()=>{
-            var fatherTop = parseInt(window.scrollY);
+            var curBox = document.querySelector('.zhomeCenter')
+            var fatherTop = parseInt(curBox.scrollTop);
             if(fatherTop >= window.innerHeight){
                 dispatch({
                     type: 'showToTop',
@@ -64,4 +65,4 @@ export default connect((state) => {
             }
         }
     }
-})(XtoTop);
+})(HomeToTop);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
+import ToTop from '../../components/toTop/hometotop'
 
 
 import './FenleiList.scss';
@@ -42,7 +43,10 @@ class FenleiList extends Component {
         return (
             <div className="FenleiList">
                 <ListHeader name={title} />
-                <ListContent url={url} />
+                <div className="FenleiListContent zhomeCenter" style={{flex:1,overflowX: 'hidden',}}>
+                    <ListContent url={url} />
+                    <ToTop />
+                </div>
             </div>
         );
     }
