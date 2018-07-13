@@ -25,6 +25,7 @@ export default connect((state) => {
             sumPrice:0,
             sumAllSelect:false,
             showToSelectGoods:false,
+            allAllOperateI:false
         }
         this.isShowOperate = this.isShowOperate.bind(this);
         this.addItem = this.addItem.bind(this);
@@ -39,6 +40,7 @@ export default connect((state) => {
         this.allSelectY = this.allSelectY.bind(this);
         this.judgeAllAllSelect = this.judgeAllAllSelect.bind(this);
         this.checkOut = this.checkOut.bind(this);
+        this.allAllOperate = this.allAllOperate.bind(this);
     }
 
 
@@ -64,13 +66,13 @@ export default connect((state) => {
                     }else{
                         thisGoodsArr.push(itemArr[i]);
                     }
-                    item1.push(new NewItem(itemArr[i].brand,thisGoodsArr,[],false,[],[],false))
+                    item1.push(new NewItem(itemArr[i].brand,thisGoodsArr,[],false,[],[],false,itemArr[i].url))
                     thisGoodsArr = [];
                 }
             }
 
 
-            function NewItem(shopName,thisShopGoods,thisStates,allSelect,showOperate,deleteState,completeOrEdit) {
+            function NewItem(shopName,thisShopGoods,thisStates,allSelect,showOperate,deleteState,completeOrEdit,goodUrl) {
                 this.shopName = shopName;
                 this.thisShopGoods = thisShopGoods;
                 this.thisStates = thisStates;
@@ -78,6 +80,7 @@ export default connect((state) => {
                 this.showOperate = showOperate;
                 this.deleteState = deleteState;
                 this.completeOrEdit = completeOrEdit;
+                this.goodUrl = goodUrl
             }
         }
 
@@ -101,6 +104,21 @@ export default connect((state) => {
     // componentWillReceiveProps(){
     //     this.allSelectY()
     // }
+
+    //操作所有
+    allAllOperate(){
+        let { item } = this.state;
+        let { allAllOperate } = this.state;
+        allAllOperate = !allAllOperate;
+        console.log(allAllOperate)
+        for(let i = 0;i<item.length;i++){
+            for(let j = 0;j<item[i].showOperate.length;j++){
+                allAllOperate?(item[i].showOperate[j] = true,item[i].completeOrEdit = true):(item[i].showOperate[j] = false,item[i].completeOrEdit = false);
+            }
+        }
+
+        this.setState({ item,allAllOperate });
+    }
 
     checkOut(){
         let { item } = this.state;
@@ -292,7 +310,6 @@ export default connect((state) => {
         {
             item[index].showOperate[index2] = !item[index].showOperate[index2];
             if (item[index].showOperate[index2] === false) {
-                console.log('保存localstorage')
                 if(!window.localStorage){
                     console.log('不支持localStorage哦');
                 }else{
@@ -377,13 +394,18 @@ export default connect((state) => {
         const {item} = this.state;
         return (
             <div>
-                <ul style={{flex: 1, width: '100%', padding: '0 10px', background: '#fff',paddingBottom:'50px'}}>
+                <div style={{ display:'flex',borderBottom:'2px solid #eee',height:'42px',lineHeight:'42px',padding:'0 10px',position:'fixed',background:'#fff',width:'100%',zIndex:'66'}}>
+                    <span ><i className='iconfont icon-home-solid' style={{ fontSize:'20px'}}></i></span>
+                    <p style={{ flex:1,textAlign:'center',fontSize:'16px'}}>购物车</p>
+                    <span style={{ fontSize:'16px'}} onClick={ this.allAllOperate }>编辑</span>
+                </div>
+                <ul style={{flex: 1, width: '100%', background: '#fff',padding:'50px 10px'}}>
                     {
                         item.map((item, index) => <li key={index}>
                             <div style={{padding: '12px 0', borderBottom: '1px solid #eee'}}>
                                 <input type="checkbox" onClick={(e) => this.shopSelectAll(e,index)}  checked={ this.state.item[index].allSelect?'checked':''}/>
                                 <i className='iconfont icon-dianpuguanli1'
-                                   style={{color: '#7f4395', marginLeft: '10px'}}></i>
+                                   style={{color: '#7f4395', margin: '0 5px'}}></i>
                                 <span style={{color: '#7f4395', marginRight: '10px',width:'70%',overflow:'hidden'}}>{item.shopName}</span>
                                 <i className='iconfont icon-iconfont'></i>
                                 <span style={{float: 'right'}} onClick={(e) => this.isShowOperate(e,index,this.state.item[index].thisShopGoods)}>{this.state.item[index].completeOrEdit?'完成':'编辑'}</span>
@@ -395,14 +417,17 @@ export default connect((state) => {
                                     </div>
                                     <div style={{float: 'left'}}>
                                         <div style={{width: '72px', float: 'left', border: '1px solid #eee', margin: '0 10px'}}>
-                                            <img src={goods.pic} style={{width: '100%'}}/>
+                                            <a href={ goods.url }><img src={goods.pic} style={{width: '100%'}}/></a>
                                         </div>
                                         <div style={{float: 'left', position: 'relative',height:'88px'}}>
-                                            <h3 style={{
-                                                width: '220px',
-                                                overflow: 'hidden',
-                                                fontSize: '12px'
-                                            }}>{goods.name}</h3>
+                                            <a href={ goods.url } style={{ color:'gray' }}>
+                                                <h3 style={{
+                                                    width: '220px',
+                                                    overflow: 'hidden',
+                                                    fontSize: '12px'
+                                                }}>{goods.name}</h3>
+                                            </a>
+
                                             <div style={{padding: '10px 0'}}>
                                                 <p>{goods.goodsAll}</p>
                                                 <div style={{ marginBottom:'5px'}}>

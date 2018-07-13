@@ -23,14 +23,10 @@ export default class shopcar extends Component{
         let shopBottomIdx = this.state.idx;
         return(
             <div style={{ display:'flex',flexDirection:'column',height:'100%'}}>
-                <div style={{ height:'42px' }}>
-                    <CommonTop/>
-                </div>
                 <div style={{ flex:1,overflowX:'hidden' }}>
                     <ShopCar />
                 </div>
                 <div style={{ height:'50px' }}>
-                    {/*<SettleMent />*/}
                     <HomeBottom idx={shopBottomIdx}/>
                 </div>
             </div>
