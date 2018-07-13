@@ -53,7 +53,7 @@ export default connect((state) => {
             let storage = window.localStorage;
 
             console.log(storage)
-            if(storage.length > 0){
+            if(storage[0]){
                 let itemArr = JSON.parse(storage.shopCar);
 
                 console.log(itemArr);

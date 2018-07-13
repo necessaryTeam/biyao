@@ -16,7 +16,7 @@ export default class shopcar extends Component{
     componentWillMount(){
         // console.log(this.props.location.state);
         this.setState({
-            idx:this.props.location.state.idx,
+            idx:this.props.location.state.idx?this.props.location.state.idx:2,
         })
     }
     render(){

@@ -1,0 +1,2 @@
+所用到的模块package.json中都有，直接cnpm install即可，
+为了能正常使用node-sass和sass-loader，请先修改node_modules/react-scripts(前面有小箭头图标)/config/文件夹下的webpack.config.dev.js和webpack.config.prod.js,给两个文件添加相应代码，详见pic1和pic2图片。
