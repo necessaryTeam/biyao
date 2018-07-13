@@ -25,7 +25,6 @@ export default connect((state) => {
             sumPrice:0,
             sumAllSelect:false,
             showToSelectGoods:false
-
         }
         this.isShowOperate = this.isShowOperate.bind(this);
         this.addItem = this.addItem.bind(this);
@@ -101,6 +100,7 @@ export default connect((state) => {
     // componentWillReceiveProps(){
     //     this.allSelectY()
     // }
+
     checkOut(){
         let { item } = this.state;
         let isTrue,{ showToSelectGoods } = this.state;
@@ -155,17 +155,17 @@ export default connect((state) => {
 
         }
 
-            this.cumputAllPrice();
-            // console.log(666)
-            // this.setState({ item });
-            //
-            // for(let key of item){
-            //     key.allSelect = false;
-                // for(let i = 0;i<key.thisStates.length;i++){
-                //     key.thisStates[i] = true;
-                // }
+        this.cumputAllPrice();
+        // console.log(666)
+        // this.setState({ item });
+        //
+        // for(let key of item){
+        //     key.allSelect = false;
+        // for(let i = 0;i<key.thisStates.length;i++){
+        //     key.thisStates[i] = true;
+        // }
 
-            // this.setState({ item });
+        // this.setState({ item });
 
 
 
@@ -289,9 +289,25 @@ export default connect((state) => {
         {
             item[index].showOperate[index2] = !item[index].showOperate[index2];
             if (e.target.tagName === 'SPAN' && item[index].showOperate[index2] === true) {
-                e.target.innerHTML = '完成'
+                e.target.innerHTML = '完成';
             } else if (e.target.tagName === 'SPAN' && item[index].showOperate[index2] === false) {
-                e.target.innerHTML = '编辑'
+                e.target.innerHTML = '编辑';
+                if(!window.localStorage){
+                    console.log('不支持localStorage哦');
+                }else{
+                    let itemArr,storage = window.localStorage;
+                    itemArr = JSON.parse(storage.shopCar);
+
+                    for(let i=0;i<itemArr.length && i< item[index].thisShopGoods.length;i++){
+                        if(itemArr[i].id === item[index].thisShopGoods[index2].id&&itemArr[i].color === item[index].thisShopGoods[index2].color&&itemArr[i].size === item[index].thisShopGoods[index2].size){
+                            console.log(item[index].thisShopGoods[index2].sum)
+                            itemArr[i].sum = item[index].thisShopGoods[index2].sum;
+                        }
+                    }
+                    storage.clear();
+
+                    storage.setItem('shopCar',JSON.stringify(itemArr))
+                }
             }
             if(item[index].thisShopGoods[index2].sum === 0){
                 item[index].deleteState[index2] = true;
@@ -305,16 +321,23 @@ export default connect((state) => {
     deleteItem(e, index,index2) {
         let {item} = this.state;
 
+
         if(!window.localStorage){
             console.log('不支持localStorage哦');
         }else{
-            let storage = window.localStorage;
-            console.log(storage);
-            // storage.clear();
-            storage.removeItem(item[index].thisShopGoods[index2])
-            console.log(item[index].thisShopGoods[index2])
-        }
+            let itemArr,storage = window.localStorage;
+            itemArr = JSON.parse(storage.shopCar);
 
+            for(let i=0;i<itemArr.length && i< item[index].thisShopGoods.length;i++){
+                if(itemArr[i].id === item[index].thisShopGoods[index2].id&&itemArr[i].color === item[index].thisShopGoods[index2].color&&itemArr[i].size === item[index].thisShopGoods[index2].size){
+                    console.log(item[index].thisShopGoods[index2])
+                    itemArr.splice(i,1)
+                }
+            }
+            storage.clear();
+
+            storage.setItem('shopCar',JSON.stringify(itemArr))
+        }
 
         item[index].deleteState.splice(index2,1);
         item[index].thisStates.splice(index2, 1);
@@ -323,6 +346,7 @@ export default connect((state) => {
         if(item[index].thisShopGoods.length === 0 ){
             item.splice(index,1)
         }
+
 
 
         this.cumputAllPrice();
@@ -341,7 +365,6 @@ export default connect((state) => {
     addItem(e, index,index2) {
         const {item} = this.state;
         item[index].thisShopGoods[index2].sum++;
-        console.log(item[index].thisShopGoods[index2].sum);
         this.cumputAllPrice();
         this.setState({item});
 
@@ -511,7 +534,7 @@ export default connect((state) => {
                             padding:'0 18px',
                             height:'32px',
                             marginLeft:'5px'
-                        }}  onClick={ this.checkOut }>去结算</button>
+                        }} onClick={ this.checkOut }>去结算</button>
                     </div>
                 </div>
             </div>
