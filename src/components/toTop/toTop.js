@@ -17,7 +17,6 @@ class XtoTop extends Component {
         // console.log(this.props)
     }
     componentDidMount(){
-        console.log(window)
         window.addEventListener('scroll',this.props.rollToTop)
         //回到头部
         document.querySelector("#ToTop").onclick=function(){
