@@ -11,6 +11,8 @@ import XtoTop from '../../components/toTop/toTop'
 import $ from 'jquery'
 //引入css
 import './classify.scss'
+//引入swiper
+import Swiper from 'swiper';
 
 
 
@@ -28,7 +30,7 @@ class Xclassify extends Component {
             {name:'母婴童装',let:'girl',keyWord:[{Name:'婴儿用品',keyClass:'qunzi'},{Name:'儿童用品',keyClass:'shangyi'},{Name:'童装童靴',keyClass:'xiazhuang'},{Name:'妈妈专区',keyClass:'tese'}]},
             {name:'男女鞋靴',let:'shoes',keyWord:[{Name:'男鞋',keyClass:'man'},{Name:'女鞋',keyClass:'woman'}]},
             {name:'户外运动',let:'man',keyWord:[{Name:'女裙',keyClass:'neida'},{Name:'女士上装',keyClass:'coat'},{Name:'女士下装',keyClass:'kuzi'},{Name:'特色女装',keyClass:'coat'}]},
-            {name:'箱包出行',xinglixiang:'man',keyWord:[{Name:'功能箱包',keyClass:'gnxb'},{Name:'男包/皮带',keyClass:'nbpd'},{Name:'真皮女包',keyClass:'gnxb'},{Name:'出行必备',keyClass:'nbpd'}]},
+            {name:'箱包出行',let:'xinglixiang',keyWord:[{Name:'功能箱包',keyClass:'gnxb'},{Name:'男包/皮带',keyClass:'nbpd'},{Name:'真皮女包',keyClass:'gnxb'},{Name:'出行必备',keyClass:'nbpd'}]},
             {name:'美妆个护',let:'yanjing',keyWord:[{Name:'女裙',keyClass:'jsyj'},{Name:'女士上装',keyClass:'tyj'},{Name:'女士下装',keyClass:'tyj'},{Name:'特色女装',keyClass:'jsyj'},{Name:'女裙',keyClass:'tyj'},{Name:'女士上装',keyClass:'jsyj'},{Name:'女士下装',keyClass:'tyj'},{Name:'特色女装',keyClass:'jsyj'}]},
             {name:'生活居家',let:'shoes',keyWord:[{Name:'男鞋',keyClass:'man'},{Name:'女鞋',keyClass:'woman'}]},
             {name:'厨具水具',let:'man',keyWord:[{Name:'男鞋',keyClass:'neida'},{Name:'女鞋',keyClass:'coat'}]},
@@ -50,6 +52,15 @@ class Xclassify extends Component {
         // console.log(this.props)
     }
     componentDidMount(){
+
+        var mySwiper1 = new Swiper('#swiper1', {
+            slidesPerView : 4,
+            slideToClickedSlide: true,
+            centeredSlides : true,
+            reventLinksPropagation : true
+        })
+
+
         //获取URL传来的参数
         var classify = [];
         var Url = this.props.location.search;
@@ -100,7 +111,7 @@ class Xclassify extends Component {
             isShowAllClass:!this.state.isShowAllClass
         })
     }
-    ShowAnother(idx){
+    ShowAnother(idx,event){
         this.setState({
             keyWordNum:idx,
             twoNavNum:0,
@@ -130,7 +141,9 @@ class Xclassify extends Component {
                 }
             })
         },100)
-
+        if(event.target.parentNode.parentNode.className=="allClassList"){
+            this.ShowMoreClass();
+        }
     }
     ClickTwoNav(idx,twoClass){
         this.setState({
@@ -185,7 +198,20 @@ class Xclassify extends Component {
                                         })(this)
                                     }
                                 </ul>
+
                             </div>
+                            {/*<div className="swiper-container topNav" id="swiper1">*/}
+                                {/*<ul className="swiper-wrapper">*/}
+                                    {/*<li className="swiper-slide"><a href="http://localhost:3000/"><span>推荐</span></a></li>*/}
+                                    {/*{*/}
+                                        {/*(function(self){*/}
+                                            {/*return self.state.classTopItem.map(function(item,idx){*/}
+                                                {/*return  <li key={idx} data-id={item.let} className="swiper-slide"><span onClick={self.ShowAnother.bind(self,idx)} className={self.state.keyWordNum==idx?"active":""}>{item.name}</span></li>*/}
+                                            {/*})*/}
+                                        {/*})(this)*/}
+                                    {/*}*/}
+                                {/*</ul>*/}
+                            {/*</div>*/}
                             <div onClick={this.ShowMoreClass.bind(this)} className="moreClass"><i className="iconfont icon-xiala"></i></div>
                         </div>
                         <div className="twoNav">
@@ -206,11 +232,11 @@ class Xclassify extends Component {
                             <span className="iconfont icon-houtui"  onClick={this.ShowMoreClass.bind(this)}></span>
                         </div>
                         <div className="goodslist">
-                            <ul>
+                            <ul className="allClassList">
                                 {
                                     (function(self){
                                         return self.state.classTopItem.map(function(item,idx){
-                                            return  <li onClick={self.ShowAnother.bind(self,idx),self.ShowMoreClass.bind(self)} key={idx} data-id={item.let}><span className={self.state.keyWordNum==idx?"active":""}>{item.name}</span></li>
+                                            return  <li onClick={self.ShowAnother.bind(self,idx)} key={idx} data-id={item.let}><span className={self.state.keyWordNum==idx?"active":""}>{item.name}</span></li>
                                         })
                                     })(this)
                                 }

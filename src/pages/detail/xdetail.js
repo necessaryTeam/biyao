@@ -13,6 +13,8 @@ import ReactSwipe from 'react-swipe';
 import Xfooter from '../../components/detail/detailFooter'
 import Xheader from '../../components/detail/detailHeader'
 import Gallery from '../../components/detail/detailGallery'
+import Xstore from '../../components/detail/detailStore'
+import Xstore2 from '../../components/detail/detailStore2'
 import XtoTop from '../../components/toTop/toTop'
 
 
@@ -56,10 +58,8 @@ class Xdetail extends Component {
         // console.log(this.props)
     }
     componentDidMount() {
-        console.log(document.getElementsByClassName("swiper-pagination-current")[0])
-        console.log(document.getElementsByClassName("swiper-pagination-current")[1])
         //图片展示使用swiper
-        var mySwiper = new Swiper('.swiper-container', {
+        var mySwiper1 = new Swiper('#swiper1', {
             freeMode : false,//是否一直滑动  false为一张张的滑
             freeModeMomentum : true,
             loop:false,//是否无缝
@@ -124,7 +124,11 @@ class Xdetail extends Component {
                     chooseColor:color[0],
                     chooseSize:size[0]
                 })
-
+                //存该商品的店铺
+                var store = [];
+                store.push(classify[0])
+                store.push(result[0].brand)
+                window.localStorage.setItem("Store", JSON.stringify(store));
             }
         })
 
@@ -160,7 +164,6 @@ class Xdetail extends Component {
                 })
 
             }
-            console.log(isSum)
             if(isSum==0){
                 goodsArr.push(goodsObj)
             }
@@ -179,6 +182,8 @@ class Xdetail extends Component {
             setLocal(this)
             this.isHideChoose();
         }
+
+
 
     }
     ShowAddress(){
@@ -254,7 +259,7 @@ class Xdetail extends Component {
                     {/*商品*/}
                     <div id="commodity" className="ContentItem">
                         <div className="goodsImg" onClick={this.props.ShowGalleryPic.bind(this)}>
-                            <div className="swiper-container">
+                            <div className="swiper-container" id="swiper1">
                                 <div className="swiper-wrapper">
                                     {
                                         (function(self){
@@ -366,6 +371,7 @@ class Xdetail extends Component {
                             </ul>
                             <div className="more-comment">查看全部评论</div>
                         </div>
+                        <Xstore />
                     </div>
                     {/*详情*/}
                     <div id="detail" className="ContentItem">
@@ -386,7 +392,10 @@ class Xdetail extends Component {
                     </div>
                     {/*推荐*/}
                     <div id="recommend" className="ContentItem">
-
+                        <div className="recommend-title">
+                            <span>推荐</span>
+                        </div>
+                        <Xstore2 />
                     </div>
                 </div>
                 {/*图片展示*/}
@@ -507,13 +516,13 @@ export default connect((state) => {
                 var url = $(item).attr("src")
                 allImgUrl.push(url)
             });
-            var showNum = document.getElementsByClassName("swiper-pagination-current")[0].innerHTML;
-            console.log(showNum)
+            var showNum = (document.getElementsByClassName("swiper-pagination-current")[0].innerHTML)-1;
+            console.log("detail"+showNum)
             dispatch({
                 type: 'showGallery',
                 isShowGallery:true,
                 gallertImg:allImgUrl,
-                showGalleryNum:(showNum-1)
+                showGalleryNum:showNum
             })
         },
         //高亮头部和显示回到顶部

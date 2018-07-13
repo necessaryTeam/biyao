@@ -226,7 +226,15 @@
       }
     }
     #recommend{
-
+      .recommend-title{
+        height: 40px;
+        width: 100%;
+        background-image: url(https://static.biyao.com/m/img/product/goods_recommend.png?v=biyao_9ea0db9);
+        background-size: 100% 100%;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+      }
     }
   }
 }
