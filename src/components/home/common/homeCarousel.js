@@ -1,6 +1,7 @@
 import React from 'react';
 import Swiper from 'swiper';
 import {Link,hashHistory} from 'react-router-dom';
+import $ from 'jquery';
 
 export default class homeCarousel extends React.Component {
     constructor(props){
@@ -52,9 +53,10 @@ export default class homeCarousel extends React.Component {
                 autoplay:{
                     delay: 3000,
                     stopOnLastSlide: false,
-                    disableOnInteraction: true,
+                    disableOnInteraction: false,
                 },
-                loop: true,
+                // loop: true,
+                effect: 'fade',
                 pagination: {
                     el: '.swiper-pagination',
                 },
@@ -67,7 +69,7 @@ export default class homeCarousel extends React.Component {
                 <div className="swiper-container" id="swiper6">
                     <div className="swiper-wrapper">
                         {
-                            imgSrc.map((item,index)=><Link to={{pathname:'/shoplist',state:{shopdata:this.state.imgSrc[index]}}} className="swiper-slide" key={ index }><img src={ item.img } style={{ width:'100%'}}/></Link>)
+                            imgSrc.map((item,index)=><Link to={{pathname:'/shoplist',state:{shopdata:this.state.imgSrc[index]}}} className="swiper-slide zbannerItem" key={ index }><img src={ item.img } style={{ width:'100%'}}/></Link>)
                         }
                     </div>
                     <div className="swiper-pagination"></div>
