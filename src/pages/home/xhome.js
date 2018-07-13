@@ -27,6 +27,14 @@ class Xhome extends Component {
         };
         // console.log(this.props)
     }
+    componentDidMount(){
+    	var settime=Date.parse(window.localStorage.isloginsettime)
+    	var iday=1000*60*24*7;
+    	if(Date.parse(new Date())-settime>iday){
+    		localStorage.removeItem("islogin")
+    		console.log("信息已过期")
+    	}   
+    }
     render() {
         return (
             <div style={{ display:'flex',flexDirection:'column',height:'100%'}}>
