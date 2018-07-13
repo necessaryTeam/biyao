@@ -108,16 +108,16 @@ export default connect((state) => {
     //操作所有
     allAllOperate(){
         let { item } = this.state;
-        let { allAllOperate } = this.state;
-        allAllOperate = !allAllOperate;
-        console.log(allAllOperate)
+        let { allAllOperateI } = this.state;
+        allAllOperateI = !allAllOperateI;
+        // console.log(allAllOperate)
         for(let i = 0;i<item.length;i++){
             for(let j = 0;j<item[i].showOperate.length;j++){
-                allAllOperate?(item[i].showOperate[j] = true,item[i].completeOrEdit = true):(item[i].showOperate[j] = false,item[i].completeOrEdit = false);
+                allAllOperateI?(item[i].showOperate[j] = true,item[i].completeOrEdit = true):(item[i].showOperate[j] = false,item[i].completeOrEdit = false);
             }
         }
 
-        this.setState({ item,allAllOperate });
+        this.setState({ item,allAllOperateI });
     }
 
     checkOut(){
@@ -299,9 +299,9 @@ export default connect((state) => {
     //显示操作
     isShowOperate(e, index,arr) {
         console.log(e.target.innerHTML)
-        let { item } = this.state;
-        let { completeOrEdit } = this.state;
+        let showAllOperate,{ item } = this.state;
         let {currentIndexS} = this.state;
+        let { allAllOperateI } = this.state;
         currentIndexS = index;
         console.log(currentIndexS)
          item[index].completeOrEdit = !item[index].completeOrEdit;
@@ -333,7 +333,8 @@ export default connect((state) => {
             }
         }
 
-        this.setState({item, currentIndexS})
+        allAllOperateI = showAllOperate;
+        this.setState({item, currentIndexS,allAllOperateI})
     }
 
     //删除item
@@ -397,7 +398,7 @@ export default connect((state) => {
                 <div style={{ display:'flex',borderBottom:'2px solid #eee',height:'42px',lineHeight:'42px',padding:'0 10px',position:'fixed',background:'#fff',width:'100%',zIndex:'66'}}>
                     <span ><i className='iconfont icon-home-solid' style={{ fontSize:'20px'}}></i></span>
                     <p style={{ flex:1,textAlign:'center',fontSize:'16px'}}>购物车</p>
-                    <span style={{ fontSize:'16px'}} onClick={ this.allAllOperate }>编辑</span>
+                    <span style={{ fontSize:'16px'}} onClick={ this.allAllOperate }>{ this.state.allAllOperateI?'完成':'编辑'}</span>
                 </div>
                 <ul style={{flex: 1, width: '100%', background: '#fff',padding:'50px 10px'}}>
                     {
@@ -411,7 +412,7 @@ export default connect((state) => {
                                 <span style={{float: 'right'}} onClick={(e) => this.isShowOperate(e,index,this.state.item[index].thisShopGoods)}>{this.state.item[index].completeOrEdit?'完成':'编辑'}</span>
                             </div>
                             {
-                                item.thisShopGoods.map((goods,index2)=><div style={{overflow: 'hidden', height: '100px', padding: '12px 0'}} key={ index2 }>
+                                item.thisShopGoods.map((goods,index2)=><div style={{overflow: 'hidden', height: '100px', padding: '12px 0' ,borderBottom:'1px solid #f2f2f2'}} key={ index2 }>
                                     <div style={{float: 'left', height: '100%', lineHeight: '72px'}}>
                                         <input type="checkbox" checked={this.state.item[index].thisStates[index2]||this.state.item[index].allSelect ? 'checked' : ''} onClick={ (e)=>this.selectSome(e,index,index2) } onChange={e=>this.isGoodsAllSelect(e,index) }/>
                                     </div>
@@ -427,7 +428,6 @@ export default connect((state) => {
                                                     fontSize: '12px'
                                                 }}>{goods.name}</h3>
                                             </a>
-
                                             <div style={{padding: '10px 0'}}>
                                                 <p>{goods.goodsAll}</p>
                                                 <div style={{ marginBottom:'5px'}}>
@@ -489,7 +489,8 @@ export default connect((state) => {
                                                     textAlign: 'center',
                                                     position: 'absolute',
                                                     right: '-30px',
-                                                    top:'-11px'
+                                                    top:'-11px',
+                                                    lineHeight:'98px'
                                                 }} onClick={(e) => this.setDeleteState(e,index,index2) }>
                                                     <i className='iconfont icon-guanbi'></i>
                                                 </div>
@@ -502,7 +503,7 @@ export default connect((state) => {
                                         position:'absolute',
                                         left:'0',
                                         top:'0',
-                                        zIndex:'1',
+                                        zIndex:'99',
                                         background:'rgba(127,127,127,0.6)',
                                         width:'375px',
                                         height:'667px',
@@ -539,7 +540,8 @@ export default connect((state) => {
                                         textAlign:'center',
                                         lineHeight:'40px',
                                         zIndex:'9999',
-                                        color:'#fff'
+                                        color:'#fff',
+                                        borderRadius:'3px',
                                     }}>
                                         请选择要结算的商品
                                     </div>

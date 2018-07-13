@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import $ from 'jquery';
 
 export default class homeCommend_info extends Component{
     constructor(props){
@@ -45,6 +46,7 @@ export default class homeCommend_info extends Component{
             ]
         }
     }
+    
 
     render(){
         const { commendItem } = this.state;
