@@ -40,7 +40,7 @@ componentDidMount(){
 						</ul>
 					</div>
 					<div>
-						<ul className="content">
+						<ul className="mycontent">
 	                        {
 	                            (function(self){
 	                                return self.state.ulitem.map(function(item,idx){

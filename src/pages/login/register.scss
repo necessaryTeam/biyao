@@ -2,26 +2,42 @@
     display: flex;
     flex-direction: column;
     height: 667px;
-    .title{}
+    .title{
+   
+  background:#fff;
+  font-size:16px;
+  line-height: 42px;
+  display: flex;
+  color:green;
+  a{flex:1;text-indent: 10px;  font-size:0.32rem;};
+  span{flex:1;text-align: center;  };
+
+}
     .content{flex:1;background: #f5f5f5;
         padding: 15% 5%;
         position: relative;
         label{
+            padding: 3% 0;
             border-bottom: 1px solid #ccc;
             background: #f5f5f5;
+            display: block;
             width: 100%;
             input{border: 0;background: #f5f5f5; 
-            width: 60%;}
-            span{display: inline-block;padding: 0 10px;}
+            width: 50%;}
+            span{vertical-align: top;}
+    
             
         }
         div{
+            position: relative;
             margin-top:60px;position: relative;
             button{width: 100%;font-size: 24px;background: #7f4395;border-radius: 30px;
             outline: none;}
-           h3{position: absolute;bottom:40px;font-size: 18px;
-           background: #ccc;color:red;text-align: center;width: 60%;left:20%;border-radius: 10px;
+           h3{position: absolute;bottom:40px;font-size: 14px;
+           color:red;text-align: center;width: 80%;left:10%;border-radius: 10px;
            }
+           #notice{height:20px;color:red;position:absolute;top:-200px;
+   }
         }
         p{width: 100%;text-align: center;margin-top:40px;}
     
