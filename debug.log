@@ -1,2 +1,3 @@
 [0712/153846.539:WARNING:minidump_to_upload_parameters.cc(66)] duplicate annotation name metrics_client_id, discarding value 046f2d7ee7fe4b7980b11228bf6e79b0
 [0712/154052.606:ERROR:http_transport_win.cc(273)] WinHttpSendRequest: 操作超时 (0x2ee2)
+[0713/193446.721:ERROR:http_transport_win.cc(273)] WinHttpSendRequest: 操作超时 (0x2ee2)

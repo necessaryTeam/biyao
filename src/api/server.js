@@ -87,4 +87,19 @@ app.get('/login', function(req, res) {
 
 })
 
+app.get('/goodsStore', function(req, res) {
+    res.append("Access-Control-Allow-Origin","*");
+    console.log(req.query);
+    // console.log(req.params);
+    var table = req.query.classify;
+    db.query(`SELECT * FROM ${table} WHERE ?`,{
+        // text:JSON.stringify(req.query.text)
+        brand:req.query.brand
+    },(results)=>{
+        res.send(results)
+    })
+    // res.send("hello")
+
+})
+
 app.listen(4000)

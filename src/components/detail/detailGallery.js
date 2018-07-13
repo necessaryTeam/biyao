@@ -15,30 +15,36 @@ class Xgallery extends Component {
     constructor(props){
         super(props);
         this.state = {
-
+            showPicNum:null
         }
     }
     componentDidMount() {
         var self = this;
-        var mySwiper = new Swiper('.swiper-container', {
+        var mySwiper2 = new Swiper('#swiper2', {
             freeMode : false,//是否一直滑动  false为一张张的滑
             freeModeMomentum : true,
             loop:false,//是否无缝
             observer:true,//修改swiper自己或子元素时，自动初始化swiper
-            initialSlide :self.props.showGalleryNum,//显示点击时的那样图片
+            initialSlide:self.state.showPicNum,//显示点击时的那样图片
             pagination: {
                 el: '.swiper-pagination',
                 type: 'fraction'
             }
         })
-        console.log(self.props.showGalleryNum)
 
+
+    }
+    componentWillReceiveProps (){
+        var newNum = this.props.showGalleryNum
+        this.setState({
+            showPicNum:newNum
+        })
     }
     render() {
         return (
             <div className="D-gallery" onClick={this.props.hideGalleryPic.bind(this)} style={{display:this.props.isShowGallery?"block":"none"}}>
                 <div className="galleryImg">
-                    <div className="swiper-container">
+                    <div className="swiper-container" id="swiper2">
                         <div className="swiper-wrapper">
                             {
                             (function(self){

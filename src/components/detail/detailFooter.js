@@ -12,16 +12,31 @@ class XdetailFooter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            CarGoodsTotal:0
         };
         // console.log(this.props)
+    }
+    componentDidMount(){
+
+        var goodList = JSON.parse(window.localStorage.getItem("shopCar"));
+        if(goodList!==null){
+                var total = 0;
+                goodList.forEach((item)=>{
+                    total += item.sum
+                })
+                this.setState({
+                    CarGoodsTotal:total
+                })
+        }
+
+
     }
     render() {
         return (
             <div id="footer">
                 <div className="footer-l">
-                    <div><i className="iconfont icon-xiaoxi"></i>客服</div>
-                    <div><i className="iconfont icon-gouwuche"></i>购物车</div>
+                    <div><a href="#"><i className="iconfont icon-xiaoxi"></i><span>客服</span></a></div>
+                    <div><a href="http://localhost:3000/shopcar"><i className="iconfont icon-gouwuche"></i><span>购物车</span><em>{this.state.CarGoodsTotal}</em></a></div>
                 </div>
                 <div className="footer-r">
                     <div className="buy-shopcar" onClick={this.props.isShowChooseDiv.bind(this)}>加入购物车</div>
