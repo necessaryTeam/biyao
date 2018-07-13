@@ -20,6 +20,10 @@ import Fenlei from './pages/fenlei/fenlei';
 import ShopCar from './pages/shopCar/shopcar';
 import FenleiList from './pages/fenleilist/FenleiList';
 import ShopList from './pages/shopList/shoplist';
+import Login from './pages/login/Xlogin';
+import Tellogin from './pages/login/tellogin';
+import Register from './pages/login/register';
+import personal from './pages/login/personal'
 
 
 
@@ -122,6 +126,10 @@ ReactDOM.render(
       <Route path='/shopcar' component={ShopCar}/>
       <Route path='/fenleilist' component={FenleiList}/>
       <Route path='/shoplist' component={ShopList}/>
+      <Route path="/login" component={Login}/>
+  		<Route path="/Tellogin" component={Tellogin}/>
+  		<Route path="/Register" component={Register}/>
+  		<Route path="/personal" component={personal}/>
   	</div>
   </Provider>
 </Router>

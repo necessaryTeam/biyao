@@ -23,7 +23,9 @@ export default connect((state) => {
             ],
             currentIndexS: null,
             sumPrice:0,
-            sumAllSelect:false
+            sumAllSelect:false,
+            showToSelectGoods:false,
+            allAllOperateI:false
         }
         this.isShowOperate = this.isShowOperate.bind(this);
         this.addItem = this.addItem.bind(this);
@@ -37,6 +39,8 @@ export default connect((state) => {
         this.cumputAllPrice = this.cumputAllPrice.bind(this);
         this.allSelectY = this.allSelectY.bind(this);
         this.judgeAllAllSelect = this.judgeAllAllSelect.bind(this);
+        this.checkOut = this.checkOut.bind(this);
+        this.allAllOperate = this.allAllOperate.bind(this);
     }
 
 
@@ -62,19 +66,21 @@ export default connect((state) => {
                     }else{
                         thisGoodsArr.push(itemArr[i]);
                     }
-                    item1.push(new NewItem(itemArr[i].brand,thisGoodsArr,[],false,[],[]))
+                    item1.push(new NewItem(itemArr[i].brand,thisGoodsArr,[],false,[],[],false,itemArr[i].url))
                     thisGoodsArr = [];
                 }
             }
 
 
-            function NewItem(shopName,thisShopGoods,thisStates,allSelect,showOperate,deleteState) {
+            function NewItem(shopName,thisShopGoods,thisStates,allSelect,showOperate,deleteState,completeOrEdit,goodUrl) {
                 this.shopName = shopName;
                 this.thisShopGoods = thisShopGoods;
                 this.thisStates = thisStates;
                 this.allSelect = allSelect;
                 this.showOperate = showOperate;
                 this.deleteState = deleteState;
+                this.completeOrEdit = completeOrEdit;
+                this.goodUrl = goodUrl
             }
         }
 
@@ -98,6 +104,52 @@ export default connect((state) => {
     // componentWillReceiveProps(){
     //     this.allSelectY()
     // }
+
+    //操作所有
+    allAllOperate(){
+        let { item } = this.state;
+        let { allAllOperateI } = this.state;
+        allAllOperateI = !allAllOperateI;
+        // console.log(allAllOperate)
+        for(let i = 0;i<item.length;i++){
+            for(let j = 0;j<item[i].showOperate.length;j++){
+                allAllOperateI?(item[i].showOperate[j] = true,item[i].completeOrEdit = true):(item[i].showOperate[j] = false,item[i].completeOrEdit = false);
+            }
+        }
+
+        this.setState({ item,allAllOperateI });
+    }
+
+    checkOut(){
+        let { item } = this.state;
+        let isTrue,{ showToSelectGoods } = this.state;
+
+        loop1:for(let key1 of item){
+            console.log(key1.thisStates)
+            for(let key2 of key1.thisStates){
+                if(key2){
+                    isTrue = false;
+                    break loop1
+                }
+            }
+            isTrue = true;
+        }
+        showToSelectGoods = isTrue;
+
+
+
+
+
+        console.log(showToSelectGoods)
+
+        this.setState({ showToSelectGoods })
+        setTimeout(()=>{
+            showToSelectGoods = false;
+            this.setState({ showToSelectGoods })
+        },3000)
+
+
+    }
     allSelectY(){
         // console.log(666)
         const {item} = this.state;
@@ -122,17 +174,17 @@ export default connect((state) => {
 
         }
 
-            this.cumputAllPrice();
-            // console.log(666)
-            // this.setState({ item });
-            //
-            // for(let key of item){
-            //     key.allSelect = false;
-                // for(let i = 0;i<key.thisStates.length;i++){
-                //     key.thisStates[i] = true;
-                // }
+        this.cumputAllPrice();
+        // console.log(666)
+        // this.setState({ item });
+        //
+        // for(let key of item){
+        //     key.allSelect = false;
+        // for(let i = 0;i<key.thisStates.length;i++){
+        //     key.thisStates[i] = true;
+        // }
 
-            // this.setState({ item });
+        // this.setState({ item });
 
 
 
@@ -247,41 +299,66 @@ export default connect((state) => {
     //显示操作
     isShowOperate(e, index,arr) {
         console.log(e.target.innerHTML)
-        let { item } = this.state;
+        let showAllOperate,{ item } = this.state;
         let {currentIndexS} = this.state;
+        let { allAllOperateI } = this.state;
         currentIndexS = index;
         console.log(currentIndexS)
+         item[index].completeOrEdit = !item[index].completeOrEdit;
 
         for(let index2 = 0;index2 < arr.length ;index2++)
         {
             item[index].showOperate[index2] = !item[index].showOperate[index2];
-            if (e.target.tagName === 'SPAN' && item[index].showOperate[index2] === true) {
-                e.target.innerHTML = '完成'
-            } else if (e.target.tagName === 'SPAN' && item[index].showOperate[index2] === false) {
-                e.target.innerHTML = '编辑'
+            if (item[index].showOperate[index2] === false) {
+                if(!window.localStorage){
+                    console.log('不支持localStorage哦');
+                }else{
+                    let itemArr,storage = window.localStorage;
+                    itemArr = JSON.parse(storage.shopCar);
+
+                    //判断两个物品属性是否相等
+                    for(let i=0;i<itemArr.length;i++){
+                        console.log(i)
+                        if(itemArr[i].id === item[index].thisShopGoods[index2].id&&itemArr[i].color === item[index].thisShopGoods[index2].color&&itemArr[i].size === item[index].thisShopGoods[index2].size){
+                            itemArr[i].sum = item[index].thisShopGoods[index2].sum;
+                        }
+                    }
+                    storage.clear();
+
+                    storage.setItem('shopCar',JSON.stringify(itemArr))
+                }
             }
             if(item[index].thisShopGoods[index2].sum === 0){
                 item[index].deleteState[index2] = true;
             }
         }
 
-        this.setState({item, currentIndexS})
+        allAllOperateI = showAllOperate;
+        this.setState({item, currentIndexS,allAllOperateI})
     }
 
     //删除item
     deleteItem(e, index,index2) {
         let {item} = this.state;
 
+
         if(!window.localStorage){
             console.log('不支持localStorage哦');
         }else{
-            let storage = window.localStorage;
-            console.log(storage);
-            // storage.clear();
-            storage.removeItem(item[index].thisShopGoods[index2])
-            console.log(item[index].thisShopGoods[index2])
-        }
 
+            let itemArr,storage = window.localStorage;
+            itemArr = JSON.parse(storage.shopCar);
+
+            for(let i=0;i<itemArr.length;i++){
+                if(itemArr[i].id === item[index].thisShopGoods[index2].id&&itemArr[i].color === item[index].thisShopGoods[index2].color&&itemArr[i].size === item[index].thisShopGoods[index2].size){
+                    itemArr.splice(i,1);
+
+                }
+            }
+            storage.clear();
+
+            storage.setItem('shopCar',JSON.stringify(itemArr))
+        }
 
         item[index].deleteState.splice(index2,1);
         item[index].thisStates.splice(index2, 1);
@@ -290,6 +367,7 @@ export default connect((state) => {
         if(item[index].thisShopGoods.length === 0 ){
             item.splice(index,1)
         }
+
 
 
         this.cumputAllPrice();
@@ -308,7 +386,6 @@ export default connect((state) => {
     addItem(e, index,index2) {
         const {item} = this.state;
         item[index].thisShopGoods[index2].sum++;
-        console.log(item[index].thisShopGoods[index2].sum);
         this.cumputAllPrice();
         this.setState({item});
 
@@ -318,32 +395,39 @@ export default connect((state) => {
         const {item} = this.state;
         return (
             <div>
-                <ul style={{flex: 1, width: '100%', padding: '0 10px', background: '#fff',paddingBottom:'50px'}}>
+                <div style={{ display:'flex',borderBottom:'2px solid #eee',height:'42px',lineHeight:'42px',padding:'0 10px',position:'fixed',background:'#fff',width:'100%',zIndex:'66'}}>
+                    <span ><i className='iconfont icon-home-solid' style={{ fontSize:'20px'}}></i></span>
+                    <p style={{ flex:1,textAlign:'center',fontSize:'16px'}}>购物车</p>
+                    <span style={{ fontSize:'16px'}} onClick={ this.allAllOperate }>{ this.state.allAllOperateI?'完成':'编辑'}</span>
+                </div>
+                <ul style={{flex: 1, width: '100%', background: '#fff',padding:'50px 10px'}}>
                     {
                         item.map((item, index) => <li key={index}>
                             <div style={{padding: '12px 0', borderBottom: '1px solid #eee'}}>
                                 <input type="checkbox" onClick={(e) => this.shopSelectAll(e,index)}  checked={ this.state.item[index].allSelect?'checked':''}/>
                                 <i className='iconfont icon-dianpuguanli1'
-                                   style={{color: '#7f4395', marginLeft: '10px'}}></i>
+                                   style={{color: '#7f4395', margin: '0 5px'}}></i>
                                 <span style={{color: '#7f4395', marginRight: '10px',width:'70%',overflow:'hidden'}}>{item.shopName}</span>
                                 <i className='iconfont icon-iconfont'></i>
-                                <span style={{float: 'right'}} onClick={(e) => this.isShowOperate(e,index,this.state.item[index].thisShopGoods)}>编辑</span>
+                                <span style={{float: 'right'}} onClick={(e) => this.isShowOperate(e,index,this.state.item[index].thisShopGoods)}>{this.state.item[index].completeOrEdit?'完成':'编辑'}</span>
                             </div>
                             {
-                                item.thisShopGoods.map((goods,index2)=><div style={{overflow: 'hidden', height: '100px', padding: '12px 0'}} key={ index2 }>
+                                item.thisShopGoods.map((goods,index2)=><div style={{overflow: 'hidden', height: '100px', padding: '12px 0' ,borderBottom:'1px solid #f2f2f2'}} key={ index2 }>
                                     <div style={{float: 'left', height: '100%', lineHeight: '72px'}}>
                                         <input type="checkbox" checked={this.state.item[index].thisStates[index2]||this.state.item[index].allSelect ? 'checked' : ''} onClick={ (e)=>this.selectSome(e,index,index2) } onChange={e=>this.isGoodsAllSelect(e,index) }/>
                                     </div>
                                     <div style={{float: 'left'}}>
                                         <div style={{width: '72px', float: 'left', border: '1px solid #eee', margin: '0 10px'}}>
-                                            <img src={goods.pic} style={{width: '100%'}}/>
+                                            <a href={ goods.url }><img src={goods.pic} style={{width: '100%'}}/></a>
                                         </div>
-                                        <div style={{float: 'left', position: 'relative',height:'72px'}}>
-                                            <h3 style={{
-                                                width: '220px',
-                                                overflow: 'hidden',
-                                                fontSize: '12px'
-                                            }}>{goods.name}</h3>
+                                        <div style={{float: 'left', position: 'relative',height:'88px'}}>
+                                            <a href={ goods.url } style={{ color:'gray' }}>
+                                                <h3 style={{
+                                                    width: '220px',
+                                                    overflow: 'hidden',
+                                                    fontSize: '12px'
+                                                }}>{goods.name}</h3>
+                                            </a>
                                             <div style={{padding: '10px 0'}}>
                                                 <p>{goods.goodsAll}</p>
                                                 <div style={{ marginBottom:'5px'}}>
@@ -401,10 +485,12 @@ export default connect((state) => {
                                                     background: '#f33',
                                                     color: '#fff',
                                                     width: '50px',
-                                                    height: '100px',
+                                                    height: '98px',
                                                     textAlign: 'center',
                                                     position: 'absolute',
                                                     right: '-30px',
+                                                    top:'-11px',
+                                                    lineHeight:'98px'
                                                 }} onClick={(e) => this.setDeleteState(e,index,index2) }>
                                                     <i className='iconfont icon-guanbi'></i>
                                                 </div>
@@ -417,7 +503,7 @@ export default connect((state) => {
                                         position:'absolute',
                                         left:'0',
                                         top:'0',
-                                        zIndex:'1',
+                                        zIndex:'99',
                                         background:'rgba(127,127,127,0.6)',
                                         width:'375px',
                                         height:'667px',
@@ -442,6 +528,23 @@ export default connect((state) => {
                                             </div>
                                         </div>
                                     </div>
+                                    <div style={{
+                                        position:'absolute',
+                                        left:'50%',
+                                        top:'50%',
+                                        transform:'translate(-50%,-50%)',
+                                        width:'150px',
+                                        height:'40px',
+                                        background:'rgba(127,127,127,.6)',
+                                        display:this.state.showToSelectGoods?'block':'none',
+                                        textAlign:'center',
+                                        lineHeight:'40px',
+                                        zIndex:'9999',
+                                        color:'#fff',
+                                        borderRadius:'3px',
+                                    }}>
+                                        请选择要结算的商品
+                                    </div>
                                 </div>)
                             }
                         </li>)
@@ -462,7 +565,7 @@ export default connect((state) => {
                             padding:'0 18px',
                             height:'32px',
                             marginLeft:'5px'
-                        }}>去结算</button>
+                        }} onClick={ this.checkOut }>去结算</button>
                     </div>
                 </div>
             </div>

@@ -49,6 +49,43 @@ app.get('/detail', function(req, res) {
     // res.send("hello")
 
 })
+app.get('/register', function(req, res) {
+    res.append("Access-Control-Allow-Origin","*");
+    console.log(req.query);
+
+    db.query("SELECT * FROM `biyaopersonal` WHERE ?",{
+	telnum:req.query.telnum
+    },(results)=>{
+        if(results.length==0){
+        	db.query("INSERT INTO biyaopersonal(telnum,password) VALUES(?,?)",[req.query.telnum,req.query.password],
+        		(results)=>{res.send("注册成功")
+        	})
+        }else{
+        	res.send("用户已存在")
+        }
+    })
+
+})
+
+app.get('/login', function(req, res) {
+    res.append("Access-Control-Allow-Origin","*");
+    console.log(req.query);
+
+    db.query("SELECT * FROM `biyaopersonal` WHERE ?",{
+	telnum:req.query.telnum,
+	
+    },(results)=>{
+        if(results.length==0){
+        	res.send("用户名不存在")
+        }else{
+        	if(results[0].password==req.query.psd){
+        		res.send("登录成功")
+        	}
+        	else{res.send("用户名或密码错误")}
+        }
+    })
+
+})
 
 app.get('/goodsStore', function(req, res) {
     res.append("Access-Control-Allow-Origin","*");
