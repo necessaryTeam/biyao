@@ -53,11 +53,11 @@ class Channel extends Component {
                 <div className="swiper-container channelOneLine">
                     <div className="swiper-wrapper oneline">
                         <a className="swiper-slide zactive" >推荐</a>
-                        {(function (self){
-                            return self.state.channelItem.map(function (item,idx){
+                        {
+                            this.state.channelItem.map(function (item,idx){
                                 return <a href={'http://localhost:3000/classify?biao='+item.keyWord+'&index='+(idx)+'&keyClass='+item.first} className="swiper-slide" key={idx}>{item.name}</a>
                             })
-                        })(this)}
+                        }
                     </div>
                 </div>
                 <div className="ztoggle" onClick={this.clickToggle}><i className={this.state.isShowChannelAll?"iconfont icon-iconfont":"iconfont icon-xiala"}></i></div>
@@ -66,11 +66,11 @@ class Channel extends Component {
                         <p>全部频道</p>
                     </div>
                     <ul className="cate-detail">
-                        {(function (self){
-                            return self.state.channelItem.map(function (item,idx){
-                                return <a href={'http://localhost:3000/classify?biao='+item.keyWord+'&index='+(idx+1)+'&keyClass='+item.first}><li className="zchannelList" key={idx}>{item.name}</li></a>
+                        {
+                            this.state.channelItem.map(function (item,idx){
+                                return <a href={'http://localhost:3000/classify?biao='+item.keyWord+'&index='+(idx)+'&keyClass='+item.first} key={idx}><li className="zchannelList" >{item.name}</li></a>
                             })
-                        })(this)}
+                        }
                     </ul>
                 </div>
             </div>
