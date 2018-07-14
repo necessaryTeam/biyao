@@ -527,7 +527,7 @@ export default connect((state) => {
         //高亮头部和显示回到顶部
         rollLightHeader:()=>{
             var goodsContent = document.getElementsByClassName("goodsContent")[0];
-            var item = goodsContent.getElementsByClassName("ContentItem");
+            var item = goodsContent.querySelectorAll(".ContentItem");
             var fatherTop = parseInt(window.scrollY);
             // console.log(item[1].offsetHeight)
             for(let i=0;i<item.length;i++){
