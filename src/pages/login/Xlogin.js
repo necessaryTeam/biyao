@@ -76,9 +76,7 @@ class Xlogin extends Component {
     	});
     }o
     componentWillMount(){
-    	if(window.localStorage.islogin=="true"){
-    		window.location.href="./personal?index=3"
-    	}
+    
     	
     
     }
@@ -94,8 +92,8 @@ class Xlogin extends Component {
 				</div>
 
 				<div id="mycontents">
-					<label for=""><input type="text"  placeholder="请输入手机号" className="username"  maxLength="11" onChange={this.handChange}/></label>
-					<label for=""><input type={this.state.style}  placeholder="请输入密码" className="password" onChange={this.psd}/>
+					<label for="telnumber"><input type="text" id="telnumber" placeholder="请输入手机号" className="username"  maxLength="11" onChange={this.handChange}/></label>
+					<label for="psword"><input type={this.state.style}  id="psword"  placeholder="请输入密码" className="password" onChange={this.psd}/>
 					<span className="dn" onClick={this.hidden} style={{display:this.state.xshow?"block":"none"}}>x</span><span  onClick={this.see} id="see">可见</span></label>
 					<h2 >必要不会以任何理由要求您转账汇款，谨防诈骗。</h2>
 					
