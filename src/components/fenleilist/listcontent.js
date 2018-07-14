@@ -42,17 +42,6 @@ class ListContent extends Component {
             }
         })
     }
-    updateState(shuju){
-        // console.log(shuju,this)
-        var self = this;
-        return new Promise(function (resolve,reject){
-            console.log(self,shuju)
-            self.setState({
-                goodsImg:shuju,
-            })
-        console.log(self.state)
-        })
-    }
     componentWillMount(){
         // console.log(this);
         // 将第一张图片的地址数据赋给goodsImg

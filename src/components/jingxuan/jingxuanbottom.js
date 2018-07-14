@@ -120,7 +120,7 @@ export default class JingxuanBottom extends Component{
                                 </div></Link>)
                         }
                     </div>
-                    <p className="znoMore">我是有底线的ヾ(≧O≦)〃嗷~</p>
+                    <p className="znoMore">我是有底线的ヾ(≧O≦)〃嗷!!!</p>
                 </div>
             )
     }

@@ -1,52 +1,38 @@
 import React,{ Component } from 'react';
 import $ from 'jquery';
+import './homeCommend_info.scss';
 
 export default class homeCommend_info extends Component{
     constructor(props){
         super(props);
         this.state = {
-            commendItem:[
-                {
-                    name:'植物驱蚊手环',
-                    product:'Henkel制造商直供',
-                    src:'https://bfs.biyao.com/group1/M00/39/5E/rBACYVr-jlmAOEvaAACAZB1q7fg314.jpg',
-                    price:'￥49'
-                },
-                {
-                    name:'植物驱蚊手环',
-                    product:'Henkel制造商直供',
-                    src:'https://bfs.biyao.com/group1/M00/39/5E/rBACYVr-jlmAOEvaAACAZB1q7fg314.jpg',
-                    price:'￥49'
-                },
-                {
-                    name:'植物驱蚊手环',
-                    product:'Henkel制造商直供',
-                    src:'https://bfs.biyao.com/group1/M00/39/5E/rBACYVr-jlmAOEvaAACAZB1q7fg314.jpg',
-                    price:'￥49'
-                },
-                {
-                    name:'植物驱蚊手环',
-                    product:'Henkel制造商直供',
-                    src:'https://bfs.biyao.com/group1/M00/39/5E/rBACYVr-jlmAOEvaAACAZB1q7fg314.jpg',
-                    price:'￥49'
-                },
-                {
-                    name:'植物驱蚊手环',
-                    product:'Henkel制造商直供',
-                    src:'https://bfs.biyao.com/group1/M00/39/5E/rBACYVr-jlmAOEvaAACAZB1q7fg314.jpg',
-                    price:'￥49'
-                },
-                {
-                    name:'植物驱蚊手环',
-                    product:'Henkel制造商直供',
-                    src:'https://bfs.biyao.com/group1/M00/39/5E/rBACYVr-jlmAOEvaAACAZB1q7fg314.jpg',
-                    price:'￥49'
-                },
-
-            ]
+            commendItem: [
+            ],
+            firstImgSrc: '',
+            url: 'classify=girl&lei=qunzi',
+            biao: 'girl',
         }
     }
-    
+    componentWillMount(){
+        var self = this;
+        var zarr = [];
+        $.ajax({
+            url: 'http://localhost:4000/home',
+            data: this.state.url,
+            success: function (results){
+                console.log(results); 
+                results.forEach(function (item){
+                    var firstImg = item.imgsrc1.split(',')[0];
+                    zarr.push(firstImg);
+                })
+                self.setState({
+                    firstImgSrc: zarr,
+                    commendItem: results,
+                })
+            }
+        });
+        
+    }
 
     render(){
         const { commendItem } = this.state;
@@ -69,9 +55,9 @@ export default class homeCommend_info extends Component{
                                 float:'left',
                                 paddingBottom:'20px'
                             }}>
-                                <a style={{ color:'gray',fontSize:'20px' }}>
+                                <a href={'http://localhost:3000/detail?classify='+this.state.biao+'&id='+item.id} style={{ color:'gray',fontSize:'20px' }}>
                                     <div>
-                                        <img src={ item.src } style={{ width:'100%'}}/>
+                                        <img src={ this.state.firstImgSrc[index] } style={{ width:'100%'}}/>
                                     </div>
                                     <dl style={{ padding:'0 20px'}}>
                                         <dd style={{
@@ -79,8 +65,8 @@ export default class homeCommend_info extends Component{
                                             color:'#BF9E6B',
                                             background:'rgba(214,185,140,.2)',
                                             borderRadius:'.02rem'
-                                        }}>{item.product}</dd>
-                                        <dd style={{ fontSize:'.26rem',marginTop:'.2rem' }}>{item.name}</dd>
+                                        }}>{item.brand}</dd>
+                                        <dd className="nameBox" style={{ fontSize:'.26rem',marginTop:'.2rem' }}>{item.name}</dd>
                                         <dd style={{ marginTop:'.24rem',color:'#F7A701',fontSize:'.28rem' }}>{item.price}</dd>
                                     </dl>
                                 </a>
