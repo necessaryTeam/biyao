@@ -105,7 +105,7 @@ export default connect((state) => {
                 console.log('不支持localStorage');
             }else{
                 let storage = window.localStorage;
-                if(JSON.parse(storage.saveState).length > 0){
+                if(storage.saveState && JSON.parse(storage.saveState).length > 0){
                     let saveStateArr = JSON.parse(storage.saveState);
                     console.log('进入缓存')
                     item1[i].thisStates = saveStateArr[i].thisStates.map(item=>item)
@@ -125,13 +125,16 @@ export default connect((state) => {
         this.setState({ item },()=>{
             this.saveState();
         });
-        console.log(item,window.localStorage.saveState)
         if(!window.localStorage){
             console.log('不支持localStorage');
         }else {
             let storage = window.localStorage;
 
-            if(JSON.parse(storage.saveState).length > 0 ){
+            if(storage.saveState)
+            {
+                console.log(666)
+            }
+            if(storage.saveState && JSON.parse(storage.saveState).length > 0){
                 let saveStateArr = JSON.parse(storage.saveState);
                 console.log(saveStateArr)
                 for(let i = 0;i < item.length;i++){
