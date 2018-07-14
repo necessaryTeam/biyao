@@ -87,6 +87,7 @@ class Register extends Component {
     	}
     }
     componentDidMount(){
+    	console.log(this)
     	var  verifyCode = new  window.GVerify("v_container"); 
     	$("#renew").click(function(){
     		verifyCode.refresh();
@@ -97,10 +98,12 @@ class Register extends Component {
     		var b=$("#imgcode").val().toLowerCase();
 			if(a==b){
 				$("#notice").html(`验证码输入正确`)
+				$("#pdw").attr("disabled",false)
 			}else{
 				verifyCode.refresh();
 				$("#imgcode")[0].focus();
 				$("#notice").html(`验证码不正确,请重新输入`)
+				$("#pdw").attr("disabled",true)
 			}
     	
     	})
