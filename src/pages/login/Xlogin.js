@@ -77,8 +77,9 @@ class Xlogin extends Component {
     }o
     componentWillMount(){
     	if(window.localStorage.islogin=="true"){
-    		window.location.href="./personal"
+    		window.location.href="./personal?index=3"
     	}
+    	
     
     }
 
