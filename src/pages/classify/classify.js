@@ -112,6 +112,7 @@ class Xclassify extends Component {
         })
     }
     ShowAnother(idx,event){
+        console.log(event.target.parentNode)
         this.setState({
             keyWordNum:idx,
             twoNavNum:0,
@@ -250,7 +251,7 @@ class Xclassify extends Component {
                                 (function(self){
                                     return self.state.goodsList.map(function(item,idx){
                                         return <li key={idx}>
-                                            <a href={"http://localhost:3000/detail?classify="+self.state.firstNav+"&id\="+item.id}>
+                                            <a href={"http://localhost:3000/detail?classify="+self.state.firstNav+"&id\="+item.id+"&ku\="+encodeURI(item.brand)}>
                                                 <img src={item.bigPic}/>
                                                 <p className="goodsName">{item.name}</p>
                                                 <p className="goodsPrice"><span>￥</span>{item.price}</p>

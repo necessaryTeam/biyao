@@ -21,19 +21,28 @@ class XdetailStore extends Component {
         // console.log(this.props)
     }
     componentDidMount(){
-        var store = JSON.parse(window.localStorage.getItem("Store"))
-        if(store!==null){
+            var ku = []
+            var store = window.location.search;
+            store = store.slice(1).split('&');
+
+            store.forEach(function(item){
+                    item = item.split("=")
+                    if(item[0]=="classify"||item[0]=="ku"){
+                        ku.push(decodeURI(item[1]));
+                    }
+                })
             this.setState({
-                goodsclassify:store[0]
+                goodsclassify:ku[0]
             })
             var self = this;
             $.ajax({
                 url:"http://localhost:4000/goodsStore",
                 data:{
-                    classify:store[0],
-                    brand:store[1]
+                    classify:ku[0],
+                    brand:ku[1]
                 },
                 success(result){
+                    // console.log(result)
                     var storeName = result[0].brand;
                     var storeGoodsSum = result.length;
                     //获取第一张图片
@@ -49,12 +58,15 @@ class XdetailStore extends Component {
                         storeGoodsSum:storeGoodsSum,
                         storeName:storeName
                     })
+                    changeulWidth();
                 }
             })
+
+        function changeulWidth(){
+            var ul = document.getElementsByClassName("storeGoodsList")[0];
+            var li = ul.children;
+            ul.style.width = li[0].offsetWidth*li.length+20 + "px";
         }
-
-
-
 
 
 
@@ -78,7 +90,7 @@ class XdetailStore extends Component {
                     <ul className="storeGoodsList">
                         {
                             StoreGoodsList.map((item,idx)=>{
-                                return <li key={idx}><a href={"http://localhost:3000/detail?classify="+this.state.goodsclassify+"&id\="+item.id}><img src={item.bigPic}/><p className="goodsname">{item.name}</p><p className="goodsprice">￥{item.price}</p></a></li>
+                                return <li key={idx}><a href={"http://localhost:3000/detail?classify="+this.state.goodsclassify+"&id\="+item.id+"&ku\="+encodeURI(item.brand)}><img src={item.bigPic}/><p className="goodsname">{item.name}</p><p className="goodsprice">￥{item.price}</p></a></li>
                             })
                         }
                     </ul>
@@ -99,7 +111,10 @@ export default connect((state) => {
 
 
 $(function($){
-    var liWidth = $(".storeGoodsList li:eq(1)").innerWidth()
-    var num = $(".storeGoodsList").children("li").length;
-    $(".storeGoodsList").width(liWidth*num)
+        // var ul = document.getElementsByClassName("storeGoodsList")[0];
+        // var li = ul.children;
+        // console.log(ul)
+        // console.log(li.length)
+
+
 })

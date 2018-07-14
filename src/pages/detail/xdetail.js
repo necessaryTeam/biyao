@@ -85,7 +85,7 @@ class Xdetail extends Component {
                 classify.push(item[1]);
             }
         })
-        console.log(this)
+        // console.log(this)
         var self = this;
         $.ajax({
             url:"http://localhost:4000/detail",
@@ -123,11 +123,6 @@ class Xdetail extends Component {
                     chooseColor:color[0],
                     chooseSize:size[0]
                 })
-                //存该商品的店铺
-                var store = [];
-                store.push(classify[0])
-                store.push(result[0].brand)
-                window.localStorage.setItem("Store", JSON.stringify(store));
             }
         })
 
@@ -248,13 +243,28 @@ class Xdetail extends Component {
             chooseSize:size
         })
     }
-
+    rollHeader() {
+        // var goodsContent = document.getElementsByClassName("goodsContent")[0];
+        // var item = goodsContent.getElementsByClassName("ContentItem");
+        // var fatherTop = parseInt(window.scrollY);
+        // // console.log(item[1].offsetHeight)
+        // // console.log(fatherTop)
+        // for (let i = 0; i < item.length; i++) {
+        //     (function (i,self) {
+        //         if (item[i].offsetTop - fatherTop <= 30 && item[i].offsetTop - fatherTop >= 0) {
+        //             console.log(i)
+        //             console.log(self)
+        //         }
+        //     })(i,this)
+        // }
+    }
     render() {
         return (
             <div id="detailPage">
                 <Xheader />
                 {/*商品展示内容*/}
-                <div className="goodsContent" onScroll={this.props.rollLightHeader.bind(this)}>
+                {/*<div className="goodsContent" onScroll={this.props.rollLightHeader.bind(this)}>*/}
+                <div className="goodsContent">
                     {/*商品*/}
                     <div id="commodity" className="ContentItem">
                         <div className="goodsImg" onClick={this.props.ShowGalleryPic.bind(this)}>
@@ -524,15 +534,17 @@ export default connect((state) => {
                 showGalleryNum:showNum
             })
         },
-        //高亮头部和显示回到顶部
+        //高亮头部
         rollLightHeader:()=>{
             var goodsContent = document.getElementsByClassName("goodsContent")[0];
-            var item = goodsContent.querySelectorAll(".ContentItem");
+            var item = goodsContent.getElementsByClassName("ContentItem");
             var fatherTop = parseInt(window.scrollY);
-            // console.log(item[1].offsetHeight)
+
             for(let i=0;i<item.length;i++){
                 (function(i){
-                    if(item[i].offsetTop - fatherTop <= 30 && item[i].offsetTop - fatherTop >= 0 ){
+                    if(item[i].offsetTop - fatherTop <= 40 && item[i].offsetTop - fatherTop >=-40-item[i].offsetHeight ){
+
+                        // if(item[i].offsetTop - fatherTop <= 100 && item[i].offsetTop - fatherTop >= -100 ){
                         dispatch({
                             type: 'lightHeader',
                             lightHeaderIdx:i

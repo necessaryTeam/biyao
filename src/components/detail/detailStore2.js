@@ -21,18 +21,26 @@ class XdetailStore2 extends Component {
         // console.log(this.props)
     }
     componentDidMount(){
-        var store = JSON.parse(window.localStorage.getItem("Store"))
-        if(store!==null){
-            this.setState({
-                goodsclassify:store[0]
-            })
-            var self = this;
-            $.ajax({
-                url:"http://localhost:4000/goodsStore",
-                data:{
-                    classify:store[0],
-                    brand:store[1]
-                },
+        var ku = []
+        var store = window.location.search;
+        store = store.slice(1).split('&');
+
+        store.forEach(function(item){
+            item = item.split("=")
+            if(item[0]=="classify"||item[0]=="ku"){
+                ku.push(decodeURI(item[1]));
+            }
+        })
+        this.setState({
+            goodsclassify:ku[0]
+        })
+        var self = this;
+        $.ajax({
+            url:"http://localhost:4000/goodsStore",
+            data:{
+                classify:ku[0],
+                brand:ku[1]
+            },
                 success(result){
                     var storeName = result[0].brand;
                     var storeGoodsSum = result.length;
@@ -56,10 +64,6 @@ class XdetailStore2 extends Component {
 
 
 
-
-
-
-    }
     render() {
         const { StoreGoodsList } = this.state;
         return (
@@ -68,7 +72,7 @@ class XdetailStore2 extends Component {
                     <ul className="storeGoodsList2">
                         {
                             StoreGoodsList.map((item,idx)=>{
-                                return <li key={idx}><a href={"http://localhost:3000/detail?classify="+this.state.goodsclassify+"&id\="+item.id}><img src={item.bigPic}/><p className="goodsname">{item.name}</p><p className="goodsprice">￥{item.price}</p></a></li>
+                                return <li key={idx}><a href={"http://localhost:3000/detail?classify="+this.state.goodsclassify+"&id\="+item.id+"&ku\="+encodeURI(item.brand)}><img src={item.bigPic}/><p className="goodsname">{item.name}</p><p className="goodsprice">￥{item.price}</p></a></li>
                             })
                         }
                     </ul>
