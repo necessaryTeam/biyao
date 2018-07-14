@@ -190,7 +190,9 @@ export default connect((state) => {
             }
         }
 
-        this.setState({ item,allAllOperateI });
+        this.setState({ item,allAllOperateI },()=>{
+            this.saveState()
+        });
     }
 
     checkOut(){
@@ -275,20 +277,26 @@ export default connect((state) => {
             }
             sumAllSelect = true;
         }
-        this.setState({ sumAllSelect });
+        this.setState({ sumAllSelect },()=>{
+            this.saveState()
+        });
     }
     //设置删除状态
     setDeleteState(e,index,index2){
         const { item } = this.state;
         item[index].deleteState[index2] = true;
-        this.setState({ item });
+        this.setState({ item },()=>{
+            this.saveState()
+        });
     }
     //取消删除
     cancleDelete(e,index,index2){
         const { item } = this.state;
         item[index].deleteState[index2] = false;
         this.cumputAllPrice();
-        this.setState({ item });
+        this.setState({ item },()=>{
+            this.saveState()
+        });
     }
 
     //计算价格
@@ -370,7 +378,9 @@ export default connect((state) => {
                 }
             }
             item[index].allSelect = true;
-            this.setState({ item })
+            this.setState({ item },()=>{
+                this.saveState()
+            })
         }
 
     }
@@ -411,7 +421,9 @@ export default connect((state) => {
         }
 
         allAllOperateI = showAllOperate;
-        this.setState({item, currentIndexS,allAllOperateI})
+        this.setState({item, currentIndexS,allAllOperateI},()=>{
+            this.saveState()
+        })
     }
 
     //删除item
@@ -450,21 +462,27 @@ export default connect((state) => {
         this.cumputAllPrice();
         this.isGoodsAllSelect(e,index);
         this.judgeAllAllSelect();
-        this.setState({item})
+        this.setState({item},()=>{
+            this.saveState()
+        })
     }
 
     minItem(e, index,index2) {
         const {item} = this.state;
         item[index].thisShopGoods[index2].sum > 0 ? item[index].thisShopGoods[index2].sum-- : item[index].thisShopGoods[index2].sum = 0;
         this.cumputAllPrice();
-        this.setState({item});
+        this.setState({item},()=>{
+            this.saveState()
+        });
     }
 
     addItem(e, index,index2) {
         const {item} = this.state;
         item[index].thisShopGoods[index2].sum++;
         this.cumputAllPrice();
-        this.setState({item});
+        this.setState({item},()=>{
+            this.saveState()
+        });
 
     }
 
