@@ -41,27 +41,26 @@ export default connect((state) => {
         this.judgeAllAllSelect = this.judgeAllAllSelect.bind(this);
         this.checkOut = this.checkOut.bind(this);
         this.allAllOperate = this.allAllOperate.bind(this);
+        this.saveState = this.saveState.bind(this);
     }
 
 
     //初始化状态
     componentWillMount(){
-        let item1 = [],thisGoodsArr=[];
+        let item1 = [],thisGoodsArr=[],{sumAllSelect} = this.state;
         if(!window.localStorage){
             console.log('不支持localStorage');
         }else{
             let storage = window.localStorage;
-
-            console.log(storage)
+            if(storage.sumAllSelect){
+                JSON.parse(storage.sumAllSelect)?sumAllSelect = true:sumAllSelect = false;
+            }
             if(storage.shopCar){
                 let itemArr = JSON.parse(storage.shopCar);
-
-                console.log(itemArr);
                 for(let i = 0;i < itemArr.length;i++){
                     // console.log(i+1)
                     if(i+1 < itemArr.length &&itemArr[i].brand === itemArr[i+1].brand&&(itemArr[i].size!==itemArr[i+1].size||itemArr[i].color!==itemArr[i+1].color)){
                         thisGoodsArr.push(itemArr[i]);
-                        console.log(itemArr[i].size)
                         continue
                     }else{
                         thisGoodsArr.push(itemArr[i]);
@@ -87,17 +86,60 @@ export default connect((state) => {
         // let { item } = this.state;
         // console.log(item1)
 
-        for(let key of item1){
-            key.thisStates = key.thisShopGoods.map(()=>false);
-            key.showOperate = key.thisShopGoods.map(()=>false);
-            key.deleteState = key.thisShopGoods.map(()=>false);
+        // for(let key of item1){
+        //     if(!window.localStorage){
+        //         console.log('不支持localStorage');
+        //     }else{
+        //         let storage = window.localStorage;
+        //         if(storage.saveState){
+        //             key.thisStates = storage.saveState[]
+        //         }
+        //         key.thisStates = key.thisShopGoods.map(()=>false);
+        //     }
+        //     key.showOperate = key.thisShopGoods.map(()=>false);
+        //     key.deleteState = key.thisShopGoods.map(()=>false);
+        // }
+
+        for(let i = 0;i<item1.length;i++){
+            if(!window.localStorage){
+                console.log('不支持localStorage');
+            }else{
+                let storage = window.localStorage;
+                if(JSON.parse(storage.saveState).length > 0){
+                    let saveStateArr = JSON.parse(storage.saveState);
+                    console.log('进入缓存')
+                    item1[i].thisStates = saveStateArr[i].thisStates.map(item=>item)
+                    // console.log(saveStateArr)
+                    // console.log(JSON.parse(storage.saveState))
+                }else{
+                    item1[i].thisStates = item1[i].thisShopGoods.map(()=>false);
+                }
+            }
+            item1[i].showOperate = item1[i].thisShopGoods.map(()=>false);
+            item1[i].deleteState = item1[i].thisShopGoods.map(()=>false);
         }
         let { item } = this.state;
         item = item1;
-        console.log(item1)
 
-        this.setState({ item })
-        // console.log(this.state.item)
+
+        this.setState({ item },()=>{
+            this.saveState();
+        });
+        console.log(item,window.localStorage.saveState)
+        if(!window.localStorage){
+            console.log('不支持localStorage');
+        }else {
+            let storage = window.localStorage;
+
+            if(JSON.parse(storage.saveState).length > 0 ){
+                let saveStateArr = JSON.parse(storage.saveState);
+                console.log(saveStateArr)
+                for(let i = 0;i < item.length;i++){
+                    saveStateArr[i].allSelect?item[i].allSelect=true:item[i].allSelect=false;
+                }
+            }
+        }
+        this.setState({ item,sumAllSelect });
 
     }
 
@@ -105,6 +147,34 @@ export default connect((state) => {
     //     this.allSelectY()
     // }
 
+    //保存状态
+    saveState(){
+        let saveState_x = [],{ item } = this.state,{ sumAllSelect } = this.state;
+
+        // console.log(item)
+        for(let key of item){
+                saveState_x.push(new NewSaveState(key.thisStates,key.allSelect))
+        }
+
+
+        function NewSaveState(thisStates,allSelect){
+            this.thisStates = thisStates;
+            this.allSelect = allSelect;
+        }
+
+
+        if(!window.localStorage){
+            console.log('!不支持localStorage')
+        }else{
+            let storage = window.localStorage;
+            storage.setItem('saveState',JSON.stringify(saveState_x))
+            storage.setItem('sumAllSelect',JSON.stringify(sumAllSelect))
+            console.log(storage)
+        }
+        this.cumputAllPrice();
+
+
+    }
     //操作所有
     allAllOperate(){
         let { item } = this.state;
@@ -125,7 +195,6 @@ export default connect((state) => {
         let isTrue,{ showToSelectGoods } = this.state;
 
         loop1:for(let key1 of item){
-            console.log(key1.thisStates)
             for(let key2 of key1.thisStates){
                 if(key2){
                     isTrue = false;
@@ -140,7 +209,6 @@ export default connect((state) => {
 
 
 
-        console.log(showToSelectGoods)
 
         this.setState({ showToSelectGoods })
         setTimeout(()=>{
@@ -162,7 +230,9 @@ export default connect((state) => {
                     key.thisStates[i] = true;
                 }
             }
-            this.setState({ item,sumAllSelect });
+            this.setState({ item,sumAllSelect },()=>{
+                this.saveState();
+            });
         }else if(sumAllSelect === false){
             for(let key of item){
                 key.allSelect = false;
@@ -170,8 +240,9 @@ export default connect((state) => {
                     key.thisStates[i] = false;
                 }
             }
-            this.setState({ item,sumAllSelect });
-
+            this.setState({ item,sumAllSelect },()=>{
+                this.saveState();
+            });
         }
 
         this.cumputAllPrice();
@@ -190,26 +261,26 @@ export default connect((state) => {
 
     }
 
+    //所有商品全选
     judgeAllAllSelect(){
-        console.log('judgeAllAllSelect')
         let { sumAllSelect } = this.state;
         let { item } = this.state;
         for(let key of item){
             if(key.allSelect===false){
-                console.log('allSelect',key.allSelect)
                 sumAllSelect = false;
                 break
             }
             sumAllSelect = true;
         }
-        console.log('sumAllSelect',sumAllSelect)
-        this.setState({ sumAllSelect })
+        this.setState({ sumAllSelect });
     }
+    //设置删除状态
     setDeleteState(e,index,index2){
         const { item } = this.state;
         item[index].deleteState[index2] = true;
         this.setState({ item });
     }
+    //取消删除
     cancleDelete(e,index,index2){
         const { item } = this.state;
         item[index].deleteState[index2] = false;
@@ -217,6 +288,7 @@ export default connect((state) => {
         this.setState({ item });
     }
 
+    //计算价格
     cumputAllPrice(){
         const { item } = this.state;
         let { sumPrice } = this.state;
@@ -232,7 +304,7 @@ export default connect((state) => {
         // console.log(sumPrice)
 
     }
-    //单选
+    //单个商店单选
     selectSome(e,index,index2){
         let { item } = this.state;
         // let { sumPrice } = this.state;
@@ -250,13 +322,15 @@ export default connect((state) => {
         // console.log(sumPrice)
         this.cumputAllPrice();
         this.judgeAllAllSelect();
-        this.setState({ item });
+        this.setState({ item },()=>{
+            this.saveState();
+        });
         // console.log(item[index].allSelect)
         // console.log(item[index].thisStates)
     }
 
 
-    //商品全选
+    //单个商店商品全选
     shopSelectAll(e, index) {
 
         // console.log(this.props.realAllSelect)
@@ -278,7 +352,9 @@ export default connect((state) => {
 
         this.judgeAllAllSelect();
         this.cumputAllPrice();
-        this.setState({ item })
+        this.setState({ item },()=>{
+            this.saveState();
+        });
 
     }
     //商品勾完全选onChange
@@ -298,14 +374,13 @@ export default connect((state) => {
 
     //显示操作
     isShowOperate(e, index,arr) {
-        console.log(e.target.innerHTML)
         let showAllOperate,{ item } = this.state;
         let {currentIndexS} = this.state;
         let { allAllOperateI } = this.state;
         currentIndexS = index;
-        console.log(currentIndexS)
          item[index].completeOrEdit = !item[index].completeOrEdit;
 
+        this.saveState();
         for(let index2 = 0;index2 < arr.length ;index2++)
         {
             item[index].showOperate[index2] = !item[index].showOperate[index2];
@@ -318,7 +393,6 @@ export default connect((state) => {
 
                     //判断两个物品属性是否相等
                     for(let i=0;i<itemArr.length;i++){
-                        console.log(i)
                         if(itemArr[i].id === item[index].thisShopGoods[index2].id&&itemArr[i].color === item[index].thisShopGoods[index2].color&&itemArr[i].size === item[index].thisShopGoods[index2].size){
                             itemArr[i].sum = item[index].thisShopGoods[index2].sum;
                         }
