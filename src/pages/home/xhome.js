@@ -17,6 +17,8 @@ import HomeOperate_g from '../../components/home/homeOperate_g'
 import HomeSelectedTopic from '../../components/home/homeSelectedTopic'
 import HomeCommend_info from '../../components/home/homeCommend_info'
 import ToTop from '../../components/toTop/hometotop'
+import PageBottom from '../../components/pagebottom/pagebottom'
+
 
 
 class Xhome extends Component {
@@ -49,6 +51,7 @@ class Xhome extends Component {
                     <HomeSelectedTopic />
                     <HomeCommend_info />
                     <ToTop />
+                    <PageBottom />
                 </div>
                 <div style={{ height:'50px'}}>
                     <HomeBottom/>

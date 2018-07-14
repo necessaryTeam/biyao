@@ -116,13 +116,13 @@ class Register extends Component {
 					<span className="register"></span>
 				</div>
 				<div className="content">
-					<label for=""><input type="tel" id="username" placeholder="请输入手机号" name="username" maxlength="11" onChange={this.handChange}/></label>
-					<label for="">
+					<label for="username"><input type="tel" id="username" placeholder="请输入手机号" name="username" maxlength="11" onChange={this.handChange}/></label>
+					<label for="imgcode">
 								<input name="imgcode" autocomplete="off" id="imgcode" maxlength="4" placeholder="请输入图中验证码" onChange={this.matchtext}/><span id="check">验证</span>
 								<span id="v_container" style={{width: "80px",height: "40px"}}></span><span id="renew">刷新</span>
 					</label>
-					<label for=""><input type="tel" id="message-code" autocomplete="new-password" maxlength="6" placeholder="请输入短信验证码"/><span>获取验证码</span></label>
-					<label for=""><input type="password" id="pdw" autocomplete="new-password" 
+					<label for="message-code"><input type="tel" id="message-code" autocomplete="new-password" maxlength="6" placeholder="请输入短信验证码"/><span>获取验证码</span></label>
+					<label for="pdw"><input type="password" id="pdw" autocomplete="new-password" 
 					placeholder="请输入6-32位登录密码" minlength="6"  maxlength="32"  onChange={this.psd}   /><span></span><span></span></label>
 					<div>
 							<p id="notice"></p>
