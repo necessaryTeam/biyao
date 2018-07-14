@@ -11,15 +11,19 @@ class Xhome extends Component {
         super(props);
         this.state = {
             telnum:"",
-            ulitem:["我的拼团","我的红包","我要开店","我的余额","我的地址","设置密码","修改支付密码","商家入驻","我的客服"]
+            ulitem:["我的拼团","我的红包","我要开店","我的余额","我的地址","设置密码","修改支付密码","商家入驻","我的客服"],
+            idx:3,
         };
 
     }
 componentDidMount(){
  	console.log(window.localStorage.telnum)
  	$("#user").html(window.localStorage.telnum)
+
  }
+
     render() {
+    	let asd = this.state.idx;
         return (
             <div style={{ display:'flex',flexDirection:'column',height:'667px'}}>
       			<div style={{ flex:1}}>
@@ -35,7 +39,7 @@ componentDidMount(){
 								<span className="arrow-right float-right">
 									>
 								</span>
-								<a className="item-head float-left">我的订单</a>
+								<a className="item-head float-left">我的订单{this.state.active}</a>
 							</li>
 						</ul>
 					</div>
@@ -55,8 +59,8 @@ componentDidMount(){
 					
 					
                 </div>
-                <div style={{ height:'40px'}}>
-                    <HomeBottom/>
+                <div style={{ height:'50px'}}>
+                    <HomeBottom idx={asd} />
                 </div>
             </div>
         );

@@ -27,6 +27,17 @@ class HomeBottom extends Component {
         this.setState({
             active: this.props.idx?this.props.idx:0,
         })
+//      添加登陆状态判断
+		if(window.localStorage.islogin=="true"){
+    		this.setState({
+    			homeBottomItem:[
+                {name:'首页',icon:'iconfont icon-home-solid',url:'/'},
+                {name:'分类',icon:'iconfont icon-fenlei',url:'/fenlei'},
+                {name:'购物车',icon:'iconfont icon-gouwuche',url:'/shopcar'},
+                {name:'我的',icon:'iconfont icon-wode',url:'/personal'}
+                ],
+    		})
+    	}
     }
 
     render(){
