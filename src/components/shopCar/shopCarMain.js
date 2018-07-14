@@ -53,13 +53,13 @@ export default connect((state) => {
             let storage = window.localStorage;
 
             console.log(storage)
-            if(storage[0]){
+            if(storage.shopCar){
                 let itemArr = JSON.parse(storage.shopCar);
 
                 console.log(itemArr);
                 for(let i = 0;i < itemArr.length;i++){
                     // console.log(i+1)
-                    if(i+1 < itemArr.length &&itemArr[i].id === itemArr[i+1].id&&(itemArr[i].size!==itemArr[i+1].size||itemArr[i].color!==itemArr[i+1].color)){
+                    if(i+1 < itemArr.length &&itemArr[i].brand === itemArr[i+1].brand&&(itemArr[i].size!==itemArr[i+1].size||itemArr[i].color!==itemArr[i+1].color)){
                         thisGoodsArr.push(itemArr[i]);
                         console.log(itemArr[i].size)
                         continue
