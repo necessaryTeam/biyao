@@ -105,9 +105,10 @@ export default connect((state) => {
                 console.log('不支持localStorage');
             }else{
                 let storage = window.localStorage;
-                if(storage.saveState && JSON.parse(storage.saveState).length > 0){
-                    let saveStateArr = JSON.parse(storage.saveState);
+                let saveStateArr = JSON.parse(storage.saveState);
+                if(storage.saveState && JSON.parse(storage.saveState).length > 0 && i < saveStateArr.length){
                     console.log('进入缓存')
+                    console.log(saveStateArr,i);
                     item1[i].thisStates = saveStateArr[i].thisStates.map(item=>item)
                     // console.log(saveStateArr)
                     // console.log(JSON.parse(storage.saveState))
@@ -138,7 +139,12 @@ export default connect((state) => {
                 let saveStateArr = JSON.parse(storage.saveState);
                 console.log(saveStateArr)
                 for(let i = 0;i < item.length;i++){
-                    saveStateArr[i].allSelect?item[i].allSelect=true:item[i].allSelect=false;
+
+                    if(i<saveStateArr.length){
+                        // item[i].allSelect=false;
+                        saveStateArr[i].allSelect?item[i].allSelect=true:item[i].allSelect=false;
+                        storage.sumAllSelect = false;
+                    }
                 }
             }
         }
