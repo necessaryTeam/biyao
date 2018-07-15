@@ -18,6 +18,7 @@ class ListContent extends Component {
         this.state = {
             goodsImg: [],
             allDatas: [],
+            shopName: [],
             biao: this.props.url.split('&')[0].split('=')[1],
         };
         // console.log(this.props)
@@ -25,6 +26,7 @@ class ListContent extends Component {
     getData(self){
         console.log(self.props.url,this.state.biao)
         var arr = [];
+        var shopArr = [];
         $.ajax({
             type: "GET",
             url: "http://localhost:4000/fenleilist",
@@ -33,12 +35,14 @@ class ListContent extends Component {
                 result.forEach(function (item){
                     var firstImg = item.imgsrc1.split(',')[0];
                     arr.push(firstImg);
+                    shopArr.push(item.brand);
                 })
                 self.setState({
                     goodsImg: arr,
                     allDatas: result,
+                    shopName: shopArr,
                 })
-                console.log(self.state)
+                console.log(self.state,self.state.shopName)
             }
         })
     }
@@ -52,7 +56,7 @@ class ListContent extends Component {
             <div className="ListContent">
                 {(function (self){
                     return self.state.allDatas.map(function (item,idx){
-                        return <a href={'http://localhost:3000/detail?classify='+self.state.biao+'&id='+item.id} className="zlistsLink" key={idx}><div className="zlists" >
+                        return <a href={'http://localhost:3000/detail?classify='+self.state.biao+'&id='+item.id+'&ku='+self.state.shopName[idx]} className="zlistsLink" key={idx}><div className="zlists" >
                             <img className="zlistsImg" src={self.state.goodsImg[idx]} />
                             <p className="zlistsName">{item.name}</p>
                             <p className="zlistsPrice">{'￥'+item.price}</p>
