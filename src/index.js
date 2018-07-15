@@ -52,6 +52,7 @@ const store = createStore((state = {
     detailChooseBtn:1,
     SizeColorChooseBottom:"-440px",
     isShowChoose:false,
+    buyGoodsNum:""
 }, action) => {
   const count = state.count
   switch (action.type) {
@@ -109,6 +110,10 @@ const store = createStore((state = {
       case 'HideChoose':
           return Object.assign({}, state, {
               isShowChoose:action.isShowChoose
+          });
+      case 'receiveBuyNum':
+          return Object.assign({}, state, {
+              buyGoodsNum:action.buyGoodsNum
           });
     default:
       return state

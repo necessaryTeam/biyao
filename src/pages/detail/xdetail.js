@@ -167,6 +167,9 @@ class Xdetail extends Component {
         CarBtn.onclick = ()=>{
             setLocal(this)
             this.isHideChoose();
+            var num = this.state.buyGoodsNum
+            this.props.totalGoodsNum(num);
+
         }
         SureBtn.onclick = ()=>{
             setLocal(this)
@@ -242,21 +245,6 @@ class Xdetail extends Component {
             chooseSizeIdx:idx,
             chooseSize:size
         })
-    }
-    rollHeader() {
-        // var goodsContent = document.getElementsByClassName("goodsContent")[0];
-        // var item = goodsContent.getElementsByClassName("ContentItem");
-        // var fatherTop = parseInt(window.scrollY);
-        // // console.log(item[1].offsetHeight)
-        // // console.log(fatherTop)
-        // for (let i = 0; i < item.length; i++) {
-        //     (function (i,self) {
-        //         if (item[i].offsetTop - fatherTop <= 30 && item[i].offsetTop - fatherTop >= 0) {
-        //             console.log(i)
-        //             console.log(self)
-        //         }
-        //     })(i,this)
-        // }
     }
     render() {
         return (
@@ -593,6 +581,14 @@ export default connect((state) => {
                 })
 
             },200)
+        },
+        totalGoodsNum: (num) => {
+            //可以触发多个
+            console.log(num)
+            dispatch({
+                type: 'receiveBuyNum',
+                buyGoodsNum:num
+            })
         }
     }
 })(Xdetail);

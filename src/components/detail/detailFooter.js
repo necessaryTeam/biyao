@@ -37,7 +37,7 @@ class XdetailFooter extends Component {
             <div id="footer">
                 <div className="footer-l">
                     <div><a href="#"><i className="iconfont icon-xiaoxi"></i><span>客服</span></a></div>
-                    <div><Link to={{pathname:'/shopcar',state:{idx:2}}} ><i className="iconfont icon-gouwuche"></i><span>购物车</span><em>{this.state.CarGoodsTotal}</em></Link></div>
+                    <div><Link to={{pathname:'/shopcar',state:{idx:2}}} ><i className="iconfont icon-gouwuche"></i><span>购物车</span><em>{this.state.CarGoodsTotal+this.props.buyGoodsNum}</em></Link></div>
                 </div>
                 <div className="footer-r">
                     <div className="buy-shopcar" onClick={this.props.isShowChooseDiv.bind(this)}>加入购物车</div>
