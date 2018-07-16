@@ -143,8 +143,14 @@ export default connect((state) => {
 
                     if(i<saveStateArr.length){
                         // item[i].allSelect=false;
+                        console.log(saveStateArr.length)
+                        console.log(item.length)
                         saveStateArr[i].allSelect?item[i].allSelect=true:item[i].allSelect=false;
-                        storage.sumAllSelect = false;
+                        if( item.length > saveStateArr.length){
+                            storage.sumAllSelect = false;
+                            sumAllSelect = false;
+                            console.log('false')
+                        }
                     }
                 }
             }
