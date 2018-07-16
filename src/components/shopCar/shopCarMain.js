@@ -105,8 +105,9 @@ export default connect((state) => {
                 console.log('不支持localStorage');
             }else{
                 let storage = window.localStorage;
-                let saveStateArr = JSON.parse(storage.saveState);
-                if(storage.saveState && JSON.parse(storage.saveState).length > 0 && i < saveStateArr.length){
+                if(storage.saveState && JSON.parse(storage.saveState).length > 0 && i < JSON.parse(storage.saveState).length){
+                    let saveStateArr = JSON.parse(storage.saveState);
+
                     console.log('进入缓存')
                     console.log(saveStateArr,i);
                     item1[i].thisStates = saveStateArr[i].thisStates.map(item=>item)
