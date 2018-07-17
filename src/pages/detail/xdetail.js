@@ -169,30 +169,18 @@ class Xdetail extends Component {
             this.isHideChoose();
             var num = this.state.buyGoodsNum*1 + this.props.buyGoodsNum*1
             this.props.totalGoodsNum(num);
-            // 点击完恢复默认数量1
-            this.setState({
-                buyGoodsNum:1
-            })
         }
         SureBtn.onclick = ()=>{
             setLocal(this)
             this.isHideChoose();
             var num = this.state.buyGoodsNum*1 + this.props.buyGoodsNum*1
             this.props.totalGoodsNum(num);
-            // 点击完恢复默认数量1
-            this.setState({
-                buyGoodsNum:1
-            })
         }
         SendBtn.onclick = ()=>{
             setLocal(this)
             this.isHideChoose();
             var num = this.state.buyGoodsNum*1 + this.props.buyGoodsNum*1
             this.props.totalGoodsNum(num);
-            // 点击完恢复默认数量1
-            this.setState({
-                buyGoodsNum:1
-            })
         }
 
 
