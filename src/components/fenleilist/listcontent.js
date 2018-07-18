@@ -42,7 +42,7 @@ class ListContent extends Component {
                     allDatas: result,
                     shopName: shopArr,
                 })
-                console.log(self.state,self.state.shopName)
+                // console.log(self.state,self.state.shopName)
             }
         })
     }

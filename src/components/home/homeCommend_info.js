@@ -20,7 +20,7 @@ export default class homeCommend_info extends Component{
             url: 'http://localhost:4000/home',
             data: this.state.url,
             success: function (results){
-                console.log(results); 
+                // console.log(results); 
                 results.forEach(function (item){
                     var firstImg = item.imgsrc1.split(',')[0];
                     zarr.push(firstImg);
@@ -55,7 +55,7 @@ export default class homeCommend_info extends Component{
                                 float:'left',
                                 paddingBottom:'20px'
                             }}>
-                                <a href={'http://localhost:3000/detail?classify='+this.state.biao+'&id='+item.id} style={{ color:'gray',fontSize:'20px' }}>
+                                <a href={'http://localhost:3000/detail?classify='+this.state.biao+'&id='+item.id+'&ku='+item.brand} style={{ color:'gray',fontSize:'20px' }}>
                                     <div>
                                         <img src={ this.state.firstImgSrc[index] } style={{ width:'100%'}}/>
                                     </div>
